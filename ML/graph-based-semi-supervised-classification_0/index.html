@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>图半监督节点分类之零——前言 | 给荔枝打气</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/img/iconL.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = 'https://hm.baidu.com/hm.js?' + '9v8oIeMvyrTiR5LW';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">图半监督节点分类之零——前言</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">图半监督节点分类之零——前言</h1><div class="post-meta">Sep 16, 2018<span> | </span><span class="category"><a href="/categories/ML/">ML</a></span></div><div class="post-content"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本系列文章，<strong>图半监督节点分类</strong>，为本人硕士第三年的研究工作，拖了这么久，做个记录总结。 主要介绍图编码（Graph Embedding）在半监督节点分类上的国内外相关工作和本人在这方面的一些模型（很水勿喷）。</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><a id="more"></a>
+
+<p><strong>整个系列的总览</strong>：</p>
+<ol start="0">
+<li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/">图半监督节点分类之零——前言</a></li>
+<li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-1/">图半监督节点分类之一——相关技术</a></li>
+<li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-2/">图半监督节点分类之二——基于条件随机场</a></li>
+<li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/">图半监督节点分类之三——基于循环神经网络</a></li>
+<li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-4/">图半监督节点分类之四——基于自适应高阶近似编码</a></li>
+<li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-5/">图半监督节点分类之五——实验与总结</a></li>
+</ol>
+<hr>
+<p>图编码的应用当然不仅仅只是节点分类这一块，目前图编码的研究主要聚焦在如下几个方面：</p>
+<ol>
+<li>图结构编码（graph structre embedding）<ol>
+<li>节点编码</li>
+<li>子图编码</li>
+<li>模式匹配</li>
+</ol>
+</li>
+<li>链接预测（link prediction）</li>
+<li>社团检测/社区结构编码（community detection/community embedding）</li>
+<li>异常点检测</li>
+</ol>
+<p>编码的方法也开始具备多样性</p>
+<ul>
+<li>自编码机</li>
+<li>图卷积</li>
+<li>RNN-based model</li>
+<li>Attention-based model</li>
+<li>对抗网络 </li>
+<li>…</li>
+</ul>
+<p>这一块将会持续跟进</p>
+</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>zeki</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/ML/graph-based-semi-supervised-classification_0/">https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外均为博主原创，转载请注明出处！</li></ul></div><br><div class="tags"><a href="/tags/machine-learning/">machine learning</a><a href="/tags/深度学习/">深度学习</a><a href="/tags/graph-embedding/">graph embedding</a><a href="/tags/半监督分类/">半监督分类</a><a href="/tags/概率图模型/">概率图模型</a></div><div class="post-nav"><a class="pre" href="/ML/mGRU/">快手语音处理单元mGRU</a><a class="next" href="/心情/甜/">甜</a></div><div id="container"></div><link rel="stylesheet" type="text/css" href="//unpkg.com/gitalk/dist/gitalk.css?v=0.0.0"><script type="text/javascript" src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js?v=0.0.0"></script><script type="text/javascript" src="//unpkg.com/gitalk/dist/gitalk.min.js?v=0.0.0"></script><script>var gitalk = new Gitalk({
+  clientID: '1555e820bb856719851c',
+  clientSecret: '80ab839ffa73d8cb59819329cf2055b4e193684a',
+  repo: 'zekizz.github.io',
+  owner: 'zekizz',
+  admin: ['zekizz'],
+  id: md5(location.pathname),
+  distractionFreeMode: false
+})
+gitalk.render('container')
+</script></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://zekizz.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLP/">NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐系统/">推荐系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a> <a href="/tags/深度学习/" style="font-size: 15px;">深度学习</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/NER/" style="font-size: 15px;">NER</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/excel/" style="font-size: 15px;">excel</a> <a href="/tags/graph-embedding/" style="font-size: 15px;">graph embedding</a> <a href="/tags/半监督分类/" style="font-size: 15px;">半监督分类</a> <a href="/tags/CRF/" style="font-size: 15px;">CRF</a> <a href="/tags/RNN/" style="font-size: 15px;">RNN</a> <a href="/tags/概率图模型/" style="font-size: 15px;">概率图模型</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 15px;">博客</a> <a href="/tags/文本处理/" style="font-size: 15px;">文本处理</a> <a href="/tags/语音处理/" style="font-size: 15px;">语音处理</a> <a href="/tags/推荐系统/" style="font-size: 15px;">推荐系统</a> <a href="/tags/甜/" style="font-size: 15px;">甜</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/python/configparse/">configparser配置解析</a></li><li class="post-list-item"><a class="post-list-link" href="/others/excel_trick/">excel去除文本中的不可打印字符</a></li><li class="post-list-item"><a class="post-list-link" href="/git/git_notes/">git笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/NLP/information-extraction/">基于句法依存树的信息抽取</a></li><li class="post-list-item"><a class="post-list-link" href="/ML/imblanced-samples/">样本类别不均衡处理</a></li><li class="post-list-item"><a class="post-list-link" href="/html/html-tag/">html自定义标签</a></li><li class="post-list-item"><a class="post-list-link" href="/html/web-space/">网页文本中空格</a></li><li class="post-list-item"><a class="post-list-link" href="/NLP/DoubleArrayTrie/">双数组Trie树(DoubleArrayTrie)</a></li><li class="post-list-item"><a class="post-list-link" href="/推荐系统/recommendation-system/">推荐系统学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/ML/NER-survey/">命名实体识别综述</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.csdn.net/crystal_zero" title="zeki的csdn" target="_blank">zeki的csdn</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">给荔枝打气.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
