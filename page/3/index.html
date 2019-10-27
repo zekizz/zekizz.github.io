@@ -5,34 +5,7 @@
   var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
   })();
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">给荔枝打气</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/python/configparse/">configparser配置解析</a></h1><div class="post-meta">2019-03-31</div><div class="post-content"><p>使用configparser解析ini格式的配置文件</p></div><p class="readmore"><a href="/python/configparse/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/others/excel_trick/">excel去除文本中的不可打印字符</a></h1><div class="post-meta">2019-03-31</div><div class="post-content"><p>处理csv文件的时候，有时文本中有一些不可打印的字符，影响诸如文件分行和excel的解析。<br>主要需要去除文本中的换行符和制表符。</p></div><p class="readmore"><a href="/others/excel_trick/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/git/git_notes/">git笔记</a></h1><div class="post-meta">2019-03-31</div><div class="post-content"><p>git常用小结</p></div><p class="readmore"><a href="/git/git_notes/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/NLP/information-extraction/">基于句法依存树的信息抽取</a></h1><div class="post-meta">2018-12-16</div><div class="post-content"><p>信息抽取是一个常见的nlp任务，为经常一起提到的知识图谱的基础。</p>
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>这里有一份比较好的知识图谱入门资料:<br><a href="https://kgtutorial.github.io/" target="_blank" rel="noopener">Mining Knowledge Graphs from Text</a></p>
-<p>信息抽取分为有监督和无监督方法。实际中监督信息往往是缺失的，所以本文主要提无监督方法。</p>
-<p>在无监督方法中，一个广泛采用的工具是句法依存树，或者叫句法解析树（Dependency Tree）。</p></div><p class="readmore"><a href="/NLP/information-extraction/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/ML/imblanced-samples/">样本类别不均衡处理</a></h1><div class="post-meta">2018-12-16</div><div class="post-content"><p>分类任务中样本类别不均衡是常有的事，当样本之间的不均衡程度较小的时候，可以不作处理，当正负样本比例较大（比如10:1）且训练数据较少的时候，就需要做不均衡的处理。常见的处理方式可以分为如下几类：</p>
-<ul>
-<li>采样方法<ul>
-<li>下采样（或欠采样，under-sampling）</li>
-<li>上采样（或过采样，over-sampling）</li>
-<li>混合采样</li>
-</ul>
-</li>
-<li>数据增强<ul>
-<li>收集更多的数据</li>
-<li>造数据</li>
-</ul>
-</li>
-<li>更改评价指标</li>
-<li>cost sensitive（代价敏感，class weight）</li>
-<li>模型集成</li>
-<li>one-class classifier</li></ul></div><p class="readmore"><a href="/ML/imblanced-samples/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/html/html-tag/">html自定义标签</a></h1><div class="post-meta">2018-10-12</div><div class="post-content"><p>我们在分析文本时，比如命名实体识别，可能想将不同的实体词文本用不同的颜色高亮标识出来，那么采用html自定义标签就是一个比较轻量的方法。</p></div><p class="readmore"><a href="/html/html-tag/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/html/web-space/">网页文本中空格</a></h1><div class="post-meta">2018-10-12</div><div class="post-content"><p>网页中文本空格存在如下几类</p>
-<ul>
-<li>u200b：零宽度空格</li>
-<li>u0020：普通空格</li>
-<li>u00a0：不换行空格</li>
-<li>&nbsp; 不换行空格的转义字符</li>
-</ul></div><p class="readmore"><a href="/html/web-space/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/NLP/DoubleArrayTrie/">双数组Trie树(DoubleArrayTrie)</a></h1><div class="post-meta">2018-10-09</div><div class="post-content"><p>双数组Trie树(DoubleArrayTrie)</p>
-<p>NLP领域又很多需要词典匹配的需求，也就是，字典树+词典的基本方案。对于中文这种字较多的语言，双数组Trie树是比Trie树更好的结构。</p></div><p class="readmore"><a href="/NLP/DoubleArrayTrie/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/推荐系统/recommendation-system/">推荐系统学习笔记</a></h1><div class="post-meta">2018-10-06</div><div class="post-content"><p>最近对以前学习推荐系统的知识点笔记的一个汇总。</p></div><p class="readmore"><a href="/推荐系统/recommendation-system/">阅读全文</a></p></div><div class="post"><h1 class="post-title"><a href="/ML/NER-survey/">命名实体识别综述</a></h1><div class="post-meta">2018-10-03</div><div class="post-content"><p>命名实体识别（Named Entity Recognition，NER）为自然语言处理（NLP）的基础任务之一，其目标是提取文本中的命名实体并对这些实体进行分类，比如人名、地名、机构、时间、货币和百分比等，广泛用于信息提取、问答系统、句法分析、信息检索和情感分析等任务。</p>
-<p>命名实体识别不仅需要找出实体的位置，还需要对实体进行分类。</p></div><p class="readmore"><a href="/ML/NER-survey/">阅读全文</a></p></div><nav class="page-navigator"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a></nav><!-- MathJax配置，可通过单美元符号书写行内公式等 --><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">给荔枝打气</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"><a href="/心情/甜/">甜</a></h1><div class="post-meta">2018-09-14</div><div class="post-content">笑得很甜</div><p class="readmore"><a href="/心情/甜/">阅读全文</a></p></div><nav class="page-navigator"><a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span></nav><!-- MathJax配置，可通过单美元符号书写行内公式等 --><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config"><!-- hexo-inject:begin --><!-- hexo-inject:end -->MathJax.Hub.Config({
   tex2jax: {
   inlineMath: [['$','$'], ['\\(','\\)']],
   processEscapes: true,
