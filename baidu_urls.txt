@@ -1,3 +1,5 @@
+https://zekizz.github.io/uncategorized/snorkel/
+https://zekizz.github.io/NLU/nlu-survey/
 https://zekizz.github.io/python/configparse/
 https://zekizz.github.io/others/excel_trick/
 https://zekizz.github.io/git/git_notes/
@@ -6,5 +8,3 @@ https://zekizz.github.io/ML/imblanced-samples/
 https://zekizz.github.io/html/html-tag/
 https://zekizz.github.io/html/web-space/
 https://zekizz.github.io/NLP/DoubleArrayTrie/
-https://zekizz.github.io/推荐系统/recommendation-system/
-https://zekizz.github.io/ML/NER-survey/
