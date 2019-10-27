@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zekizz.github.io/"/>
-  <updated>2019-10-27T14:56:25.382Z</updated>
+  <updated>2019-10-27T14:57:12.765Z</updated>
   <id>https://zekizz.github.io/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://zekizz.github.io/uncategorized/snorkel/"/>
-    <id>https://zekizz.github.io/uncategorized/snorkel/</id>
-    <published>2019-10-27T14:55:43.160Z</published>
-    <updated>2019-10-27T14:56:25.382Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>NLU调研</title>
@@ -588,6 +566,37 @@
       <category term="machine learning" scheme="https://zekizz.github.io/tags/machine-learning/"/>
     
       <category term="语音处理" scheme="https://zekizz.github.io/tags/%E8%AF%AD%E9%9F%B3%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图半监督节点分类之零——前言</title>
+    <link href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/"/>
+    <id>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</id>
+    <published>2018-09-16T09:39:05.000Z</published>
+    <updated>2019-10-13T09:20:48.302Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本系列文章，<strong>图半监督节点分类</strong>，为本人硕士第三年的研究工作，拖了这么久，做个记录总结。 主要介绍图编码（Graph Embedding）在半监督节点分类上的国内外相关工作和本人在这方面的一些模型（很水勿喷）。</p><a id="more"></a><p><strong>整个系列的总览</strong>：</p><ol start="0"><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/">图半监督节点分类之零——前言</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-1/">图半监督节点分类之一——相关技术</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-2/">图半监督节点分类之二——基于条件随机场</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/">图半监督节点分类之三——基于循环神经网络</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-4/">图半监督节点分类之四——基于自适应高阶近似编码</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-5/">图半监督节点分类之五——实验与总结</a></li></ol><hr><p>图编码的应用当然不仅仅只是节点分类这一块，目前图编码的研究主要聚焦在如下几个方面：</p><ol><li>图结构编码（graph structre embedding）<ol><li>节点编码</li><li>子图编码</li><li>模式匹配</li></ol></li><li>链接预测（link prediction）</li><li>社团检测/社区结构编码（community detection/community embedding）</li><li>异常点检测</li></ol><p>编码的方法也开始具备多样性</p><ul><li>自编码机</li><li>图卷积</li><li>RNN-based model</li><li>Attention-based model</li><li>对抗网络 </li><li>…</li></ul><p>这一块将会持续跟进</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本系列文章，&lt;strong&gt;图半监督节点分类&lt;/strong&gt;，为本人硕士第三年的研究工作，拖了这么久，做个记录总结。 主要介绍图编码（Graph Embedding）在半监督节点分类上的国内外相关工作和本人在这方面的一些模型（很水勿喷）。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="ML" scheme="https://zekizz.github.io/categories/ML/"/>
+    
+    
+      <category term="machine learning" scheme="https://zekizz.github.io/tags/machine-learning/"/>
+    
+      <category term="深度学习" scheme="https://zekizz.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="graph embedding" scheme="https://zekizz.github.io/tags/graph-embedding/"/>
+    
+      <category term="半监督分类" scheme="https://zekizz.github.io/tags/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%88%86%E7%B1%BB/"/>
+    
+      <category term="概率图模型" scheme="https://zekizz.github.io/tags/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/"/>
     
   </entry>
   
