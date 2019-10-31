@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zekizz.github.io/"/>
-  <updated>2019-10-27T14:57:12.765Z</updated>
+  <updated>2019-10-31T15:14:22.483Z</updated>
   <id>https://zekizz.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue文件上传下载</title>
+    <link href="https://zekizz.github.io/visualisation/vue%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/"/>
+    <id>https://zekizz.github.io/visualisation/vue文件上传下载/</id>
+    <published>2019-10-31T14:40:00.000Z</published>
+    <updated>2019-10-31T15:14:22.483Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>使用booststrap-vue和FileReader做文件读取、file-saver做文件下载</p><a id="more"></a><h1>文件读取</h1><h2>1. 选取本地文件</h2><p>参考bootstrap-vue的<a href="https://bootstrap-vue.js.org/docs/components/form-file" target="_blank" rel="noopener">form-file</a>，来选取本地文件</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;b-form-file</span><br><span class="line">  v-model=<span class="string">"dataFile"</span></span><br><span class="line">  :state=<span class="string">"Boolean(dataFile)"</span></span><br><span class="line">  placeholder=<span class="string">"选择文件"</span></span><br><span class="line">  drop-placeholder=<span class="string">"拖拽到这里"</span></span><br><span class="line">  style=<span class="string">"text-align: left;"</span></span><br><span class="line">  size=<span class="string">"sm"</span></span><br><span class="line">&gt;&lt;/b-form-file&gt;</span><br></pre></td></tr></table></figure><p>选取到的文件存放在compenent data的dataFile中。</p><h2>2. 读取文件内容</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">loadFile () &#123;</span><br><span class="line">  <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">  <span class="keyword">const</span> _this = <span class="keyword">this</span>;</span><br><span class="line">  reader.readAsText(_this.dataFile);</span><br><span class="line">  reader.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// this.result为读取到的json字符串，需转成json对象</span></span><br><span class="line">    _this.importJSON = <span class="built_in">JSON</span>.parse(<span class="keyword">this</span>.result);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure><h1>文件下载</h1><p>比如我们在前端编辑了一些数据，希望将这些数据下载为json文件，查了一圈发现还是<a href="https://www.npmjs.com/package/file-saver" target="_blank" rel="noopener">file-saver</a>最好用。</p><p>安装</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i file-saver</span><br></pre></td></tr></table></figure><p>不需要在头部import，采用<code>require</code>的方式</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">saveData()&#123;</span><br><span class="line">    <span class="keyword">var</span> FileSaver = <span class="built_in">require</span>(<span class="string">'file-saver'</span>);</span><br><span class="line">    <span class="keyword">var</span> data = <span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.graph, <span class="literal">null</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> blob = <span class="keyword">new</span> Blob([data], &#123;<span class="attr">type</span>: <span class="string">"application/json;charset=utf-8"</span>&#125;);</span><br><span class="line">    FileSaver(blob, <span class="string">"output.json"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>注意：这里的api与github上readme上写的已经不一样了，我目前的最新版本号<code>2.0.2</code>。这里不再采用<code>FileSaver.saveAs(file)</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用booststrap-vue和FileReader做文件读取、file-saver做文件下载&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="visualisation" scheme="https://zekizz.github.io/categories/visualisation/"/>
+    
+    
+      <category term="前端" scheme="https://zekizz.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="可视化" scheme="https://zekizz.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+      <category term="文件" scheme="https://zekizz.github.io/tags/%E6%96%87%E4%BB%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>NLU调研</title>
@@ -566,37 +593,6 @@
       <category term="machine learning" scheme="https://zekizz.github.io/tags/machine-learning/"/>
     
       <category term="语音处理" scheme="https://zekizz.github.io/tags/%E8%AF%AD%E9%9F%B3%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>图半监督节点分类之零——前言</title>
-    <link href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/"/>
-    <id>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</id>
-    <published>2018-09-16T09:39:05.000Z</published>
-    <updated>2019-10-13T09:20:48.302Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本系列文章，<strong>图半监督节点分类</strong>，为本人硕士第三年的研究工作，拖了这么久，做个记录总结。 主要介绍图编码（Graph Embedding）在半监督节点分类上的国内外相关工作和本人在这方面的一些模型（很水勿喷）。</p><a id="more"></a><p><strong>整个系列的总览</strong>：</p><ol start="0"><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/">图半监督节点分类之零——前言</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-1/">图半监督节点分类之一——相关技术</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-2/">图半监督节点分类之二——基于条件随机场</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/">图半监督节点分类之三——基于循环神经网络</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-4/">图半监督节点分类之四——基于自适应高阶近似编码</a></li><li><a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-5/">图半监督节点分类之五——实验与总结</a></li></ol><hr><p>图编码的应用当然不仅仅只是节点分类这一块，目前图编码的研究主要聚焦在如下几个方面：</p><ol><li>图结构编码（graph structre embedding）<ol><li>节点编码</li><li>子图编码</li><li>模式匹配</li></ol></li><li>链接预测（link prediction）</li><li>社团检测/社区结构编码（community detection/community embedding）</li><li>异常点检测</li></ol><p>编码的方法也开始具备多样性</p><ul><li>自编码机</li><li>图卷积</li><li>RNN-based model</li><li>Attention-based model</li><li>对抗网络 </li><li>…</li></ul><p>这一块将会持续跟进</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本系列文章，&lt;strong&gt;图半监督节点分类&lt;/strong&gt;，为本人硕士第三年的研究工作，拖了这么久，做个记录总结。 主要介绍图编码（Graph Embedding）在半监督节点分类上的国内外相关工作和本人在这方面的一些模型（很水勿喷）。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="ML" scheme="https://zekizz.github.io/categories/ML/"/>
-    
-    
-      <category term="machine learning" scheme="https://zekizz.github.io/tags/machine-learning/"/>
-    
-      <category term="深度学习" scheme="https://zekizz.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="graph embedding" scheme="https://zekizz.github.io/tags/graph-embedding/"/>
-    
-      <category term="半监督分类" scheme="https://zekizz.github.io/tags/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%88%86%E7%B1%BB/"/>
-    
-      <category term="概率图模型" scheme="https://zekizz.github.io/tags/%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B/"/>
     
   </entry>
   
