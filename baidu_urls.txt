@@ -1,3 +1,4 @@
+https://zekizz.github.io/ML/sklearn-multi-label/
 https://zekizz.github.io/visualisation/vue文件上传下载/
 https://zekizz.github.io/NLU/nlu-survey/
 https://zekizz.github.io/python/configparse/
@@ -7,4 +8,3 @@ https://zekizz.github.io/NLP/information-extraction/
 https://zekizz.github.io/ML/imblanced-samples/
 https://zekizz.github.io/html/html-tag/
 https://zekizz.github.io/html/web-space/
-https://zekizz.github.io/NLP/DoubleArrayTrie/
