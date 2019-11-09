@@ -2,76 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zekizz.github.io/kanzaki/kanzaki.model.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.043Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/physics.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.043Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f01.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.042Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f06.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.042Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f07.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.042Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f04.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.041Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f05.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.041Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f08.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.041Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f02.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.040Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/kanzaki/expressions/f03.exp.json</loc>
-    
-    <lastmod>2019-11-09T17:43:27.040Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://zekizz.github.io/ML/sklearn-multi-label/</loc>
     
     <lastmod>2019-11-09T09:53:10.481Z</lastmod>
@@ -135,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/git/git_notes/</loc>
+    <loc>https://zekizz.github.io/others/excel_trick/</loc>
     
     <lastmod>2019-10-13T09:20:48.303Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/others/excel_trick/</loc>
+    <loc>https://zekizz.github.io/git/git_notes/</loc>
     
     <lastmod>2019-10-13T09:20:48.303Z</lastmod>
     
