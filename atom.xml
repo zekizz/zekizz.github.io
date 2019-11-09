@@ -96,9 +96,9 @@
       <category term="NLU" scheme="https://zekizz.github.io/categories/NLU/"/>
     
     
-      <category term="NLP" scheme="https://zekizz.github.io/tags/NLP/"/>
-    
       <category term="machine learning" scheme="https://zekizz.github.io/tags/machine-learning/"/>
+    
+      <category term="NLP" scheme="https://zekizz.github.io/tags/NLP/"/>
     
       <category term="NER" scheme="https://zekizz.github.io/tags/NER/"/>
     
@@ -318,9 +318,9 @@
       <category term="NLP" scheme="https://zekizz.github.io/categories/NLP/"/>
     
     
-      <category term="数据结构" scheme="https://zekizz.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="NLP" scheme="https://zekizz.github.io/tags/NLP/"/>
+    
+      <category term="数据结构" scheme="https://zekizz.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -369,11 +369,11 @@
       <category term="ML" scheme="https://zekizz.github.io/categories/ML/"/>
     
     
-      <category term="NLP" scheme="https://zekizz.github.io/tags/NLP/"/>
-    
       <category term="machine learning" scheme="https://zekizz.github.io/tags/machine-learning/"/>
     
       <category term="深度学习" scheme="https://zekizz.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="NLP" scheme="https://zekizz.github.io/tags/NLP/"/>
     
       <category term="NER" scheme="https://zekizz.github.io/tags/NER/"/>
     
