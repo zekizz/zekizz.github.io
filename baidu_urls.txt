@@ -1,3 +1,4 @@
+https://zekizz.github.io/NLP/chatito/
 https://zekizz.github.io/Blog/blog-comment-view/
 https://zekizz.github.io/ML/sklearn-multi-label/
 https://zekizz.github.io/visualisation/vue文件上传下载/
@@ -7,4 +8,3 @@ https://zekizz.github.io/others/excel_trick/
 https://zekizz.github.io/git/git_notes/
 https://zekizz.github.io/NLP/information-extraction/
 https://zekizz.github.io/ML/imblanced-samples/
-https://zekizz.github.io/html/html-tag/

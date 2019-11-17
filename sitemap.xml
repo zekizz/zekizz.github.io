@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zekizz.github.io/NLP/chatito/</loc>
+    
+    <lastmod>2019-11-17T14:47:49.070Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zekizz.github.io/Blog/blog-comment-view/</loc>
     
-    <lastmod>2019-11-10T06:10:00.756Z</lastmod>
+    <lastmod>2019-11-12T14:44:44.084Z</lastmod>
     
   </url>
   
@@ -86,14 +93,14 @@
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
+    <loc>https://zekizz.github.io/html/html-tag/</loc>
     
     <lastmod>2019-10-13T09:20:48.302Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/html/html-tag/</loc>
+    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
     
     <lastmod>2019-10-13T09:20:48.302Z</lastmod>
     
