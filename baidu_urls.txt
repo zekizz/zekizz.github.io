@@ -1,4 +1,4 @@
-https://zekizz.github.io/Knowledge-Graph/math-graph/
+https://zekizz.github.io/知识图谱/math-graph/
 https://zekizz.github.io/NLP/chatito/
 https://zekizz.github.io/Blog/blog-comment-view/
 https://zekizz.github.io/ML/sklearn-multi-label/
