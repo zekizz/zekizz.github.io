@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zekizz.github.io/Knowledge-Graph/math-graph/</loc>
+    <lastmod>2019-11-19</lastmod>
+  </url>  <url>
     <loc>https://zekizz.github.io/NLP/chatito/</loc>
     <lastmod>2019-11-17</lastmod>
   </url>  <url>
@@ -40,10 +43,10 @@
     <loc>https://zekizz.github.io/git/git_notes/</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
-    <loc>https://zekizz.github.io/html/html-tag/</loc>
+    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
+    <loc>https://zekizz.github.io/html/html-tag/</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
     <loc>https://zekizz.github.io/Blog/math-reference/</loc>
