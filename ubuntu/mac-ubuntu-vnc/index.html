@@ -5,28 +5,23 @@
   var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
   })();
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mac通过vnc连接ubuntu远程桌面</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mac通过vnc连接ubuntu远程桌面</h1><div class="post-meta">Dec 9, 2019<span> | </span><span class="category"><a href="/categories/ubuntu/">ubuntu</a></span><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>虽然ssh能解决大部分问题，但是有时也需要远程桌面。为此，可能大家都采用<code>teamviewer</code>和<code>anydesk</code>来完成。</p>
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><br>  
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">mac通过vnc连接ubuntu远程桌面</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">mac通过vnc连接ubuntu远程桌面</h1><div class="post-meta">Dec 9, 2019<span> | </span><span class="category"><a href="/categories/ubuntu/">ubuntu</a></span><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>虽然ssh能解决大部分问题，但是有时也需要远程桌面。为此，可能大家都采用<code>teamviewer</code>和<code>anydesk</code>来完成。  </p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p><br>  </p>
 <p>但是不久前<code>teamviewer</code>除了问题，<code>anydesk</code>在使用过程中经常出现连接中断、连接慢等毛病。尝试发现通过<code>vnc</code>在局域网环境下连接异常稳定，基本不掉，键盘映射也比anydesk好，做个记录。</p>
 <a id="more"></a>
-<h2>ubuntu配置</h2>
-<h3>安装<code>x11vnc</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc</span><br></pre></td></tr></table></figure>
-<h3>设置vnc密码</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd</span><br></pre></td></tr></table></figure>
+<h2 id="ubuntu配置"><a href="#ubuntu配置" class="headerlink" title="ubuntu配置"></a>ubuntu配置</h2><h3 id="安装x11vnc"><a href="#安装x11vnc" class="headerlink" title="安装x11vnc"></a>安装<code>x11vnc</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc</span><br></pre></td></tr></table></figure>
+<h3 id="设置vnc密码"><a href="#设置vnc密码" class="headerlink" title="设置vnc密码"></a>设置vnc密码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd</span><br></pre></td></tr></table></figure>
 <p>回车，在提示下输入和确认密码。保存在默认位置<code>$HOME/.vnc/passwd</code></p>
-<h3>启动vnc服务</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -forever -shared -rfbauth ~/.vnc/passwd</span><br></pre></td></tr></table></figure>
+<h3 id="启动vnc服务"><a href="#启动vnc服务" class="headerlink" title="启动vnc服务"></a>启动vnc服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -forever -shared -rfbauth ~/.vnc/passwd</span><br></pre></td></tr></table></figure>
 <p>当然也可以放在后台运行</p>
 <p>将上诉命名放在sh脚本中</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup sh ./start.sh &amp;</span><br></pre></td></tr></table></figure>
 <p>可以在nohup.out中最后几行查看其vnc运行的端口号：<code>PORT=5900</code></p>
-<h2>mac连接</h2>
-<p>mac自带一个vnc客户端：</p>
-<p><code>/System/Library/CoreServices/Applications/Screen Sharing.app</code></p>
-<br>
- 打开后，输入ubuntu的局域网ip即可（试过貌似不需要端口号），然后输入之前设置的密码就可以了。  
-<br>  
+<h2 id="mac连接"><a href="#mac连接" class="headerlink" title="mac连接"></a>mac连接</h2><p>mac自带一个vnc客户端：  </p>
+<p><code>/System/Library/CoreServices/Applications/Screen Sharing.app</code>  </p>
+<p><br>  </p>
+<p> 打开后，输入ubuntu的局域网ip即可（试过貌似不需要端口号），然后输入之前设置的密码就可以了。  </p>
+<p><br>  </p>
 <p>可能会发现页面缩放的问题，点击<code>Screen Sharing</code>左上角的<code>scaling</code>即可。</p>
 </div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>zeki</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/ubuntu/mac-ubuntu-vnc/">https://zekizz.github.io/ubuntu/mac-ubuntu-vnc/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外均为博主原创，转载请注明出处！</li></ul></div><br><div class="tags"><a href="/tags/ubuntu/">ubuntu</a></div><div class="post-nav"><a class="next" href="/知识图谱/math-graph/">论文学习——MathGraph</a></div><div id="lv-container" data-id="city" data-uid="MTAyMC80NzQ1Ni8yMzk1Ng=="><script>(function(d, s) {
    var j, e = d.getElementsByTagName(s)[0];
