@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zekizz.github.io/Blog/blog-comment-view/</loc>
+    
+    <lastmod>2019-12-17T10:55:35.954Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zekizz.github.io/ubuntu/mac-ubuntu-vnc/</loc>
     
     <lastmod>2019-12-09T13:17:34.287Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://zekizz.github.io/NLP/chatito/</loc>
     
     <lastmod>2019-11-17T15:02:16.211Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/Blog/blog-comment-view/</loc>
-    
-    <lastmod>2019-11-12T14:44:44.084Z</lastmod>
     
   </url>
   
