@@ -7,24 +7,25 @@
   })();
   </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">推荐系统学习笔记</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">推荐系统学习笔记</h1><div class="post-meta">Oct 6, 2018<span> | </span><span class="category"><a href="/categories/推荐系统/">推荐系统</a></span><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>最近对以前学习推荐系统的知识点笔记的一个汇总。</p>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><a id="more"></a>
-
-<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>你需要推荐系统吗？</p>
+<h1>概念</h1>
+<p>你需要推荐系统吗？</p>
 <ol>
 <li>看看产品的目的：建立越多连接越好。</li>
 <li>看产品现有的连接：产品的数量</li>
 </ol>
 <p>一个简单指标</p>
-<p>$$
- \frac{\Delta connection}{ \Delta user \times \Delta item}
+<p>$$<br>
+\frac{\Delta connection}{ \Delta user \times \Delta item}<br>
 $$</p>
-<p>分子是增加的连接数，分母是增加的活跃用户数和增加的有效物品数。
+<p>分子是增加的连接数，分母是增加的活跃用户数和增加的有效物品数。<br>
 如果增加的连接数主要靠增加的活跃用户数和增加的物品数贡献，则该值较小，不适合加入推荐系统。反之，如果增加的连接数和新增活跃用户和物品关系不大，说明连接数已经有自发生长的趋势，适合加入推荐系统加速这个过程。</p>
 <p>推荐系统的问题/任务</p>
 <ol>
 <li>评分预测</li>
 <li>行为预测</li>
 </ol>
-<h2 id="评分预测"><a href="#评分预测" class="headerlink" title="评分预测"></a>评分预测</h2><p>显示打分，目标减小预测分数与实际分数之间的误差，回归问题。</p>
+<h2>评分预测</h2>
+<p>显示打分，目标减小预测分数与实际分数之间的误差，回归问题。</p>
 <p>评价标准：RMSE、MAE</p>
 <p>$$ RMSE = \sqrt{ \frac{\sum_{t=1}^n (\widehat{y}_t - y_t)^2}{n} }  $$</p>
 <p>$$ MAE = \frac{\sum_{t=1}^n | \widehat{y}_t - y_t| }{n} $$</p>
@@ -35,7 +36,8 @@ $$</p>
 <li>评分分布不稳定</li>
 </ol>
 <p>显示反馈很少，更多的是隐式反馈，通常为各类用户行为。行为预测更多地利用这部分数据。</p>
-<h2 id="行为预测"><a href="#行为预测" class="headerlink" title="行为预测"></a>行为预测</h2><p>隐式反馈：登陆刷新、购买、收藏、浏览、点击等</p>
+<h2>行为预测</h2>
+<p>隐式反馈：登陆刷新、购买、收藏、浏览、点击等</p>
 <p>行为预测有两种方式：</p>
 <ol>
 <li>直接预测用户行为：CTR预估</li>
@@ -51,14 +53,18 @@ $$</p>
 <ol>
 <li>冷启动问题</li>
 <li>探索与利用问题：Exploit 和 Explore （EE问题）</li>
-<li>安全问题<ol>
+<li>安全问题
+<ol>
 <li>给出不靠谱的推荐结果，影响用户体验并最终影响品牌形象；</li>
 <li>收集了不靠谱的脏数据，这个影响会一直持续留存在产品中，很难完全消除；</li>
 <li>损失了产品的商业利益，这个是直接的经济损失。</li>
 </ol>
 </li>
 </ol>
-<h1 id="推荐方法"><a href="#推荐方法" class="headerlink" title="推荐方法"></a>推荐方法</h1><h2 id="基于内容推荐"><a href="#基于内容推荐" class="headerlink" title="基于内容推荐"></a>基于内容推荐</h2><h3 id="用户画像"><a href="#用户画像" class="headerlink" title="用户画像"></a>用户画像</h3><blockquote>
+<h1>推荐方法</h1>
+<h2>基于内容推荐</h2>
+<h3>用户画像</h3>
+<blockquote>
 <p>用户画像应该给机器看，而不是给人看。</p>
 </blockquote>
 <p>用户画像是将用户向量化后的结果，其关键因素：维度和量化。</p>
@@ -69,7 +75,7 @@ $$</p>
 <li>维度的筛选也是拍脑袋决定的</li>
 </ol>
 <p>维度越多越精细，但是计算代价会变大，同时也会引入噪声</p>
-<p>量化：
+<p>量化：<br>
 不要为了用户画像而用户画像，它只是推荐系统的一个副产品，所以要根据推荐效果（排序好坏、召回覆盖等指标）来指导用户画像量化。</p>
 <p>用户画像构建方法</p>
 <ol>
@@ -98,7 +104,7 @@ $$</p>
 </ol>
 <p>$$ TF = count(w) $$</p>
 <p>$$ IDF = log \frac{N}{n+1} $$</p>
-<p>实体识别还有比较实用化的非模型做法：词典法。提前准备好各种实体的词典，使用trie-tree结构存储，拿着分好的词去词典寻找。
+<p>实体识别还有比较实用化的非模型做法：词典法。提前准备好各种实体的词典，使用trie-tree结构存储，拿着分好的词去词典寻找。<br>
 工业级工具：spaCy</p>
 <p>LDA工具：Gensim和PLDA等</p>
 <p><strong>标签选择</strong></p>
@@ -111,7 +117,6 @@ $$</p>
 <li>每个用户看见过的物品就是一个文本集合；</li>
 <li>在这个文本集合上使用特征选择算法选出每个用户关心的东西。</li>
 </ol>
-
 <p>卡方检验</p>
 <table>
 <thead>
@@ -122,7 +127,8 @@ $$</p>
 <th>总计</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>包含词W_i</td>
 <td>A</td>
 <td>B</td>
@@ -140,7 +146,8 @@ $$</p>
 <td>B+D</td>
 <td>N = A+B+C+D</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>计算每一个词和每一个类别的卡方值：</p>
 <p>$$ \chi^2 (W_i, C_j) = \frac{N(AD-BC)^2}{ (A+C)(A+B)(B+D)(C+D)} $$</p>
 <ol>
@@ -148,7 +155,6 @@ $$</p>
 <li>由于是比较卡方值的大小，所以公式中的 N 可以不参与计算，因为它对每个词都一样，就是总的文本数；</li>
 <li>卡方值越大，意味着偏离“词和类别相互独立”的假设越远，靠“词和类别互相不独立”这个备择假设越近。</li>
 </ol>
-
 <p><strong>误区：</strong> 基于内容的推荐系统，标签只是很小一部分。而且就算是标签，衡量质量的方式也不是数目够不够。</p>
 <p>所谓的基于内容推荐，通俗一点来讲，就是一个包装成推荐系统的信息检索系统。这听上去有点残酷，但通常一个复杂的推荐系统很可能是从基于内容推荐成长起来的。</p>
 <p>为什么基于内容的推荐系统这么重要呢？因为内容数据非常易得，哪怕是在一个产品刚刚上线，用心找的话总能找到一些可以使用的内容，不需要有用户行为数据就能够做出推荐系统的第一版。</p>
@@ -159,37 +165,36 @@ $$</p>
 <li>挖：很多推荐系统提升效果并不是用了更复杂的推荐算法，而是对内容的挖掘做得更加深入。</li>
 <li>算：匹配用户的兴趣和物品的属性，计算出更合理的相关性，这是推荐系统本身的使命，不仅仅是基于内容的推荐才要做的。</li>
 </ol>
-
 <p>结合基于内容推荐的框架看上诉几个步骤</p>
 <p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/RS/ContentConfig.png" alt></p>
 <p>内容这一端：内容源经过内容分析，得到结构化的内容库和内容模型，也就是物品画像。用户这一端：用户看过推荐列表后，会产生用户行为数据，结合物品画像，经过用户分析得到用户画像。</p>
 <p>内容分析的产出</p>
 <ol>
 <li>结构化内容库</li>
-<li>内容分析模型
-结构化的内容库，最重要的用途是结合用户反馈行为去学习用户画像。容易被忽略的是第二个用途，在内容分析过程中得到的模型，比如说：<ol>
+<li>内容分析模型<br>
+结构化的内容库，最重要的用途是结合用户反馈行为去学习用户画像。容易被忽略的是第二个用途，在内容分析过程中得到的模型，比如说：</li>
+</ol>
+<ol>
 <li>分类器模型；</li>
 <li>主题模型；</li>
 <li>实体识别模型；</li>
 <li>嵌入模型。</li>
 </ol>
 <p>这些模型主要用在：当新的物品刚刚进入时，需要实时地被推荐出去，这时候对内容的实时分析，提取结构化内容，再于用户画像匹配。</p>
-
-</li>
-</ol>
 <p>内容推荐算法</p>
 <ol>
 <li>直接计算相似度，BM25F算法</li>
-<li>转为预估问题、分类问题<p>一种最典型的场景：提高某种行为的转化率，如点击、收藏、转发等。那么标准的做法是：收集这类行为的日志数据，转换成训练样本，训练预估模型。</p>
-每一条样本由两部分构成：一部分是特征，包含用户端的画像内容，物品端的结构化内容，可选的还有日志记录时一些上下文场景信息，如时间、地理位置、设备等等，另一部分就是用户行为，作为标注信息，包含“有反馈”和“无反馈”两类。
-
-</li>
+<li>转为预估问题、分类问题</li>
 </ol>
+<p>一种最典型的场景：提高某种行为的转化率，如点击、收藏、转发等。那么标准的做法是：收集这类行为的日志数据，转换成训练样本，训练预估模型。</p>
+每一条样本由两部分构成：一部分是特征，包含用户端的画像内容，物品端的结构化内容，可选的还有日志记录时一些上下文场景信息，如时间、地理位置、设备等等，另一部分就是用户行为，作为标注信息，包含“有反馈”和“无反馈”两类。
 <p>二分类：LR+GBDT</p>
-<h2 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h2><h3 id="User-based-CF"><a href="#User-based-CF" class="headerlink" title="User-based CF"></a>User-based CF</h3><p>$$
-p(u,i) = \sum_{v \in S(u,K) \cap N(i)} w_{uv} r_{vi}
+<h2>协同过滤</h2>
+<h3>User-based CF</h3>
+<p>$$<br>
+p(u,i) = \sum_{v \in S(u,K) \cap N(i)} w_{uv} r_{vi}<br>
 $$</p>
-<p>$S(u, K)$ 和用户 $ u $ 兴趣最接近的K个用户,$N(i)$ 是对物品i有过行为的用户集合，$w_{uv} $ 用户u和v之间的相似度，$ r_{ui} $ 用户v对物品i的兴趣，一般为{0,N}  </p>
+<p>$S(u, K)$ 和用户 $ u $ 兴趣最接近的K个用户,$N(i)$ 是对物品i有过行为的用户集合，$w_{uv} $ 用户u和v之间的相似度，$ r_{ui} $ 用户v对物品i的兴趣，一般为{0,N}</p>
 <p>用户相似度计算</p>
 <p>用户向量</p>
 <ol>
@@ -197,19 +202,18 @@ $$</p>
 <li>向量是稀疏的，也就是说并不是每个维度上都有数值，原因当然很简单，这个用户并不是消费过所有物品，废话嘛，连我们压箱底的都给用户推荐了，那当然不用再推荐什么了；</li>
 <li>向量维度上的取值可以是简单的 0 或者 1，也就是布尔值，1 表示喜欢过，0 表示没有，当然因为是稀疏向量，所以取值为 0 的就忽略了。</li>
 </ol>
-
 <p>Jaccard相似性</p>
-<p>$$
-w_{nv} = \frac{|N(u) \cap |N(v)|}{|N(u) \cup |N(v)|}
-$$
-余弦相似性
-$$
-w_{nv} = \frac{|N(u) \cap |N(v)|}{\sqrt{|N(u)| |N(v)|}}
+<p>$$<br>
+w_{nv} = \frac{|N(u) \cap |N(v)|}{|N(u) \cup |N(v)|}<br>
+$$<br>
+余弦相似性<br>
+$$<br>
+w_{nv} = \frac{|N(u) \cap |N(v)|}{\sqrt{|N(u)| |N(v)|}}<br>
 $$</p>
 <p>用户间相似度改进：惩罚热门</p>
-<p>$$
-w_{uv} = \frac{\sum_ {i \in N(u) \cap N(v)} \frac{1}{log 1+|N(i)|}}{\sqrt{|N(u)| |N(v)|}}
-$$
+<p>$$<br>
+w_{uv} = \frac{\sum_ {i \in N(u) \cap N(v)} \frac{1}{log 1+|N(i)|}}{\sqrt{|N(u)| |N(v)|}}<br>
+$$<br>
 两个用户对冷门物品采取过同样的行为更能说明他们兴趣的相似度</p>
 <p>对两两用户都利用余弦相似度计算相似度。这种方法的时间复杂度是O(|U|*|U|)，这在用户数很大时非常耗时，可以采用物品到用户的倒排表。</p>
 <p>存在问题及解决</p>
@@ -222,13 +226,12 @@ $$
 <p>reduce：求和并归一化</p>
 <p>第二个办法是：不用基于用户的协同过滤，采用基于图的算法。</p>
 <p>另外，这种计算对象两两之间的相似度的任务，如果数据量不大，一般来说不超过百万个，然后矩阵又是稀疏的，那么有很多单机版本的工具其实更快，比如 KGraph、 GraphCHI 等。</p>
-
 <ol start="3">
 <li>推荐计算</li>
 </ol>
-<p>$$
-p(u,i) = \sum_{v \in S(u,K) \cap N(i)} w_{uv} r_{vi}
-$$
+<p>$$<br>
+p(u,i) = \sum_{v \in S(u,K) \cap N(i)} w_{uv} r_{vi}<br>
+$$<br>
 得到了用户之间的相似度之后。接下来还有一个硬骨头，计算推荐分数。显然，为每一个用户计算每一个物品的推荐分数，计算次数是矩阵的所有元素个数，这个代价，你当然不能接受啊。</p>
 <p>采用MapReduce</p>
 <ol>
@@ -238,81 +241,85 @@ $$
 <li>Reduce 阶段，求和后输出；</li>
 <li>&lt; 相似用户 ID，物品 ID, 0&gt; 的值除以 &lt; 相似用户 ID，物品 ID, 1&gt; 的值</li>
 </ol>
-
-<p>3: </p>
+<p>3:</p>
 <ul>
 <li>&lt; 相似用户 ID，物品 ID，1 &gt;  -&gt; w_{uv}</li>
 <li>&lt; 相似用户 ID，物品 ID，0 &gt;  -&gt; w_{uv}*r_{vi}</li>
 </ul>
 <p>4: reduce应该是对相似用户求和</p>
 <p>5：做归一化处理</p>
-<h3 id="Item-CF"><a href="#Item-CF" class="headerlink" title="Item-CF"></a>Item-CF</h3><p>$$
-p_{ui} = \sum_{j \in N(u) \cap S(i,K) } w_{ij} r_{uj}
+<h3>Item-CF</h3>
+<p>$$<br>
+p_{ui} = \sum_{j \in N(u) \cap S(i,K) } w_{ij} r_{uj}<br>
 $$</p>
 <p>物品相似度计算</p>
 <p>注：相似度计算基于的是评分矩阵或者布尔化的行为矩阵</p>
-<p>Jaccard
+<p>Jaccard<br>
 $$ w_{ij} = \frac{ \sum_{u \in U} r_{ui} r_{uj} }{ \sqrt{\sum_{v \in U} r_{vi}^2 \sum_{v \in U} r_{vj}^2 }} $$</p>
-<p>物品去中心化
-$$ w_{ij} = \frac{ \sum_{u \in U} (r_{ui} - \bar{r}<em>i) (r</em>{uj} - \bar{r}<em>j) }{ \sqrt{ \sum</em>{v \in U} (r_{ui} - \bar{r}<em>i)^2 \sum</em>{v \in U} (r_{uj} - \bar{r}<em>j)^2 } } $$
-用户去中心化
+<p>物品去中心化<br>
+$$ w_{ij} = \frac{ \sum_{u \in U} (r_{ui} - \bar{r}<em>i) (r</em>{uj} - \bar{r}<em>j) }{ \sqrt{ \sum</em>{v \in U} (r_{ui} - \bar{r}<em>i)^2 \sum</em>{v \in U} (r_{uj} - \bar{r}<em>j)^2 } } $$<br>
+用户去中心化<br>
 $$ w</em>{ij} = \frac{ \sum_{u \in U} (r_{ui} - \bar{r}_u) (r_{uj} - \bar{r}_u) }{ \sqrt{ \sum_{v \in U} (r_{ui} - \bar{r}<em>u)^2 \sum</em>{v \in U} (r_{uj} - \bar{r}_u)^2 }} $$</p>
 <p>更一般的相似性计算，比如余弦</p>
 <ol>
-<li>$$
-w_{ij} = \frac{&lt; r_i, r_j&gt;}{|r_i|}
+<li></li>
+</ol>
+<p>$$<br>
+w_{ij} = \frac{&lt; r_i, r_j&gt;}{|r_i|}<br>
+$$</p>
+<ol start="2">
+<li>热门关联<br>
+$$<br>
+w_{ij} = \frac{&lt; r_i, r_j&gt;}{|r_i||r_j|}<br>
 $$</li>
-<li>热门关联
-$$
-w_{ij} = \frac{&lt; r_i, r_j&gt;}{|r_i||r_j|}
-$$</li>
-<li>对热门的打压
-$$
-w_{ij} = \frac{&lt; r_i, r_j&gt;}{|r_i|^{\alpha} |r_j|^{ 1- \alpha }}
-$$
+<li>对热门的打压<br>
+$$<br>
+w_{ij} = \frac{&lt; r_i, r_j&gt;}{|r_i|^{\alpha} |r_j|^{ 1- \alpha }}<br>
+$$<br>
 $ \alpha $ 为0 最大限度打压热门，为1 不打压</li>
-<li>用户打压
-$$
-&lt;r_i, r_j&gt; = \sum_{u \in U} \frac{r_{ui} r_{uj}}{ \log (1 + N(u))}
-$$
+<li>用户打压<br>
+$$<br>
+&lt;r_i, r_j&gt; = \sum_{u \in U} \frac{r_{ui} r_{uj}}{ \log (1 + N(u))}<br>
+$$<br>
 IUF（Inverse User Frequence）</li>
 </ol>
 <ol start="5">
 <li>热传导</li>
 </ol>
-<p>冷门受益
-$$
-w_{ij}^H = \frac{1}{k_i} \sum_{u \in U} \frac{r_{ui} r_{uj}}{k_u}
-$$
-热门受益
-$$
-w_{ij}^P = \frac{1}{k_j} \sum_{u \in U} \frac{r_{ui} r_{uj}}{k_u}
-$$
+<p>冷门受益<br>
+$$<br>
+w_{ij}^H = \frac{1}{k_i} \sum_{u \in U} \frac{r_{ui} r_{uj}}{k_u}<br>
+$$<br>
+热门受益<br>
+$$<br>
+w_{ij}^P = \frac{1}{k_j} \sum_{u \in U} \frac{r_{ui} r_{uj}}{k_u}<br>
+$$<br>
 看除的分母，热门物品度大，冷门度小</p>
-<p>调和
-$$
-w_{ij}^P = \frac{1}{k_i^{ 1- \lambda} k_j^{\lambda}} \sum_{u \in U} \frac{r_{ui} r_{uj}}{k_u}
+<p>调和<br>
+$$<br>
+w_{ij}^P = \frac{1}{k_i^{ 1- \lambda} k_j^{\lambda}} \sum_{u \in U} \frac{r_{ui} r_{uj}}{k_u}<br>
 $$</p>
-<h2 id="矩阵分解-隐语义模型LFM-latent-factor-model"><a href="#矩阵分解-隐语义模型LFM-latent-factor-model" class="headerlink" title="矩阵分解/隐语义模型LFM(latent factor model)"></a>矩阵分解/隐语义模型LFM(latent factor model)</h2><blockquote>
-<p>评分预测问题只是很典型，其实并不大众，毕竟在实际的应用中，评分数据很难收集到，属于典型的精英问题；与之相对的另一类问题行为预测，才是平民级推荐问题，处处可见。             </p>
+<h2>矩阵分解/隐语义模型LFM(latent factor model)</h2>
+<blockquote>
+<p>评分预测问题只是很典型，其实并不大众，毕竟在实际的应用中，评分数据很难收集到，属于典型的精英问题；与之相对的另一类问题行为预测，才是平民级推荐问题，处处可见。</p>
 </blockquote>
 <p>近邻模型存在的问题：</p>
 <ol>
 <li>物品之间存在相关性，信息量并不随着向量维度增加而线性增加；</li>
 <li>矩阵元素稀疏，计算结果不稳定，增减一个向量维度，导致近邻结果差异很大的情况存在。</li>
 </ol>
-
 <p>矩阵分解的目的分解评分矩阵A</p>
-<p>$$
-A_{m \times n} \cong U_{m \times k} V_{n \times k}^T
+<p>$$<br>
+A_{m \times n} \cong U_{m \times k} V_{n \times k}^T<br>
 $$</p>
 <p>推荐过程</p>
-<p>$$
-\widehat{r}_{ui} = p_u q^T_i
-$$
+<p>$$<br>
+\widehat{r}_{ui} = p_u q^T_i<br>
+$$<br>
 $ p_u $ 用户向量，$ q_i $ 物品向量。</p>
-<h3 id="基本SVD"><a href="#基本SVD" class="headerlink" title="基本SVD"></a>基本SVD</h3><p>SVD（奇异值分解）的损失函数：</p>
-<p>$$ \min <em>{q^ *, p^ *} \sum</em>{u,i} (r_{ui} - p_u q_i^T) ^2 + \lambda ( ||q_i||^2 + ||p_u||^2 ) $$
+<h3>基本SVD</h3>
+<p>SVD（奇异值分解）的损失函数：</p>
+<p>$$ \min <em>{q^ *, p^ *} \sum</em>{u,i} (r_{ui} - p_u q_i^T) ^2 + \lambda ( ||q_i||^2 + ||p_u||^2 ) $$<br>
 SVD学习过程</p>
 <ol>
 <li>准备好用户物品的评分矩阵，每一条评分数据看做一条训练样本；</li>
@@ -322,33 +329,34 @@ SVD学习过程</p>
 <li>按照梯度下降的方向更新 U 和 V 中的元素值；</li>
 <li>重复步骤 3 到 5，直到达到停止条件。</li>
 </ol>
-
-<h3 id="增加偏置"><a href="#增加偏置" class="headerlink" title="增加偏置"></a>增加偏置</h3><p>$$
-\widehat{r}_{ui} = \mu + b_i + b_u + p_u q^T_i
-$$
+<h3>增加偏置</h3>
+<p>$$<br>
+\widehat{r}_{ui} = \mu + b_i + b_u + p_u q^T_i<br>
+$$<br>
 分别为全局评分、物品偏置、用户偏置</p>
 <p>偏置的计算为，当前评分-对应的平均分</p>
-<p>对应的损失函数
-$$ \min_{q^<em>, p^</em>} \sum_{u,i} (r_{ui} - \mu - b_i - b_u -  p_u q_i^T)^2 + \lambda ( ||q_i||^2 + ||p_u||^2 + b_i^2 + b_u^2) $$</p>
-<h3 id="增加隐式数据-历史行为"><a href="#增加隐式数据-历史行为" class="headerlink" title="增加隐式数据/历史行为"></a>增加隐式数据/历史行为</h3><p>在 SVD 中结合用户的隐式反馈行为和属性，这套模型叫做 SVD++。</p>
+<p>对应的损失函数<br>
+$$ \min_{q^<em>, p^</em>} \sum_{u,i} (r_{ui} - \mu - b_i - b_u -  p_u q_i<sup>T)</sup>2 + \lambda ( ||q_i||^2 + ||p_u||^2 + b_i^2 + b_u^2) $$</p>
+<h3>增加隐式数据/历史行为</h3>
+<p>在 SVD 中结合用户的隐式反馈行为和属性，这套模型叫做 SVD++。</p>
 <p>隐式反馈的加入方法：</p>
 <p>除了假设评分矩阵中的物品有一个隐因子向量外，用户有过行为的物品集合也都有一个隐因子向量，维度是一样的。把用户操作过的物品隐因子向量加起来，用来表达用户的兴趣偏好。</p>
 <p>类似的，用户属性，全都转换成 0-1 型的特征后，对每一个特征也假设都存在一个同样维度的隐因子向量，一个用户的所有属性对应的隐因子向量相加，也代表了他的一些偏好。</p>
-<p>综合两者，SVD++ 的目标函数中，只需要把推荐分数预测部分稍作修改，原来的用户向量那部分增加了隐式反馈向量和用户属性向量：
+<p>综合两者，SVD++ 的目标函数中，只需要把推荐分数预测部分稍作修改，原来的用户向量那部分增加了隐式反馈向量和用户属性向量：<br>
 $$ \widehat{r}_{ui} = \mu + b_i + b_u + (p_u + \frac{1}{|N(u)|} \sum_{j \in N(u)} x_j + \sum_{a \in Au} y_a ) q_i^T $$</p>
-<h3 id="加入时间因素"><a href="#加入时间因素" class="headerlink" title="加入时间因素"></a>加入时间因素</h3><ol>
+<h3>加入时间因素</h3>
+<ol>
 <li>对评分按照时间加权，让久远的评分更趋近平均值；</li>
 <li>对评分时间划分区间，不同的时间区间内分别学习出隐因子向量，使用时按照区间使用对应的隐因子向量来计算；</li>
 <li>对特殊的期间，如节日、周末等训练对应的隐因子向量。</li>
 </ol>
-
-<h3 id="损失函数优化方法"><a href="#损失函数优化方法" class="headerlink" title="损失函数优化方法"></a>损失函数优化方法</h3><p>SGD V.S. ALS</p>
+<h3>损失函数优化方法</h3>
+<p>SGD V.S. ALS</p>
 <p>ALS的思想就是固定一个优化另外一个，所以叫交替最小二乘。其好处：</p>
 <ol>
 <li>在交替的其中一步，也就是假设已知其中一个矩阵求解另一个时，要优化的参数是很容易并行化的；</li>
 <li>在不那么稀疏的数据集合上，交替最小二乘通常比随机梯度下降要更快地得到结果，事实上这一点就是我马上要说的，也就是关于隐式反馈的内容。</li>
 </ol>
-
 <p>相比“预测用户会打多少分”，“预测用户会不会去浏览”更加有意义，而且，用户浏览数据远远多于打分评价数据。也就是说，实际上推荐系统关注的是预测行为，行为也就是一再强调的隐式反馈。</p>
 <p>对隐式反馈的矩阵分解，需要将交替最小二乘做一些改进，改进后的算法叫做加权交替最小二乘：Weighted-ALS。</p>
 <ol>
@@ -356,18 +364,19 @@ $$ \widehat{r}_{ui} = \mu + b_i + b_u + (p_u + \frac{1}{|N(u)|} \sum_{j \in N(u)
 <li>如果用户对物品有至少一次隐式反馈则认为评分是 1，次数作为该评分的置信度。</li>
 </ol>
 但是这里的数据只有正样本，负样本是我们“认为”的，这个“认为”可能不太准确，这就是One-class问题。所以需要对负样本进行采样。随机采样很不靠谱，一种比较好的方法是，按照物品的热门程度采样。
-
 <p>关于负采样方法，word2vec等模型中都有介绍，后续专门写一篇博客。</p>
 <p>按照物品热门程度采样的思想就是：一个越热门的物品，用户越可能知道它的存在。那这种情况下，用户还没对它有反馈就表明：这很可能就是真正的负样本。</p>
 <p>现在的目标函数：</p>
-<p>$$ \min_{q^<em>, p^</em>} \sum_{u,i} c_{ui} (r_{ui} - p_u q^T_i)^2 + \lambda ( ||q_i||^2 + ||p_u||^2 ) $$</p>
+<p>$$ \min_{q^<em>, p^</em>} \sum_{u,i} c_{ui} (r_{ui} - p_u q<sup>T_i)</sup>2 + \lambda ( ||q_i||^2 + ||p_u||^2 ) $$</p>
 <p>$$ c_{ui} = 1+ \alpha C $$</p>
 <p>C_ui就是置信度，跟反馈次数C有关，$ \alpha $ 默认取40。</p>
-<h2 id="推荐计算"><a href="#推荐计算" class="headerlink" title="推荐计算"></a>推荐计算</h2><p>在得到了分解后的矩阵后，每个用户得到了稠密的隐因子向量，同时每个物品也得到了一个稠密向量，代表它的语义或主题。看上去，让用户和物品的隐因子向量两两相乘，计算点积就可以得到所有的推荐结果了。但是实际上复杂度还是很高，尤其对于用户数量和物品数量都巨大的应用，如Facebook，就更不现实。于是 Facebook提出了两个办法得到真正的推荐结果。</p>
+<h2>推荐计算</h2>
+<p>在得到了分解后的矩阵后，每个用户得到了稠密的隐因子向量，同时每个物品也得到了一个稠密向量，代表它的语义或主题。看上去，让用户和物品的隐因子向量两两相乘，计算点积就可以得到所有的推荐结果了。但是实际上复杂度还是很高，尤其对于用户数量和物品数量都巨大的应用，如Facebook，就更不现实。于是 Facebook提出了两个办法得到真正的推荐结果。</p>
 <p>第一种，利用一些专门设计的数据结构存储所有物品的隐因子向量，从而实现通过一个用户向量可以返回最相似的 K 个物品。</p>
 <p>Facebook 给出了自己的开源实现 Faiss，类似的开源实现还有 Annoy，KGraph，NMSLIB。其中 Facebook 开源的 Faiss 和 NMSLIB（Non-Metric Space Library）都用到了 ball tree 来存储物品向量。</p>
 <p>第二种，就是拿着物品的隐因子向量先做聚类，海量的物品会减少为少量的聚类。然后再逐一计算用户和每个聚类中心的推荐分数，给用户推荐物品就变成了给用户推荐物品聚类。得到给用户推荐的聚类后，再从每个聚类中挑选少许几个物品作为最终推荐结果。这样做的好处除了大大减小推荐计算量之外，还可以控制推荐结果的多样性，因为可以控制在每个类别中选择的物品数量。</p>
-<h2 id="贝叶斯个性化排序BPR"><a href="#贝叶斯个性化排序BPR" class="headerlink" title="贝叶斯个性化排序BPR"></a>贝叶斯个性化排序BPR</h2><p>矩阵分解，本质上都是在预测用户对一个物品的偏好程度，其实就是做编码embedding。</p>
+<h2>贝叶斯个性化排序BPR</h2>
+<p>矩阵分解，本质上都是在预测用户对一个物品的偏好程度，其实就是做编码embedding。</p>
 <p>得到这样的矩阵分解结果后，常常在实际使用时，又是用这个预测结果来排序。所以，口口声声宣称想要模型的预测误差最小化，结果绕了一大圈最后还是只想要一个好点的排序。</p>
 <p>这种针对单个用户对单个物品的偏好程度进行预测，得到结果后再排序的问题，在排序学习中的行话叫做 point-wise。与之相对的，还有直接预测物品两两之间相对顺序的问题，就叫做 pair-wise。</p>
 <p>矩阵分解都属于 point-wise模型。这类模型的尴尬是：只能收集到正样本，没有负样本，于是认为缺失值就是负样本，再以预测误差为评判标准去使劲逼近这些样本。逼近正样本没问题，但是同时逼近的负样本只是缺失值而已，还不知道真正呈现在用户面前，到底是不喜欢还是喜欢呢？</p>
@@ -378,16 +387,16 @@ $$ \widehat{r}_{ui} = \mu + b_i + b_u + (p_u + \frac{1}{|N(u)|} \sum_{j \in N(u)
 <p>这样一来，学习的数据是反应用户偏好的相对顺序，而在使用时，面对的是所有用户还没行为过的物品，这些物品仍然可以在这样的模型下得到相对顺序，这就比三元组 point-wise 样本要直观得多。</p>
 <p>现在，每条样本包含的是两个物品，样本预测目标是两个物品的相对顺序。</p>
 <p>用个符号来表示这个差：Xu12，表示的是对用户 u，物品 1 和物品 2 的矩阵分解预测分数差。然后再用 sigmoid 函数把这个分数差压缩到 0 到 1 之间。</p>
-<p>$$
-\Theta = \frac{1}{1+ e ^{-X_{u12}}}
-$$
+<p>$$<br>
+\Theta = \frac{1}{1+ e ^{-X_{u12}}}<br>
+$$<br>
 也其实就是用这种方式预测了物品 1 排在物品 2 前面的似然概率，所以最大化交叉熵就是目标函数了。</p>
 <p>目标函数通常还要防止过拟合，加上正则项，正则项其实认为模型参数还有个先验概率，这是贝叶斯学派的观点，也是 BPR 这个名字中“贝叶斯”的来历。</p>
-
 <p>BPR 认为模型的先验概率符合正态分布，对应到正则化方法就是 L2 正则，具体参见<a href="https://www.cnblogs.com/pinard/p/9128682.html" target="_blank" rel="noopener">贝叶斯个性化排序算法小结</a>。</p>
 <p>$$ \prod_{u \in U} P(&gt;<em>u|\theta) P(\theta) = \prod</em>{(u,i,j) \in D}   \sigma(X_{u12})  P(\theta) = \prod_{(u,i,j) \in D} \sigma(\overline{x}_{ui} - \overline{x}_{uj}) P(\theta) $$</p>
 <p>训练方法：梯度下降+mini-batch</p>
-<h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><p>实施特征工程之前，需要先理解业务。
+<h1>特征工程</h1>
+<p>实施特征工程之前，需要先理解业务。<br>
 在推荐场景中</p>
 <p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/RS/recom_context.png" alt></p>
 <p>特征</p>
@@ -409,11 +418,12 @@ $$
 <li>从聚合/内积开始，逐渐增加参数，直到过拟合</li>
 </ol>
 <p>过拟合判断方法：如，训练集AUC远大于测试集AUC</p>
-<h1 id="模型融合"><a href="#模型融合" class="headerlink" title="模型融合"></a>模型融合</h1><p>推荐系统在技术实现上一般划分为三个阶段：挖掘、召回、排序。</p>
+<h1>模型融合</h1>
+<p>推荐系统在技术实现上一般划分为三个阶段：挖掘、召回、排序。</p>
 <p>挖掘的工作就是对用户和物品做非常深入的结构化分析，庖丁解牛一样，各个角度各个层面的特征都被呈现出来，并且建好索引，供召回阶段使用，大部分挖掘工作都是离线进行的。</p>
 <p>接下来就是召回，为什么会有召回？因为物品太多了，每次给一个用户计算推荐结果时，如果对全部物品挨个计算，那将是一场灾难，取而代之的是用一些手段从全量的物品中筛选出一部分比较靠谱的。</p>
 <p>最后就是排序，针对筛选出的一部分靠谱的做一个统一的排序。</p>
-<p>进一步召回：
+<p>进一步召回：<br>
 在召回阶段，其实就是各种简单的、复杂的推荐算法，比如说基于内容的推荐，会产生一些推荐结果，比如基于物品的协同过滤会产生一些结果，矩阵分解会产生一些结果，等等。</p>
 <p>正则化的方法一般是：限定总的树个数、树的深度、以及叶子节点的权重大小。实数特征的分裂。</p>
 <p>推荐系统：唯快不破</p>
@@ -440,12 +450,12 @@ $$
 <li>将类别型特征先做嵌入学习，再将嵌入稠密向量送入深度模型中。</li>
 <li>为了提高服务的响应效率，对每次请求要计算的多个候选 App 采用并行评分计算的方式，大大降低响应时间。</li>
 </ol>
-
-
-<h1 id="MAB问题"><a href="#MAB问题" class="headerlink" title="MAB问题"></a>MAB问题</h1><p>多臂赌博机问题 (Multi-armed bandit problem, K-armed bandit problem, MAB)，简称 MAB 问题。</p>
+<h1>MAB问题</h1>
+<p>多臂赌博机问题 (Multi-armed bandit problem, K-armed bandit problem, MAB)，简称 MAB 问题。</p>
 <p>推荐系统的使命就是：为用户匹配到最佳的物品，在某个时间某个位置为用户选择最好的物品。</p>
 <p>推荐就是选择</p>
-<h2 id="Bandit-算法"><a href="#Bandit-算法" class="headerlink" title="Bandit 算法"></a>Bandit 算法</h2><p>小心翼翼地试，越确定某个选择好，就多选择它，越确定某个选择差，就越来越少选择它。</p>
+<h2>Bandit 算法</h2>
+<p>小心翼翼地试，越确定某个选择好，就多选择它，越确定某个选择差，就越来越少选择它。</p>
 <p>一种走一步看一步的推荐算法， Bandit 算法。Bandit 算法把每个用户看成一个多变的环境，待推荐的物品就如同赌场里老虎机的摇臂，如果推荐了符合用户心目中喜欢的，就好比是从一台老虎机中摇出了金币一样。</p>
 <p>Bandit 算法有汤普森采样，UCB 算法，Epsilon 贪婪。汤普森采样以实现简单和效果显著而被人民群众爱戴，你需要时不妨首先试试它。</p>
 <p>Bandit解决冷启动</p>
@@ -459,30 +469,27 @@ $$
 <li><p>等着获取用户的反馈，没有反馈则更新对应 Topic 的 b 值，点击了则更新对应 Topic 的 a 值。</p>
 </li>
 </ol>
-
-
-<h3 id="LinUCB"><a href="#LinUCB" class="headerlink" title="LinUCB"></a>LinUCB</h3><p>“Yahoo!”的科学家们在 2010 年基于 UCB 提出了 LinUCB 算法，它和传统的 UCB 算法相比，最大的改进就是加入了特征信息，每次估算每个候选的置信区间，不再仅仅是根据实验，而是根据特征信息来估算，这一点就非常的“机器学习”了。</p>
+<h3>LinUCB</h3>
+<p>“Yahoo!”的科学家们在 2010 年基于 UCB 提出了 LinUCB 算法，它和传统的 UCB 算法相比，最大的改进就是加入了特征信息，每次估算每个候选的置信区间，不再仅仅是根据实验，而是根据特征信息来估算，这一点就非常的“机器学习”了。</p>
 <p>优点：</p>
 <ol>
 <li>由于加入了特征，所以收敛比 UCB 更快，也就是比 UCB 更快见效；</li>
 <li>各个候选臂之间参数是独立的，可以互相不影响地更新参数；</li>
 <li>由于参与计算的是特征，所以可以处理动态的推荐候选池，编辑可以增删文章；</li>
 </ol>
-
 <p>LinUCB 只是一个推荐框架，可以将这个框架应用在很多地方，比如投放广告，为用户选择兴趣标签等。</p>
-<h3 id="COFIBA-算法"><a href="#COFIBA-算法" class="headerlink" title="COFIBA 算法"></a>COFIBA 算法</h3><p>概要：</p>
+<h3>COFIBA 算法</h3>
+<p>概要：</p>
 <ol>
 <li>在时刻 t，有一个用户来访问推荐系统，推荐系统需要从已有的候选池子中挑一个最佳的物品推荐给他，然后观察他的反馈，用观察到的反馈来更新挑选策略。</li>
 <li>这里的每个物品都有一个特征向量，所以这里的 Bandit 算法是 context 相关的，只不过这里虽然是给每个用户维护一套参数，但实际上是由用户所在的聚类类簇一起决定结果的。</li>
 <li>这里依然是用岭回归去拟合用户的权重向量，用于预测用户对每个物品的可能反馈（payoff），这一点和我们上一次介绍的 LinUCB 算法是一样的。</li>
 </ol>
-
 <p>与linUCB算法的不同：</p>
 <ol>
 <li>基于用户聚类挑选最佳的物品，即相似用户集体动态决策；</li>
 <li>基于用户的反馈情况调整用户和物品的聚类结果。</li>
 </ol>
-
 <p>算法流程：</p>
 <ol>
 <li>首先计算用户 i 的 Bandit 参数 W，做法和 LinUCB 算法相同，但是这个参数并不直接参与到选择决策中，注意这和 LinUCB 不同，只是用来更新用户聚类。</li>
@@ -491,27 +498,27 @@ $$
 <li>每个待推荐的物品都得到一个预测值及置信区间上界，挑出那个上边界最大的物品作为推荐结果。</li>
 <li>观察用户的真实反馈，然后更新用户自己的 M 矩阵和 b 向量，只更新每个用户，对应类簇里其他的不更新。</li>
 </ol>
-
 <p>Bandit 算法系列，主要是解决推荐系统中的冷启动和 EE 问题。探索和利用这一对矛盾一直客观存在，而 Bandit 算法是公认的一种比较好的解决 EE 问题的方案。</p>
-<h2 id="深度学习在推荐上的应用"><a href="#深度学习在推荐上的应用" class="headerlink" title="深度学习在推荐上的应用"></a>深度学习在推荐上的应用</h2><h2 id="排行榜的构建"><a href="#排行榜的构建" class="headerlink" title="排行榜的构建"></a>排行榜的构建</h2><p>热度计算</p>
+<h2>深度学习在推荐上的应用</h2>
+<h2>排行榜的构建</h2>
+<p>热度计算</p>
 <ol>
 <li>Hacker News</li>
 </ol>
-<p>$$
-\frac{P-1}{(T+2)^G}
+<p>$$<br>
+\frac{P-1}{(T+2)^G}<br>
 $$</p>
 <ol>
 <li>P：得票数，去掉帖子作者自己投票。</li>
 <li>T：帖子距离现在的小时数，加上帖子发布到被转帖至 Hacker News 的平均时长。</li>
 <li>G：帖子热度的重力因子。</li>
 </ol>
-
 <p>公式中，分子是简单的帖子数统计，一个小技巧是去掉了作者自己的投票。分母就是将前面说到的时间因素考虑在内，随着帖子的发表时间增加，分母会逐渐增大，帖子的热门程度分数会逐渐降低。</p>
 <ol start="2">
 <li>牛顿冷却定律</li>
 </ol>
-<p>$$
-T(t) = H + C e^{-\alpha t}
+<p>$$<br>
+T(t) = H + C e^{-\alpha t}<br>
 $$</p>
 <ul>
 <li>H：为环境维度，可以认为是平均票数，比如电商中的平均销量，由于不影响排序，可以不使用。</li>
@@ -519,12 +526,11 @@ $$</p>
 <li>t：为物品存在时间，一般以小时为单位。</li>
 <li>\alpha：是冷却系数，反映物品自然冷却的快慢。</li>
 </ul>
-
-
-
-<h2 id="其他算法"><a href="#其他算法" class="headerlink" title="其他算法"></a>其他算法</h2><h3 id="加权采样算法"><a href="#加权采样算法" class="headerlink" title="加权采样算法"></a>加权采样算法</h3><p>有限数据集</p>
-<p>$$
-S_{i} = R^{\frac{1}{w_{i}}}
+<h2>其他算法</h2>
+<h3>加权采样算法</h3>
+<p>有限数据集</p>
+<p>$$<br>
+S_{i} = R^{\frac{1}{w_{i}}}<br>
 $$</p>
 <ol>
 <li>wi 是每个样本的权重，比如用户标签权重；</li>
@@ -532,7 +538,6 @@ $$</p>
 <li>Si 就是每个样本的采样分数</li>
 </ol>
 <p>你可以看到，每个样本采样概率和它的权重成正比。</p>
-
 <p>指数分布采样</p>
 <p>无限数据集：蓄水池采样</p>
 <p>内容去重算法</p>
@@ -540,7 +545,8 @@ $$</p>
 <li>Simhash</li>
 <li>布隆过滤器</li>
 </ul>
-<h1 id="工程实践"><a href="#工程实践" class="headerlink" title="工程实践"></a>工程实践</h1><p>信息流，feed流</p>
+<h1>工程实践</h1>
+<p>信息流，feed流</p>
 <p>信息流框架</p>
 <p>Netflix架构</p>
 <p>TODO</p>
@@ -552,10 +558,10 @@ $$</p>
    j.async = true;
    e.parentNode.insertBefore(j, e);
 })(document, 'script');
-</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://zekizz.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLP/">NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLU/">NLU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/visualisation/">visualisation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐系统/">推荐系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/知识图谱/">知识图谱</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/excel/" style="font-size: 15px;">excel</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a> <a href="/tags/深度学习/" style="font-size: 15px;">深度学习</a> <a href="/tags/NER/" style="font-size: 15px;">NER</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/graph-embedding/" style="font-size: 15px;">graph embedding</a> <a href="/tags/半监督分类/" style="font-size: 15px;">半监督分类</a> <a href="/tags/CRF/" style="font-size: 15px;">CRF</a> <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/不蒜子/" style="font-size: 15px;">不蒜子</a> <a href="/tags/liveRe/" style="font-size: 15px;">liveRe</a> <a href="/tags/RNN/" style="font-size: 15px;">RNN</a> <a href="/tags/数据生成/" style="font-size: 15px;">数据生成</a> <a href="/tags/NLU/" style="font-size: 15px;">NLU</a> <a href="/tags/概率图模型/" style="font-size: 15px;">概率图模型</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/博客/" style="font-size: 15px;">博客</a> <a href="/tags/语音处理/" style="font-size: 15px;">语音处理</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/推荐系统/" style="font-size: 15px;">推荐系统</a> <a href="/tags/文本处理/" style="font-size: 15px;">文本处理</a> <a href="/tags/知识图谱/" style="font-size: 15px;">知识图谱</a> <a href="/tags/论文学习/" style="font-size: 15px;">论文学习</a> <a href="/tags/甜/" style="font-size: 15px;">甜</a> <a href="/tags/multi-label/" style="font-size: 15px;">multi-label</a> <a href="/tags/sklearn/" style="font-size: 15px;">sklearn</a> <a href="/tags/可视化/" style="font-size: 15px;">可视化</a> <a href="/tags/文件/" style="font-size: 15px;">文件</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/ubuntu/mac-ubuntu-vnc/">mac通过vnc连接ubuntu远程桌面</a></li><li class="post-list-item"><a class="post-list-link" href="/知识图谱/math-graph/">论文学习——MathGraph</a></li><li class="post-list-item"><a class="post-list-link" href="/NLP/chatito/">NLP训练数据生成之chatito</a></li><li class="post-list-item"><a class="post-list-link" href="/Blog/blog-comment-view/">hexo添加评论和访问统计填坑</a></li><li class="post-list-item"><a class="post-list-link" href="/ML/sklearn-multi-label/">考虑未定义类型的多分类</a></li><li class="post-list-item"><a class="post-list-link" href="/visualisation/vue文件上传下载/">vue文件上传下载</a></li><li class="post-list-item"><a class="post-list-link" href="/NLU/nlu-survey/">NLU调研</a></li><li class="post-list-item"><a class="post-list-link" href="/python/configparse/">configparser配置解析</a></li><li class="post-list-item"><a class="post-list-link" href="/others/excel_trick/">excel去除文本中的不可打印字符</a></li><li class="post-list-item"><a class="post-list-link" href="/git/git_notes/">git笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.csdn.net/crystal_zero" title="zeki的csdn" target="_blank">zeki的csdn</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://zekizz.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLP/">NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLU/">NLU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/visualisation/">visualisation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐系统/">推荐系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/知识图谱/">知识图谱</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a> <a href="/tags/深度学习/" style="font-size: 15px;">深度学习</a> <a href="/tags/NER/" style="font-size: 15px;">NER</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/excel/" style="font-size: 15px;">excel</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/graph-embedding/" style="font-size: 15px;">graph embedding</a> <a href="/tags/半监督分类/" style="font-size: 15px;">半监督分类</a> <a href="/tags/CRF/" style="font-size: 15px;">CRF</a> <a href="/tags/数据生成/" style="font-size: 15px;">数据生成</a> <a href="/tags/NLU/" style="font-size: 15px;">NLU</a> <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/不蒜子/" style="font-size: 15px;">不蒜子</a> <a href="/tags/liveRe/" style="font-size: 15px;">liveRe</a> <a href="/tags/概率图模型/" style="font-size: 15px;">概率图模型</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/RNN/" style="font-size: 15px;">RNN</a> <a href="/tags/博客/" style="font-size: 15px;">博客</a> <a href="/tags/语音处理/" style="font-size: 15px;">语音处理</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/知识图谱/" style="font-size: 15px;">知识图谱</a> <a href="/tags/论文学习/" style="font-size: 15px;">论文学习</a> <a href="/tags/推荐系统/" style="font-size: 15px;">推荐系统</a> <a href="/tags/甜/" style="font-size: 15px;">甜</a> <a href="/tags/文本处理/" style="font-size: 15px;">文本处理</a> <a href="/tags/multi-label/" style="font-size: 15px;">multi-label</a> <a href="/tags/sklearn/" style="font-size: 15px;">sklearn</a> <a href="/tags/可视化/" style="font-size: 15px;">可视化</a> <a href="/tags/文件/" style="font-size: 15px;">文件</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/python/pycharm-remote/">pycharm远程连接并运行</a></li><li class="post-list-item"><a class="post-list-link" href="/ubuntu/mac-ubuntu-vnc/">mac通过vnc连接ubuntu远程桌面</a></li><li class="post-list-item"><a class="post-list-link" href="/知识图谱/math-graph/">论文学习——MathGraph</a></li><li class="post-list-item"><a class="post-list-link" href="/NLP/chatito/">NLP训练数据生成之chatito</a></li><li class="post-list-item"><a class="post-list-link" href="/Blog/blog-comment-view/">hexo添加评论和访问统计填坑</a></li><li class="post-list-item"><a class="post-list-link" href="/ML/sklearn-multi-label/">考虑未定义类型的多分类</a></li><li class="post-list-item"><a class="post-list-link" href="/visualisation/vue文件上传下载/">vue文件上传下载</a></li><li class="post-list-item"><a class="post-list-link" href="/NLU/nlu-survey/">NLU调研</a></li><li class="post-list-item"><a class="post-list-link" href="/python/configparse/">configparser配置解析</a></li><li class="post-list-item"><a class="post-list-link" href="/others/excel_trick/">excel去除文本中的不可打印字符</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.csdn.net/crystal_zero" title="zeki的csdn" target="_blank">zeki的csdn</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <span>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 <span>总访客<span id="busuanzi_value_site_uv"></span>人</span>
-<br>Copyright © 2019 <a href="/." rel="nofollow">给荔枝打气.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><!-- MathJax配置，可通过单美元符号书写行内公式等 --><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+<br>Copyright © 2020 <a href="/." rel="nofollow">给荔枝打气.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><!-- MathJax配置，可通过单美元符号书写行内公式等 --><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {
   inlineMath: [['$','$'], ['\\(','\\)']],
   processEscapes: true,

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zekizz.github.io/python/pycharm-remote/</loc>
+    <lastmod>2020-02-03</lastmod>
+  </url>  <url>
     <loc>https://zekizz.github.io/Blog/blog-comment-view/</loc>
     <lastmod>2019-12-17</lastmod>
   </url>  <url>
@@ -73,10 +76,10 @@
     <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-2/</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/</loc>
+    <loc>https://zekizz.github.io/python/configparse/</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
-    <loc>https://zekizz.github.io/python/configparse/</loc>
+    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/</loc>
     <lastmod>2019-10-13</lastmod>
   </url>  <url>
     <loc>https://zekizz.github.io/%E5%BF%83%E6%83%85/%E7%94%9C/</loc>

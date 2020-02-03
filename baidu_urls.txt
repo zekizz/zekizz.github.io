@@ -1,3 +1,4 @@
+https://zekizz.github.io/python/pycharm-remote/
 https://zekizz.github.io/ubuntu/mac-ubuntu-vnc/
 https://zekizz.github.io/知识图谱/math-graph/
 https://zekizz.github.io/NLP/chatito/
@@ -7,4 +8,3 @@ https://zekizz.github.io/visualisation/vue文件上传下载/
 https://zekizz.github.io/NLU/nlu-survey/
 https://zekizz.github.io/python/configparse/
 https://zekizz.github.io/others/excel_trick/
-https://zekizz.github.io/git/git_notes/
