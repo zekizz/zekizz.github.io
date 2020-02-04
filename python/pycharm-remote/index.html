@@ -7,23 +7,20 @@
   })();
   </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">pycharm远程连接并运行</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">pycharm远程连接并运行</h1><div class="post-meta">Feb 3, 2020<span> | </span><span class="category"><a href="/categories/python/">python</a></span><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>使用pycharm远程连接repo并远程运行。</p>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><a id="more"></a>
-<h2>配置</h2>
-<ol>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
 <li>本地新建repo（可以先clone远程repo），并用Pycharm（pycharm-professional-2019.3.2）打开</li>
 <li>选择pycharm中，<code>Tools &gt; Deployment &gt; Configuration</code>，点击左上角的<code>+</code>，添加配置</li>
-<li>配置信息说明
-<ol>
-<li>Connection
-<ol>
+<li>配置信息说明<ol>
+<li>Connection<ol>
 <li>Type: SFTP</li>
 <li>Host: 远程ip地址</li>
 <li>User name: 远程机器用户名</li>
 <li>Password: 远程机器密码</li>
-<li>Root path: 远程根目录，需要自己选择</li>
+<li>Root path: 远程根目录，需要自己选择（更新：最好选择根目录，防止后面mapping出问题）</li>
 </ol>
 </li>
-<li>Mappings
-<ol>
+<li>Mappings<ol>
 <li>Local path: 本地repo地址</li>
 <li>Deployment path: 远程repo地址</li>
 <li>Web path: 暂时不用设置，貌似 Web 相关的程序会用到</li>
@@ -32,8 +29,7 @@
 <li>Excluded Paths: 可以设置一些不想同步的目录，例如软件的配置文件目录等，可忽略</li>
 </ol>
 </li>
-<li>以上弄完，点击确认，接着配置解释器
-<ol>
+<li>以上弄完，点击确认，接着配置解释器<ol>
 <li>打开<code>Pycharm &gt; Preferences &gt; Project &gt; Project Interpreter</code></li>
 <li>点击<code>project Interpreter</code>右边的齿轮，点击<code>Add</code></li>
 <li>选择<code>SSH Interpreter</code>，由于之前（第3步）配置过远程连接，直接选择<code>Existing server configuration</code>即可</li>
@@ -43,12 +39,10 @@
 </ol>
 </li>
 </ol>
-<h2>使用</h2>
-<h3>上传文件</h3>
-<p>新版默认是及时同步，手动同步选择<code>Tools &gt; Deployment &gt; Upload to</code></p>
-<h3>运行程序</h3>
-<p>直接右键运行即可，与本地运行没有使用上差异，实际上从控制台可以看出，是ssh远程执行</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>新版默认是及时同步，手动同步选择<code>Tools &gt; Deployment &gt; Upload to</code></p>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><p>直接右键运行即可，与本地运行没有使用上差异，实际上从控制台可以看出，是ssh远程执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh://user@rempte_ip:22/home/user/anaconda3/envs/nlp3/bin/python3 -u /home/user/test_repo_path/test.py</span><br></pre></td></tr></table></figure>
+
 </div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>zeki</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/python/pycharm-remote/">https://zekizz.github.io/python/pycharm-remote/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外均为博主原创，转载请注明出处！</li></ul></div><br><div class="tags"><a href="/tags/python/">python</a></div><div class="post-nav"><a class="next" href="/ubuntu/mac-ubuntu-vnc/">mac通过vnc连接ubuntu远程桌面</a></div><div id="lv-container" data-id="city" data-uid="MTAyMC80NzQ1Ni8yMzk1Ng=="><script>(function(d, s) {
    var j, e = d.getElementsByTagName(s)[0];
    if (typeof LivereTower === 'function') { return; }
