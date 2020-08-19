@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zekizz.github.io/404.html</loc>
+    
+    <lastmod>2020-08-19T14:53:31.958Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/friends/index.html</loc>
+    
+    <lastmod>2020-08-19T14:42:39.276Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/contact/index.html</loc>
+    
+    <lastmod>2020-08-19T14:42:16.279Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/about/index.html</loc>
+    
+    <lastmod>2020-08-19T14:41:42.395Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/tags/index.html</loc>
+    
+    <lastmod>2020-08-19T14:41:13.965Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/categories/index.html</loc>
+    
+    <lastmod>2020-08-19T14:41:01.456Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zekizz.github.io/python/pycharm-remote/</loc>
     
     <lastmod>2020-02-04T11:10:06.390Z</lastmod>
@@ -114,14 +156,14 @@
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
+    <loc>https://zekizz.github.io/html/html-tag/</loc>
     
     <lastmod>2019-10-13T09:20:48.302Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/html/html-tag/</loc>
+    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
     
     <lastmod>2019-10-13T09:20:48.302Z</lastmod>
     
@@ -194,13 +236,6 @@
     <loc>https://zekizz.github.io/%E5%BF%83%E6%83%85/%E7%94%9C/</loc>
     
     <lastmod>2019-10-13T09:20:48.296Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/%E7%94%9C/index.html</loc>
-    
-    <lastmod>2019-10-13T09:20:48.295Z</lastmod>
     
   </url>
   

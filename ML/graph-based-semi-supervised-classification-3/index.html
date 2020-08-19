@@ -1,106 +1,1244 @@
-<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>图半监督节点分类之三——基于循环神经网络 | 给荔枝打气</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/img/iconL.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script><!-- hexo-inject:begin --><!-- hexo-inject:end -->var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = 'https://hm.baidu.com/hm.js?' + '9v8oIeMvyrTiR5LW';
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-  })();
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end --></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">图半监督节点分类之三——基于循环神经网络</h1><a id="logo" href="/.">给荔枝打气</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">图半监督节点分类之三——基于循环神经网络</h1><div class="post-meta">Oct 3, 2018<span> | </span><span class="category"><a href="/categories/ML/">ML</a></span><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="post-content"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>高阶依赖建模一直是图编码研究的热门话题，通过高阶依赖建模能捕获更长的网络结构依赖，保持节点之间的高阶近似。直观上，两个节点没有边相连，并不意味着这两个节点不相似。相反，如果两个节点在网络上通过某些节点能建立很强的联系，这两个节点仍然可以被认为相似。上一章提出的GCN-CRF模型，是基于GCN做图编码的。但是GCN是基于图上谱卷积的一阶近似方法，从而只能捕获一阶依赖。本章的目标是对更远的依赖范围进行建模。接下来的部分将具体给出针对高阶依赖进行建模的思考与建模过程。</p>
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><a id="more"></a>
-<h1>高阶依赖建模</h1>
-<p>本文认为不同节点之间的$k$阶关系信息（对于不同的$k$值）揭示了与该图相关的有用的全局结构信息，并且在学习一个良好的图表示时，显式充分利用这一点非常重要。 下图给出了一些说明性的例子<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，展示了对于节点$A_1$和$A_2$，需要捕获$k$阶（对于$k=2,3,4$）关系的重要性。<br>
-<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/high-order.png" alt="在图中捕获高阶依赖的示意图。"><br>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta name="keywords" content="图半监督节点分类之三——基于循环神经网络, 给荔枝打气">
+    <meta name="description" content>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>图半监督节点分类之三——基于循环神经网络 | 给荔枝打气</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">给荔枝打气</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">给荔枝打气</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">图半监督节点分类之三——基于循环神经网络</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/machine-learning/">
+                                <span class="chip bg-color">machine learning</span>
+                            </a>
+                        
+                            <a href="/tags/深度学习/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/graph-embedding/">
+                                <span class="chip bg-color">graph embedding</span>
+                            </a>
+                        
+                            <a href="/tags/半监督分类/">
+                                <span class="chip bg-color">半监督分类</span>
+                            </a>
+                        
+                            <a href="/tags/RNN/">
+                                <span class="chip bg-color">RNN</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/ML/" class="post-category">
+                                ML
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-10-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>高阶依赖建模一直是图编码研究的热门话题，通过高阶依赖建模能捕获更长的网络结构依赖，保持节点之间的高阶近似。直观上，两个节点没有边相连，并不意味着这两个节点不相似。相反，如果两个节点在网络上通过某些节点能建立很强的联系，这两个节点仍然可以被认为相似。上一章提出的GCN-CRF模型，是基于GCN做图编码的。但是GCN是基于图上谱卷积的一阶近似方法，从而只能捕获一阶依赖。本章的目标是对更远的依赖范围进行建模。接下来的部分将具体给出针对高阶依赖进行建模的思考与建模过程。</p>
+<a id="more"></a>
+
+
+<h1 id="高阶依赖建模"><a href="#高阶依赖建模" class="headerlink" title="高阶依赖建模"></a>高阶依赖建模</h1><p>本文认为不同节点之间的$k$阶关系信息（对于不同的$k$值）揭示了与该图相关的有用的全局结构信息，并且在学习一个良好的图表示时，显式充分利用这一点非常重要。 下图给出了一些说明性的例子[^cao2015grarep]，展示了对于节点$A_1$和$A_2$，需要捕获$k$阶（对于$k=2,3,4$）关系的重要性。
+<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/high-order.png" alt="在图中捕获高阶依赖的示意图。">
 在该图中，粗线表示两个顶点之间的强关系，而细线表示较弱的关系。图a)示意了2阶信息，其中节点$A_1$和节点$A_2$没有直接相连，但是共享了很多邻居。显然，两阶信息对于捕捉两个节点之间的连接强度是非常重要的，它们共享的邻居越多，它们之间的关系也就越强。图b)展示了3阶邻居信息。节点$B$和节点$A_2$之间的大量共同邻居，增强了节点$A_1$和节点$A_2$之间的联系。图c)描述了4阶邻居的情况。从节点$A_1$到节点$A_2$需要走4步，但是$A_1$和$A_2$分别与$B_1$和$B_2$有很强的连接关系而且$B_1$和$B_2$共享了4个邻居，这使得$A_1$和$A_2$之间的关系很明显是很强的。显然，为了利用全局结构信息学得更好的图表达，高阶依赖的信息必不可少。</p>
-<p>图中的高阶近似度量一般可以表示为非对称的概率转移矩阵$S$，反映节点之间的相关程度。一种直观的方式便是学习得到该概率转移矩阵，然后用该矩阵$S$替代上一篇文章中分类任务的邻接矩阵$A$。常见的概率转移矩阵$S$的计算方式有：Katz Index、Rooted PageRank、Common Neighbors和Adamic-Adar等。以上高阶近似的度量方式虽然简单，但是需要计算两个大矩阵之间的乘法，当网络中的节点数目$N$较大时，时间和空间的开销都较大。因此，本文并没有采用以上方式来对高阶依赖进行建模。受CLN（Column Network）<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>的启发，本文采用多个隐层堆叠的方式来对高阶依赖建模。下图展示了CLN是如何通过堆叠多个隐层来捕获高阶依赖的：<br>
-<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/CLN_high-order.png" alt="一个展示CLN如何捕获高阶依赖的示意图"><br>
+<p>图中的高阶近似度量一般可以表示为非对称的概率转移矩阵$S$，反映节点之间的相关程度。一种直观的方式便是学习得到该概率转移矩阵，然后用该矩阵$S$替代上一篇文章中分类任务的邻接矩阵$A$。常见的概率转移矩阵$S$的计算方式有：Katz Index、Rooted PageRank、Common Neighbors和Adamic-Adar等。以上高阶近似的度量方式虽然简单，但是需要计算两个大矩阵之间的乘法，当网络中的节点数目$N$较大时，时间和空间的开销都较大。因此，本文并没有采用以上方式来对高阶依赖进行建模。受CLN（Column Network）[^pham2017column]的启发，本文采用多个隐层堆叠的方式来对高阶依赖建模。下图展示了CLN是如何通过堆叠多个隐层来捕获高阶依赖的：
+<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/CLN_high-order.png" alt="一个展示CLN如何捕获高阶依赖的示意图">
 在图中，左侧是一个简单的拥有4个节点的图结构，右侧是其对应的CLN模型。CLN根据邻接矩阵$A$来对构建层与层之间的连接关系。图中高亮了推理节点$v_4$的过程。这里的示意图有两个隐层，因此能捕获二阶依赖。从推理结果$y_4$反向看过来，首先 $y_4$ 是基于隐层 $ h_4^2 $（编码结果）通过分类器得到的，而 $ h_4^2$ 通过邻接矩阵$A$接受前一个隐层的输入 $ h_3^1 $ 和其本身 $h_4^1$ 。该过程为通过邻接矩阵$A$捕获的一阶依赖。通过两个隐层的堆叠，最终$y_4$的计算依赖于图中所有节点：$ x_1 $ 到 $ x_4 $ ，因此隐式捕获了二阶依赖。 堆叠更多的隐层将会捕获更高阶的依赖关系。</p>
-<h1>Graph-GRU</h1>
-<h2>模型结构与解释</h2>
-<p>然而，CLN本质上仍是全连接的前馈神经网络，只是根据邻接矩阵舍弃了一些连接，因此隐层的数目不能太多，太多不利于梯度的反向传播，造成梯度消失或者梯度爆炸。从CLN中不难发现，从节点特征$X$到推理结果$y_4$的过程可以视为四个前向序列。循环神经网络（Recurrent Neural Networks, RNN）为一种常用的处理序列数据的方案，最常使用的RNN模型为LSTM（Long-Short-Term-Memories）模型。为了捕获长距离依赖，LSTM引入门（Gate）的机制来解决序列过长造成的梯度爆炸和梯度消失问题。 LSTM的单元模块中有三个门：遗忘门$f_t$、输入门$i_t$和输出门$o_t$。遗忘门$f_t$控制忘记多少上一时刻的单元状态$c_{t-1}$，并将剩余的信息累积到当前时刻的单元状态$c_{t}$中。输入门$i_t$控制当前时刻的信息有多少可以融入cell状态$c_t$中。输出门$o_t$控制当前时刻的单元状态$c_t$有哪些信息需要输出到当前时刻隐状态$h_t$。LSTM中最核心的是单元状态$c_t$。$c_t$ 像一个传送带，直接打通整个LSTM序列。在整个前向传播的过程中只在$c_t$上进行一些简单的线性操作，通过门来控制$c_t$中信息的增减，这使得信息可以沿着它以不变的方式流过序列。由于是线性操作，在反向求梯度的时候，将一般多层前馈求梯度中的乘法变成了加减法，从而解决累乘造成的梯度爆炸和消失问题。</p>
-<p>RNN一般用于语音、词序列和时间序列等一维的序列结构，但是本文现在要处理的问题是二维的网络结构，两者的共同之处是，本文同样需要学习长的邻居依赖。这个模型的迁移就是本章工作的要点。近期，Liang<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>提出了Graph LSTM，扩展传统的LSTM模型，使其可以应用在图结构的数据上。Graph LSTM通过以语义上的超像素为节点，节点之间的空间邻近关系作为边，构建无向图。与传统LSTM向固定的序列邻居结构传递消息不同的是，Graph LSTM的每个超像素节点向图结构上的其他邻近超像素节点传递消息，不同节点的邻居结构是不同的。在节点的信息更新上，首先通过自适应的方式选出一个开始节点，然后按照信心驱动方案（Confidence-driven Scheme）来确定更新序列。这样确实是一种常规的方案，但是在模型的训练过程中需要提前训练好前面的CNN层，然后再更新LSTM节点，最后用梯度下降来调整参数。虽然是端到端的模型，但是需要两次训练，而且更新LSTM节点的过程，不仅在实现上比较麻烦，而且计算过程也会比较费时。因为必须按顺序更新，不是一个同步的过程。借鉴于LSTM的思想，本章提出了另外一种在图结构上实施RNN的方案。为了进一步减少模型参数，本文采用了LSTM的一种变体GRU（Gated Recurrent Units）<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>作为基本单元模块，并提出了图门控循环单元模型，Graph-GRU（Graph Gated Recurrent Units），采用RNN来保持$k$阶近似。</p>
-<p>如果把构建的二维无向图平放在一个平面上，Graph LSTM方案可以说是在水平方向上构建RNN模型。那么本章提出的Graph-GRU可以视为在“竖直”方向构建RNN，通过复制构建的图使得每个隐层代表一个图，隐层与隐层之间通过邻接矩阵$A$构建连接，就像CLN那样。与CLN不同的是，Graph-GRU将隐层中的每个节点替换成了RNN单元，在隐层之间构建GRU，从而解决梯度爆炸和梯度消失的问题。这使得Graph-GRU将RNN变成在隐层之间的前馈过程，并能构建更深的模型，捕获更长范围的依赖，构建保持更高阶近似的模型。结构如下图：<br>
-<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/model_graph-gru.png" alt="一个拥有两个隐层的Graph-GRU模型的模型结构"><br>
+<h1 id="Graph-GRU"><a href="#Graph-GRU" class="headerlink" title="Graph-GRU"></a>Graph-GRU</h1><h2 id="模型结构与解释"><a href="#模型结构与解释" class="headerlink" title="模型结构与解释"></a>模型结构与解释</h2><p>然而，CLN本质上仍是全连接的前馈神经网络，只是根据邻接矩阵舍弃了一些连接，因此隐层的数目不能太多，太多不利于梯度的反向传播，造成梯度消失或者梯度爆炸。从CLN中不难发现，从节点特征$X$到推理结果$y_4$的过程可以视为四个前向序列。循环神经网络（Recurrent Neural Networks, RNN）为一种常用的处理序列数据的方案，最常使用的RNN模型为LSTM（Long-Short-Term-Memories）模型。为了捕获长距离依赖，LSTM引入门（Gate）的机制来解决序列过长造成的梯度爆炸和梯度消失问题。 LSTM的单元模块中有三个门：遗忘门$f_t$、输入门$i_t$和输出门$o_t$。遗忘门$f_t$控制忘记多少上一时刻的单元状态$c_{t-1}$，并将剩余的信息累积到当前时刻的单元状态$c_{t}$中。输入门$i_t$控制当前时刻的信息有多少可以融入cell状态$c_t$中。输出门$o_t$控制当前时刻的单元状态$c_t$有哪些信息需要输出到当前时刻隐状态$h_t$。LSTM中最核心的是单元状态$c_t$。$c_t$ 像一个传送带，直接打通整个LSTM序列。在整个前向传播的过程中只在$c_t$上进行一些简单的线性操作，通过门来控制$c_t$中信息的增减，这使得信息可以沿着它以不变的方式流过序列。由于是线性操作，在反向求梯度的时候，将一般多层前馈求梯度中的乘法变成了加减法，从而解决累乘造成的梯度爆炸和消失问题。</p>
+<p>RNN一般用于语音、词序列和时间序列等一维的序列结构，但是本文现在要处理的问题是二维的网络结构，两者的共同之处是，本文同样需要学习长的邻居依赖。这个模型的迁移就是本章工作的要点。近期，Liang[^liang2016semantic]提出了Graph LSTM，扩展传统的LSTM模型，使其可以应用在图结构的数据上。Graph LSTM通过以语义上的超像素为节点，节点之间的空间邻近关系作为边，构建无向图。与传统LSTM向固定的序列邻居结构传递消息不同的是，Graph LSTM的每个超像素节点向图结构上的其他邻近超像素节点传递消息，不同节点的邻居结构是不同的。在节点的信息更新上，首先通过自适应的方式选出一个开始节点，然后按照信心驱动方案（Confidence-driven Scheme）来确定更新序列。这样确实是一种常规的方案，但是在模型的训练过程中需要提前训练好前面的CNN层，然后再更新LSTM节点，最后用梯度下降来调整参数。虽然是端到端的模型，但是需要两次训练，而且更新LSTM节点的过程，不仅在实现上比较麻烦，而且计算过程也会比较费时。因为必须按顺序更新，不是一个同步的过程。借鉴于LSTM的思想，本章提出了另外一种在图结构上实施RNN的方案。为了进一步减少模型参数，本文采用了LSTM的一种变体GRU（Gated Recurrent Units）[^Cho2014Learning]作为基本单元模块，并提出了图门控循环单元模型，Graph-GRU（Graph Gated Recurrent Units），采用RNN来保持$k$阶近似。</p>
+<p>如果把构建的二维无向图平放在一个平面上，Graph LSTM方案可以说是在水平方向上构建RNN模型。那么本章提出的Graph-GRU可以视为在“竖直”方向构建RNN，通过复制构建的图使得每个隐层代表一个图，隐层与隐层之间通过邻接矩阵$A$构建连接，就像CLN那样。与CLN不同的是，Graph-GRU将隐层中的每个节点替换成了RNN单元，在隐层之间构建GRU，从而解决梯度爆炸和梯度消失的问题。这使得Graph-GRU将RNN变成在隐层之间的前馈过程，并能构建更深的模型，捕获更长范围的依赖，构建保持更高阶近似的模型。结构如下图：
+<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/model_graph-gru.png" alt="一个拥有两个隐层的Graph-GRU模型的模型结构">
 假设有一个包含5个节点的无向图，如图中左边部分所示，其对应的Graph-GRU模型的模型结构见图中右边部分。图中矩形框为GRU单元，一个GRU单元代表网络中的一个节点。该单元可以视为一系列运算的集合，只是这些运算在不同节点上重复出现，因此将其模块化来简化求解。可以看到，每一层有5个节点，代表左边无向图中的5个节点，层与层之间的连接反映了左边无向图的图结构。通过构建多层网络，最后输出层的每个节点可以捕获多步邻居的依赖，这个具体已经在上一小节中给出了解释。当然，随着层数的增多，会使模型变复杂，训练更费时，求解更困难。通过实验分析，本文最终选择的隐层层数为5-6层。</p>
-<p>按照上一篇文章中的公式定义，$X \in \mathbb{R}^{N \times d}$为输入特征矩阵，$W^1  \in \mathbb{R}^{d \times h}$ 和 $W^2  \in \mathbb{R}^{h \times c}$为可以训练的隐层权重矩阵，其中$N$为网络中节点个数，$d$为输入特征维度，$h$为编码空间的维度，$c$为类别个数。$H^i \in \mathbb{R}^{N \times h}$ 为第$i$个隐层的输出。在Graph-GRU中，输入特征首先被映射到一个$h$维的隐空间：<br>
-$$ H^0 = \sigma (XW^1) $$<br>
-其中$\sigma$为非线性激活函数，本文选用ReLu激活函数。接下来，信息在隐层之间传播。隐藏层之间的连接由图结构（邻接矩阵$A$）引导。 也就是说，如果图中节点 $ v_i $ 与 $ v_j $ 有边相连，第$t-1$个隐层中的第$i$个节点 $h_i^{t-1}$ 将连接下一隐层的第$j$个节点 $ h_j^t $ 。</p>
+<p>按照上一篇文章中的公式定义，$X \in \mathbb{R}^{N \times d}$为输入特征矩阵，$W^1  \in \mathbb{R}^{d \times h}$ 和 $W^2  \in \mathbb{R}^{h \times c}$为可以训练的隐层权重矩阵，其中$N$为网络中节点个数，$d$为输入特征维度，$h$为编码空间的维度，$c$为类别个数。$H^i \in \mathbb{R}^{N \times h}$ 为第$i$个隐层的输出。在Graph-GRU中，输入特征首先被映射到一个$h$维的隐空间：
+$$ H^0 = \sigma (XW^1) $$
+其中$\sigma$为非线性激活函数，本文选用ReLu激活函数。接下来，信息在隐层之间传播。隐藏层之间的连接由图结构（邻接矩阵$A$）引导。 也就是说，如果图中节点 $ v_i $ 与 $ v_j $ 有边相连，第$t-1$个隐层中的第$i$个节点 $h_i^{t-1}$ 将连接下一隐层的第$j$个节点 $ h_j^t $ 。 </p>
 <p>为了区分不同结构的邻居，本文采用了GCN中的处理技巧，使用再归一化后的图拉普拉斯矩阵$\widehat{A} $来作为图中边的连接权重。同时，节点$ h_i^{t-1} $也与节点 $ h_i^t $ 相连，来获取节点 $ v_i $ 自身在前一个隐层的输出。因为隐层之间为RNN的连接关系，$ h^t $ 便对应了RNN单元的单元输出。通过多个隐层的编码，最后一个隐层 $ H^t $ 的输出即为保持了高阶近似的图节点编码结果。基于该编码结果，最后连接一个softmax分类器来输出模型的分类结果 $ Y \in \mathbb{R}^{N \times c} $ ：</p>
 <p>$$ Y = \text{softmax} (H^t W^2) $$</p>
-<h2>RNN模块</h2>
-<p>接下来，本节对Graph-GRU中的RNN单元进行介绍，并解释信息是如何在隐层间前向传播的。首先需要注意的是，标准GRU单元模块有两个输入，当前时刻的输入特征$x_t$和前一时刻的隐状态$h_t$。但是，在本文处理的问题中，每个节点有多个邻居的输入和其自身的前一时刻的状态输入。为了弥补这一差异，本文将标准的GRU单元进行了一定的修改，将汇聚了邻居信息的$g^{t}$作为输入特征$x_t$并将上一个隐层的输出作为$h_t$。下描述了使用的RNN单元的内部结构。<br>
+<h2 id="RNN模块"><a href="#RNN模块" class="headerlink" title="RNN模块"></a>RNN模块</h2><p>接下来，本节对Graph-GRU中的RNN单元进行介绍，并解释信息是如何在隐层间前向传播的。首先需要注意的是，标准GRU单元模块有两个输入，当前时刻的输入特征$x_t$和前一时刻的隐状态$h_t$。但是，在本文处理的问题中，每个节点有多个邻居的输入和其自身的前一时刻的状态输入。为了弥补这一差异，本文将标准的GRU单元进行了一定的修改，将汇聚了邻居信息的$g^{t}$作为输入特征$x_t$并将上一个隐层的输出作为$h_t$。下描述了使用的RNN单元的内部结构。
 <img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/rnn_cell.png" alt="Graph-GRU中RNN单元的结构图"></p>
-<p>图示的RNN单元为第$t$个隐层的第$i$个RNN单元，对应于图中的节点$v_i$。该单元首先会接收节点$v_i$的上一个隐层的输出$ h^{t-1}_i $ ，这个过程与标准的GRU模型保持一致。不同的是GRU单元中的当前时刻的特征输入$x_t$，本文的GRU层是纵向前馈的，而且需要汇聚邻居的信息。在GCN中，节点汇聚了邻居的信息后，结合自己的旧信息，加权求和得到了自己的新信息。所以加权求和后的邻居信息一定程度反映了目标节点的信息，加权求和后的邻居信息也可以视为目标节点的上下文，故可以作为当前时刻的特征输入。于是，本文将$g^{t}$定义为：<br>
+<p>图示的RNN单元为第$t$个隐层的第$i$个RNN单元，对应于图中的节点$v_i$。该单元首先会接收节点$v_i$的上一个隐层的输出$ h^{t-1}_i $ ，这个过程与标准的GRU模型保持一致。不同的是GRU单元中的当前时刻的特征输入$x_t$，本文的GRU层是纵向前馈的，而且需要汇聚邻居的信息。在GCN中，节点汇聚了邻居的信息后，结合自己的旧信息，加权求和得到了自己的新信息。所以加权求和后的邻居信息一定程度反映了目标节点的信息，加权求和后的邻居信息也可以视为目标节点的上下文，故可以作为当前时刻的特征输入。于是，本文将$g^{t}$定义为：
 $$ g_i^t = \sum_{j \in N(i) } a_{ij} h_j^{t-1} $$</p>
-<p>其中$N(i)$为节点$v_i$的邻居集合，$a_{ij}$为节点$v_i$与节点$v_j$之间边的权重。这里本文采用GCN中计算方式：<br>
+<p>其中$N(i)$为节点$v_i$的邻居集合，$a_{ij}$为节点$v_i$与节点$v_j$之间边的权重。这里本文采用GCN中计算方式：
 $$\widehat{A} = \tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} $$</p>
-<p>使用$a_{ij} = \tilde{A}_{ij}$来度量节点间的相似性。上图中$h_m<sup>{t-1}$和$h_n</sup>{t-1}$示意节点$v_i$的邻居。与节点 $ h_i^{t-1} $ 一样，$ h_m^{t-1} $和$ h_n^{t-1} $也是RNN单元的输出，这里为了简洁起见，省略了它们的单元框。</p>
+<p>使用$a_{ij} = \tilde{A}_{ij}$来度量节点间的相似性。上图中$h_m^{t-1}$和$h_n^{t-1}$示意节点$v_i$的邻居。与节点 $ h_i^{t-1} $ 一样，$ h_m^{t-1} $和$ h_n^{t-1} $也是RNN单元的输出，这里为了简洁起见，省略了它们的单元框。</p>
 <p>得到了$ g^t $ 后，$ g^t $ 连同 $h_i^{t-1}$ 一起被送入GRU单元。在GRU单元中有两个门，重置门 $r^t$ 和更新门 $z^t $，其计算方式为：</p>
-<p>$$ r^t_i = \sigma (W^r g^t_i + U^r h^{t-1}_i) $$<br>
+<p>$$ r^t_i = \sigma (W^r g^t_i + U^r h^{t-1}_i) $$ 
 $$ z^t_i = \sigma (W^z g^t_i + U^z h^{t-1}_i) $$</p>
-<p>其中$W^r, U^r, W^z, U^z \in \mathbb{R}^{h \times h}$ 为各个门的可以训练的权重矩阵。这些权重在所有RNN单元上共享，增加GRU隐层不会增加模型参数。得到两个门后， 首先通过重置门 $r^t$ 来控制当前时刻需要保留多少上一时刻的信息，并得到候选隐状态 $\widetilde{h}^t$ ，等待输出。<br>
-$$ \widetilde{h}^t_i = \text{tanh}(g^t_i  +r^t_i h^{t-1}_i) $$<br>
-注意这里的计算与标准的GRU不同，如果按照原本的GRU，其计算方式为$\widetilde{h}^t_i = \text{tanh}(Wg^t_i  +r^t_i U h^{t-1}_i)$ 。 此处，本文省略了权重矩阵$W$和$U$来减少模型的参数。事实上，实验表明，这样的处理能提升推理正确率。 其次更新门 $ z_i^t $ 选择性地遗忘前一时刻的隐状态$h^{t-1}_i$，并加入当前时刻的隐状态信息，得到最终的输出 $h_i^t$ ：<br>
+<p>其中$W^r, U^r, W^z, U^z \in \mathbb{R}^{h \times h}$ 为各个门的可以训练的权重矩阵。这些权重在所有RNN单元上共享，增加GRU隐层不会增加模型参数。得到两个门后， 首先通过重置门 $r^t$ 来控制当前时刻需要保留多少上一时刻的信息，并得到候选隐状态 $\widetilde{h}^t$ ，等待输出。
+$$ \widetilde{h}^t_i = \text{tanh}(g^t_i  +r^t_i h^{t-1}_i) $$
+注意这里的计算与标准的GRU不同，如果按照原本的GRU，其计算方式为$\widetilde{h}^t_i = \text{tanh}(Wg^t_i  +r^t_i U h^{t-1}_i)$ 。 此处，本文省略了权重矩阵$W$和$U$来减少模型的参数。事实上，实验表明，这样的处理能提升推理正确率。 其次更新门 $ z_i^t $ 选择性地遗忘前一时刻的隐状态$h^{t-1}_i$，并加入当前时刻的隐状态信息，得到最终的输出 $h_i^t$ ： 
 $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
 <p>这里$\circ$为按位乘运算。由于$W$和$U$都是$h \times h$ 的矩阵，得到的门 $ r_i^t $ 与 $ z_i^t $ 均为$h$维的向量。也就是说，在特征的每个维度上都有个权重，控制每个维度信息的通过。</p>
-<h1>模型训练</h1>
-<p>Graph-GRU损失函数的定义与GCN-CRF的定义一致，本章不再赘述。对于模型的训练，本节更加关注的是模型的训练方式：Full Batch和Mini-batch。</p>
-<h2>Full Batch</h2>
-<p>Full Batch方式，顾名思义，每次进行训练时输入全部的训练样本，在全部样本上计算损失函数，然后针对每个参数计算梯度。全批次方式一般用于数据量较少的情况，由全数据集确定的方向能够更好地代表样本总体，从而更准确地朝向极值所在的方向 。数据量较大时，输入全部样本会造成内存开销太大和训练时间长等问题。但是，在图结构数据上，采用全批次方式似乎是最优的方法。由于图的整体结构的约束，去除任何样本，或者任何对样本的划分方式，都会造成网络结构的不完整，影响推理的准确性。因此目前基本所有图编码方法都是采用的全批次方式，上一章描述的GCN-CRF也是采用全批次方式进行训练的。</p>
+<h1 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h1><p>Graph-GRU损失函数的定义与GCN-CRF的定义一致，本章不再赘述。对于模型的训练，本节更加关注的是模型的训练方式：Full Batch和Mini-batch。</p>
+<h2 id="Full-Batch"><a href="#Full-Batch" class="headerlink" title="Full Batch"></a>Full Batch</h2><p>Full Batch方式，顾名思义，每次进行训练时输入全部的训练样本，在全部样本上计算损失函数，然后针对每个参数计算梯度。全批次方式一般用于数据量较少的情况，由全数据集确定的方向能够更好地代表样本总体，从而更准确地朝向极值所在的方向 。数据量较大时，输入全部样本会造成内存开销太大和训练时间长等问题。但是，在图结构数据上，采用全批次方式似乎是最优的方法。由于图的整体结构的约束，去除任何样本，或者任何对样本的划分方式，都会造成网络结构的不完整，影响推理的准确性。因此目前基本所有图编码方法都是采用的全批次方式，上一章描述的GCN-CRF也是采用全批次方式进行训练的。</p>
 <p>上文所示的GRU模型结构示意图就是全批次方式。由所有样本的特征组成的特征矩阵$X$被用作输入，通过Graph-GRU学得所有样本的类别标签$Y$。然后，部分节点（有标记的节点）的输出$y_i$会反向传播有监督损失，剩余节点保持不动。由于网络的连接，反向的梯度能传到网络中未标记节点。</p>
-<h2>Mini-batch</h2>
-<p>在Mini-batch方式中，每次挑选一部分（batch大小）样本用作训练，而不是全部数据，通过多次分批多次调整模型参数。如此一来，每次参与训练的数据量可以调控，不至于太大导致内存不够用，减少计算量，提高内存利用率。同时每次挑选一批样本而不是一个样本，可以减少梯度下降的随机性。因此小批次方式在大样本情况下得到了广泛的应用。<br>
+<h2 id="Mini-batch"><a href="#Mini-batch" class="headerlink" title="Mini-batch"></a>Mini-batch</h2><p>在Mini-batch方式中，每次挑选一部分（batch大小）样本用作训练，而不是全部数据，通过多次分批多次调整模型参数。如此一来，每次参与训练的数据量可以调控，不至于太大导致内存不够用，减少计算量，提高内存利用率。同时每次挑选一批样本而不是一个样本，可以减少梯度下降的随机性。因此小批次方式在大样本情况下得到了广泛的应用。
 值得注意的是，全批次和小批次方式一般都用于有监督学习，在半监督模型上采用小批次将会面临如何挑选合适的有标记和无标记样本的难题。倒是全批次方式不必担心这个问题，因为它将所有样本都用于了训练。根据上文所述，任何数据子集的选取方式都会造成网络的完整，故基于图半监督学习的小批次方式的构建是一个很有挑战和意义的问题。</p>
-<p>针对以上问题，本文给出了一种简单的小批次训练方式。对于每个batch，首先挑选一个目标节点集合（该batch的种子样本），这些节点最好是从一个社区或者紧密连接的节点群体中挑选。然后，所有种子节点的$k$阶邻居（这里$k$对应于Graph-GRU中隐层的数目）被挑选入当前batch的训练集合，并由这些节点构建一个局部子图。极端情况下，可以将整个网络中的每一个联通子图作为一个batch。<br>
+<p>针对以上问题，本文给出了一种简单的小批次训练方式。对于每个batch，首先挑选一个目标节点集合（该batch的种子样本），这些节点最好是从一个社区或者紧密连接的节点群体中挑选。然后，所有种子节点的$k$阶邻居（这里$k$对应于Graph-GRU中隐层的数目）被挑选入当前batch的训练集合，并由这些节点构建一个局部子图。极端情况下，可以将整个网络中的每一个联通子图作为一个batch。
 这样的挑选方式将使每个节点在模型中的计算方式（具体指依赖的$k$阶邻居）与全批次方式一致，同时也减少了每次参与训练的节点数目。最后在构建的子图上训练模型。不难看出，相同的节点可能出现在不同的batch中，那么节点的类别标签推理结果可以有两种方式确定：其一，对每个batch中的推理结果求平均、取最大或者投票的方式。其二，小批次只是用来调整模型中的参数，小批次训练结束后，将所有节点喂入模型，只计算前向过程，预测得到所有样本的类别标签。</p>
-<h2>参考文献</h2>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>CAO S, LU W, XU Q, 2015. Grarep: Learning graph representations with global structural information[C]//Proceedings of the 24th ACM International on Conference on Information and Knowledge Management. [S.l.]: ACM: 891–900. <a href="#fnref1" class="footnote-backref">↩</a></p>
-</li>
-<li id="fn2" class="footnote-item"><p>PHAM T, TRAN T, PHUNG D Q, et al., 2017. Column networks for collective classification.[C]//AAAI. [S.l.: s.n.]: 2485–2491. <a href="#fnref2" class="footnote-backref">↩</a></p>
-</li>
-<li id="fn3" class="footnote-item"><p>LIANG X, SHEN X, FENG J, et al., 2016. Semantic object parsing with graph lstm[C]//European Conference on Computer Vision. [S.l.]: Springer: 125–143. <a href="#fnref3" class="footnote-backref">↩</a></p>
-</li>
-<li id="fn4" class="footnote-item"><p>CHO K, VAN MERRIËNBOER B, GULCEHRE C, et al., 2014. Learning phrase representations using rnn encoder-decoder for statistical machine translation[J]. arXiv preprint arXiv:1406.1078. <a href="#fnref4" class="footnote-backref">↩</a></p>
-</li>
-</ol>
-</section>
-</div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>zeki</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="/ML/graph-based-semi-supervised-classification-3/">https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外均为博主原创，转载请注明出处！</li></ul></div><br><div class="tags"><a href="/tags/machine-learning/">machine learning</a><a href="/tags/深度学习/">深度学习</a><a href="/tags/graph-embedding/">graph embedding</a><a href="/tags/半监督分类/">半监督分类</a><a href="/tags/RNN/">RNN</a></div><div class="post-nav"><a class="pre" href="/ML/graph-based-semi-supervised-classification-4/">图半监督节点分类之四——基于自适应高阶近似编码</a><a class="next" href="/ML/graph-based-semi-supervised-classification-2/">图半监督节点分类之二——基于条件随机场</a></div><div id="lv-container" data-id="city" data-uid="MTAyMC80NzQ1Ni8yMzk1Ng=="><script>(function(d, s) {
-   var j, e = d.getElementsByTagName(s)[0];
-   if (typeof LivereTower === 'function') { return; }
-   j = d.createElement(s);
-   j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-   j.async = true;
-   e.parentNode.insertBefore(j, e);
-})(document, 'script');
-</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="https://zekizz.github.io"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ML/">ML</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLP/">NLP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/NLU/">NLU</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/html/">html</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/others/">others</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ubuntu/">ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/visualisation/">visualisation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/推荐系统/">推荐系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/知识图谱/">知识图谱</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/NLP/" style="font-size: 15px;">NLP</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine learning</a> <a href="/tags/深度学习/" style="font-size: 15px;">深度学习</a> <a href="/tags/NER/" style="font-size: 15px;">NER</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/excel/" style="font-size: 15px;">excel</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/graph-embedding/" style="font-size: 15px;">graph embedding</a> <a href="/tags/半监督分类/" style="font-size: 15px;">半监督分类</a> <a href="/tags/CRF/" style="font-size: 15px;">CRF</a> <a href="/tags/数据生成/" style="font-size: 15px;">数据生成</a> <a href="/tags/NLU/" style="font-size: 15px;">NLU</a> <a href="/tags/blog/" style="font-size: 15px;">blog</a> <a href="/tags/不蒜子/" style="font-size: 15px;">不蒜子</a> <a href="/tags/liveRe/" style="font-size: 15px;">liveRe</a> <a href="/tags/概率图模型/" style="font-size: 15px;">概率图模型</a> <a href="/tags/html/" style="font-size: 15px;">html</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/RNN/" style="font-size: 15px;">RNN</a> <a href="/tags/博客/" style="font-size: 15px;">博客</a> <a href="/tags/语音处理/" style="font-size: 15px;">语音处理</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/知识图谱/" style="font-size: 15px;">知识图谱</a> <a href="/tags/论文学习/" style="font-size: 15px;">论文学习</a> <a href="/tags/推荐系统/" style="font-size: 15px;">推荐系统</a> <a href="/tags/甜/" style="font-size: 15px;">甜</a> <a href="/tags/文本处理/" style="font-size: 15px;">文本处理</a> <a href="/tags/multi-label/" style="font-size: 15px;">multi-label</a> <a href="/tags/sklearn/" style="font-size: 15px;">sklearn</a> <a href="/tags/可视化/" style="font-size: 15px;">可视化</a> <a href="/tags/文件/" style="font-size: 15px;">文件</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/python/pycharm-remote/">pycharm远程连接并运行</a></li><li class="post-list-item"><a class="post-list-link" href="/ubuntu/mac-ubuntu-vnc/">mac通过vnc连接ubuntu远程桌面</a></li><li class="post-list-item"><a class="post-list-link" href="/知识图谱/math-graph/">论文学习——MathGraph</a></li><li class="post-list-item"><a class="post-list-link" href="/NLP/chatito/">NLP训练数据生成之chatito</a></li><li class="post-list-item"><a class="post-list-link" href="/Blog/blog-comment-view/">hexo添加评论和访问统计填坑</a></li><li class="post-list-item"><a class="post-list-link" href="/ML/sklearn-multi-label/">考虑未定义类型的多分类</a></li><li class="post-list-item"><a class="post-list-link" href="/visualisation/vue文件上传下载/">vue文件上传下载</a></li><li class="post-list-item"><a class="post-list-link" href="/NLU/nlu-survey/">NLU调研</a></li><li class="post-list-item"><a class="post-list-link" href="/python/configparse/">configparser配置解析</a></li><li class="post-list-item"><a class="post-list-link" href="/others/excel_trick/">excel去除文本中的不可打印字符</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.csdn.net/crystal_zero" title="zeki的csdn" target="_blank">zeki的csdn</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-<span>总访客<span id="busuanzi_value_site_uv"></span>人</span>
-<br>Copyright © 2020 <a href="/." rel="nofollow">给荔枝打气.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><!-- MathJax配置，可通过单美元符号书写行内公式等 --><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
-  tex2jax: {
-  inlineMath: [['$','$'], ['\\(','\\)']],
-  processEscapes: true,
-  ignoreClass: "tex2jax_ignore|dno",
-  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-  },
-  TeX: {
-  equationNumbers: { autoNumber: "AMS" },
-  noUndefined: {attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" }},
-  Macros: {href: "{}"}
-  },
-  messageStyle: "none",
-  "HTML-CSS": {
-  preferredFont: "TeX",
-  availableFonts: ["STIX","TeX"],
-  linebreaks: { automatic:true },
-  EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) 
-  }
-  });
-</script><!-- 给MathJax元素添加has-jax class --><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
- var all = MathJax.Hub.getAllJax(), i;
- for(i=0; i < all.length; i += 1) {
-   all[i].SourceElement().parentNode.className += ' has-jax';
-   }
- });
-</script><!-- script(type='text/javascript', src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML') --><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[^cao2015grarep]: CAO S, LU W, XU Q, 2015. Grarep: Learning graph representations with global structural information[C]//Proceedings of the 24th ACM International on Conference on Information and Knowledge Management. [S.l.]: ACM: 891–900.
+[^pham2017column]: PHAM T, TRAN T, PHUNG D Q, et al., 2017. Column networks for collective classification.[C]//AAAI. [S.l.: s.n.]: 2485–2491.
+[^liang2016semantic]: LIANG X, SHEN X, FENG J, et al., 2016. Semantic object parsing with graph lstm[C]//European Conference on Computer Vision. [S.l.]: Springer: 125–143.
+[^Cho2014Learning]: CHO K, VAN MERRIËNBOER B, GULCEHRE C, et al., 2014. Learning phrase representations using rnn encoder-decoder for statistical machine translation[J]. arXiv preprint arXiv:1406.1078.</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">zekizz</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/">https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">zekizz</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/machine-learning/">
+                                    <span class="chip bg-color">machine learning</span>
+                                </a>
+                            
+                                <a href="/tags/深度学习/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/graph-embedding/">
+                                    <span class="chip bg-color">graph embedding</span>
+                                </a>
+                            
+                                <a href="/tags/半监督分类/">
+                                    <span class="chip bg-color">半监督分类</span>
+                                </a>
+                            
+                                <a href="/tags/RNN/">
+                                    <span class="chip bg-color">RNN</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/ML/graph-based-semi-supervised-classification-4/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="图半监督节点分类之四——基于自适应高阶近似编码">
+                        
+                        <span class="card-title">图半监督节点分类之四——基于自适应高阶近似编码</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            上一篇文章已经详细描述了在半监督图编码任务中，保持高阶近似的重要性。尤其当图比较稀疏时，节点的一阶和二阶邻居的数目太少以致于不能准确反映节点的上下文。从更细的角度来看，图中不同节点所处的位置不同，其局部图结构也就不同。有些节点处于图中比较稠
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-10-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ML/" class="post-category">
+                                    ML
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/machine-learning/">
+                        <span class="chip bg-color">machine learning</span>
+                    </a>
+                    
+                    <a href="/tags/深度学习/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/graph-embedding/">
+                        <span class="chip bg-color">graph embedding</span>
+                    </a>
+                    
+                    <a href="/tags/半监督分类/">
+                        <span class="chip bg-color">半监督分类</span>
+                    </a>
+                    
+                    <a href="/tags/RNN/">
+                        <span class="chip bg-color">RNN</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/ML/graph-based-semi-supervised-classification-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="图半监督节点分类之二——基于条件随机场">
+                        
+                        <span class="card-title">图半监督节点分类之二——基于条件随机场</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文关注于采用半监督图编码方法来对图中节点分类，根据上文的介绍，半监督图编码方法有两个过程：节点特征编码和节点分类。本文介绍基于条件随机场的图卷积网络（Graph Convolutional Network with Conditional
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-10-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/ML/" class="post-category">
+                                    ML
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/machine-learning/">
+                        <span class="chip bg-color">machine learning</span>
+                    </a>
+                    
+                    <a href="/tags/深度学习/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/graph-embedding/">
+                        <span class="chip bg-color">graph embedding</span>
+                    </a>
+                    
+                    <a href="/tags/半监督分类/">
+                        <span class="chip bg-color">半监督分类</span>
+                    </a>
+                    
+                    <a href="/tags/CRF/">
+                        <span class="chip bg-color">CRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">zekizz</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</body>
+
+</html>
