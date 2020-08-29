@@ -203,6 +203,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -227,6 +235,12 @@
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
             <h1 style="display: none">考虑未定义类型的多分类</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年8月29日 晚上
+                
+              </p>
             
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>考虑这样一个场景，我们要处理一个多分类问题，由于目标的空间是开放的，我们无法穷举所有的类别。目前我们制定了K类去训练一个多分类模型，在预测未知数据时，有可能出现未识别的类型，此时我们的多分类模型会赋予它k类中的一类。然鹅，这个赋予是错误的。那怎样去避免和处理这样的现象呢？</p>

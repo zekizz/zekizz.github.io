@@ -203,6 +203,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -227,6 +235,12 @@
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
             <h1 style="display: none">图半监督节点分类之四——基于自适应高阶近似编码</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年8月29日 晚上
+                
+              </p>
             
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>上一篇文章已经详细描述了在半监督图编码任务中，保持高阶近似的重要性。尤其当图比较稀疏时，节点的一阶和二阶邻居的数目太少以致于不能准确反映节点的上下文。从更细的角度来看，图中不同节点所处的位置不同，其局部图结构也就不同。有些节点处于图中比较稠密的部分，比如社团中部，邻居信息足够，能准确地反映节点的类别分布。但是信息过多也不一定是一件好事，比如有些节点夹在两类节点和两个社团的中间，这些节点的邻居很多但是信息也很杂，此时需要进一步扩大邻居范围，看其偏向哪一方。同时，也有一些节点处于一条长链的局部结构中，这些节点只有一个或两个邻居，就算扩大视野到2步邻居，信息也不够。在这种情况下，需要扩大感受野到整条链甚至到这条链所连接的社团。</p>

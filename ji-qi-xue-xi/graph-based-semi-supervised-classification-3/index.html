@@ -203,6 +203,14 @@
 
   
   
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
 </div>
 
             
@@ -227,6 +235,12 @@
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
             <h1 style="display: none">图半监督节点分类之三——基于循环神经网络</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年8月29日 晚上
+                
+              </p>
             
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>高阶依赖建模一直是图编码研究的热门话题，通过高阶依赖建模能捕获更长的网络结构依赖，保持节点之间的高阶近似。直观上，两个节点没有边相连，并不意味着这两个节点不相似。相反，如果两个节点在网络上通过某些节点能建立很强的联系，这两个节点仍然可以被认为相似。上一章提出的GCN-CRF模型，是基于GCN做图编码的。但是GCN是基于图上谱卷积的一阶近似方法，从而只能捕获一阶依赖。本章的目标是对更远的依赖范围进行建模。接下来的部分将具体给出针对高阶依赖进行建模的思考与建模过程。</p>
