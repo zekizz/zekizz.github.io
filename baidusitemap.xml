@@ -1,88 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://zekizz.github.io/qian-duan/web-space/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/qian-duan/vue-wen-jian-shang-chuan-xia-zai/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/sklearn-multi-label/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/tui-jian-xi-tong/recommendation-system/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/zi-ran-yu-yan-chu-li/nlu-survey/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/ner-survey/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/mgru/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/bo-ke/math-reference/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/linux/mac-ubuntu-vnc/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/bo-ke/install-hexo-blog/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/zi-ran-yu-yan-chu-li/information-extraction/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/imblanced-samples/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/qian-duan/html-tag/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/graph-based-semi-supervised-classification-5/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/graph-based-semi-supervised-classification-4/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/graph-based-semi-supervised-classification-3/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/graph-based-semi-supervised-classification-2/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/graph-based-semi-supervised-classification-1/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/ji-qi-xue-xi/graph-based-semi-supervised-classification-0/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/git/git-notes/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/shu-ju-chu-li/excel-trick/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/zi-ran-yu-yan-chu-li/chatito/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/bo-ke/blog-comment-view/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/zi-ran-yu-yan-chu-li/doublearraytrie/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://zekizz.github.io/zhi-shi-tu-pu/math-graph/</loc>
+    <lastmod>2020-08-29</lastmod>
+  </url>
+  <url>
     <loc>https://zekizz.github.io/python/pycharm-remote/</loc>
     <lastmod>2020-02-04</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/Blog/blog-comment-view/</loc>
-    <lastmod>2019-12-17</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ubuntu/mac-ubuntu-vnc/</loc>
-    <lastmod>2019-12-09</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/math-graph/</loc>
-    <lastmod>2019-11-20</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/NLP/chatito/</loc>
-    <lastmod>2019-11-17</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/sklearn-multi-label/</loc>
-    <lastmod>2019-11-09</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/visualisation/vue%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD/</loc>
-    <lastmod>2019-10-31</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/NLU/nlu-survey/</loc>
-    <lastmod>2019-10-27</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-4/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/Blog/install-hexo-blog/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-1/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-5/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/imblanced-samples/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/html/web-space/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/others/excel_trick/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/git/git_notes/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/html/html-tag/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification_0/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/Blog/math-reference/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/NER-survey/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/recommendation-system/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/NLP/information-extraction/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/NLP/DoubleArrayTrie/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/mGRU/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-2/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
+  </url>
+  <url>
     <loc>https://zekizz.github.io/python/configparse/</loc>
     <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/ML/graph-based-semi-supervised-classification-3/</loc>
-    <lastmod>2019-10-13</lastmod>
-  </url>  <url>
-    <loc>https://zekizz.github.io/%E5%BF%83%E6%83%85/%E7%94%9C/</loc>
-    <lastmod>2019-10-13</lastmod>
   </url>
-</urlset>
+</urlset> 

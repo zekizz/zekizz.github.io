@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="zekizz">
+  <meta name="keywords" content="">
+  <title>基于句法依存树的信息抽取 - 给荔枝打气</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>给荔枝打气</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/bg/bg1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+                基于句法依存树的信息抽取
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2018-12-16 19:34" pubdate>
+      2018年12月16日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">基于句法依存树的信息抽取</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>信息抽取是一个常见的nlp任务，为经常一起提到的知识图谱的基础。</p>
+<p>这里有一份比较好的知识图谱入门资料:<br>
+<a target="_blank" rel="noopener" href="https://kgtutorial.github.io/">Mining Knowledge Graphs from Text</a></p>
+<p>信息抽取分为有监督和无监督方法。实际中监督信息往往是缺失的，所以本文主要提无监督方法。</p>
+<p>在无监督方法中，一个广泛采用的工具是句法依存树，或者叫句法解析树（Dependency Tree）。</p>
+<a id="more"></a>
+<p>可视化工具：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://spyysalo.github.io/conllu.js/">conllu.js</a></li>
+<li><a target="_blank" rel="noopener" href="http://nlp.nju.edu.cn/tanggc/tools/DependencyViewer.html">Dependency Viewer</a></li>
+</ul>
+<p>工作中总结出来的一种基于句法解析树的信息提取的一般方法（尚未完善）：</p>
+<ol>
+<li>从CONLL格式的句法依存解析结果，生成具备孩子节点和父节点索引的树，并获取根结点root_id；</li>
+<li>自上而下递归的进行解析，孩子节点的解析结果上传到父节点进行汇总；
+<ol>
+<li>如果当前节点为叶子节点（无孩子节点），判断当前节点类型，返回dict，上传给父节点；</li>
+<li>如果当前词为动词（一般句子的核心是动词，一般方法也都是从动词开始扩展）或者用户指定的目标词，根据制定的规则提取指定关系类型的孩子，如定中关系、状中关系、动宾关系、主谓关系等，这里需要注意的是并列关系，有可能是补充，有可能是同级并列；</li>
+<li>如果当前词非动词，先判断其所属信息类型，若能判断，关系向孩子传递，如不能判断，等待孩子节点上传的结果；</li>
+<li>合并所有孩子的信息，按原始句子顺序排序</li>
+</ol>
+</li>
+<li>修正后处理</li>
+</ol>
+<p>以提取文本中，关于道路信息的（时间、原因、地点、时间）四元组为例，输入句子：</p>
+<pre><code class="hljs angelscript">黄石高速:因交通管制,晋州站、辛集站、藁城东站双向关闭。因沧州服务区附近K81处黄骅方向发生交通事故,沧州服务区附近K81处黄骅方向车辆缓慢通行约<span class="hljs-number">4</span>公里</code></pre>
+<p>句法解析树：</p>
+<pre><code class="hljs haxe"><span class="hljs-number">1</span>	黄石	黄石	nh	nr	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">2</span>	高速	高速	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">3</span>	:	<span class="hljs-type"></span>:	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">0</span>	HED	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">4</span>	因	因	p	p	<span class="hljs-literal">_</span>	<span class="hljs-number">14</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">5</span>	交通管制	交通管制	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">4</span>	POB	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">6</span>	,	,	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">4</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">7</span>	晋州站	晋州站	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">14</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">8</span>	、	、	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">9</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">9</span>	辛集站	辛集站	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">7</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">10</span>	、	、	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">12</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">11</span>	藁城	藁城	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">12</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">12</span>	东站	东站	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">7</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">13</span>	双向	双向	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">14</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">14</span>	关闭	关闭	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">15</span>	。	。	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">16</span>	因	因	p	p	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">17</span>	沧州	沧州	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">18</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">18</span>	服务区	服务区	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">19</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">19</span>	附近	附近	nd	f	<span class="hljs-literal">_</span>	<span class="hljs-number">21</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">20</span>	K81	K81	ws	nx	<span class="hljs-literal">_</span>	<span class="hljs-number">21</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">21</span>	处	处	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">22</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">22</span>	黄骅	黄骅	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">23</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">23</span>	方向	方向	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">16</span>	POB	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">24</span>	发生	发生	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">25</span>	交通事故	交通事故	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	VOB	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">26</span>	,	,	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">27</span>	沧州	沧州	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">28</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">28</span>	服务区	服务区	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">29</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">29</span>	附近	附近	nd	f	<span class="hljs-literal">_</span>	<span class="hljs-number">31</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">30</span>	K81	K81	ws	nx	<span class="hljs-literal">_</span>	<span class="hljs-number">31</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">31</span>	处	处	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">34</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">32</span>	黄骅	黄骅	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">33</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">33</span>	方向	方向	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">34</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">34</span>	车辆	车辆	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">36</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">35</span>	缓慢	缓慢	a	ad	<span class="hljs-literal">_</span>	<span class="hljs-number">36</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">36</span>	通行	通行	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">37</span>	约	约	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">38</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">38</span>	<span class="hljs-number">4</span>	<span class="hljs-number">4</span>	m	m	<span class="hljs-literal">_</span>	<span class="hljs-number">39</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">39</span>	公里	公里	q	q	<span class="hljs-literal">_</span>	<span class="hljs-number">36</span>	CMP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
+<span class="hljs-number">40</span>	。	。	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span></code></pre>
+<p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/NLP/test_dependency.png" srcset="/img/loading.gif" alt=""><br>
+核心代码如下：</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WordBean</span>(<span class="hljs-params">object</span>):</span>
+   <span class="hljs-string">&#x27;&#x27;&#x27; 扩展conllword，存储父节点与孩子节点索引 &#x27;&#x27;&#x27;</span>
+
+       <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+           self.lemma = <span class="hljs-literal">None</span>
+           self.postag = <span class="hljs-literal">None</span>
+           self.relation = <span class="hljs-literal">None</span>
+           self.head_id = <span class="hljs-literal">None</span>
+           self.flag = <span class="hljs-literal">True</span>  <span class="hljs-comment"># 是否还处于树中标志位，已合并的ATT将置为False</span>
+           self.child = []
+   
+       <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_word</span>(<span class="hljs-params">self, conll_word</span>):</span>
+           self.lemma = conll_word.LEMMA
+           self.postag = conll_word.POSTAG
+           self.relation = conll_word.DEPREL
+           self.head_id = conll_word.HEAD.ID - <span class="hljs-number">1</span>
+   
+       <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_child</span>(<span class="hljs-params">self, child_id, child_relation</span>):</span>
+           self.child.append((child_id, child_relation))
+       
+   
+   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extract_entity_tuple</span>(<span class="hljs-params">self, dependency_tree, seed_id, head_type=<span class="hljs-string">&#x27;&#x27;</span></span>):</span>
+       <span class="hljs-string">&#x27;&#x27;&#x27;自上而下解析树&#x27;&#x27;&#x27;</span>
+       res_entity_tuple_list = []
+       res_dict = dict()
+       res_dict[<span class="hljs-string">&#x27;time&#x27;</span>] = []
+       res_dict[<span class="hljs-string">&#x27;reason&#x27;</span>] = []
+       res_dict[<span class="hljs-string">&#x27;place&#x27;</span>] = []
+       res_dict[<span class="hljs-string">&#x27;status&#x27;</span>] = []
+       <span class="hljs-comment"># 判断是否是叶子节点</span>
+       <span class="hljs-keyword">if</span> len(dependency_tree[seed_id].child) == <span class="hljs-number">0</span>:
+           <span class="hljs-keyword">if</span> dependency_tree[seed_id].lemma <span class="hljs-keyword">in</span> self.status_set:
+               res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           <span class="hljs-keyword">elif</span> self.check_is_time(dependency_tree, seed_id):
+               res_dict[<span class="hljs-string">&#x27;time&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           <span class="hljs-keyword">elif</span> head_type == <span class="hljs-string">&#x27;reason&#x27;</span>:
+               res_dict[<span class="hljs-string">&#x27;reason&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           <span class="hljs-keyword">elif</span> head_type == <span class="hljs-string">&#x27;time&#x27;</span>:
+               res_dict[<span class="hljs-string">&#x27;time&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           <span class="hljs-keyword">else</span>:
+               <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> dependency_tree[seed_id].lemma <span class="hljs-keyword">in</span> self.discard_word_set:
+                   res_dict[<span class="hljs-string">&#x27;place&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           res_entity_tuple_list.append(res_dict)
+           <span class="hljs-keyword">return</span> res_entity_tuple_list
+
+       <span class="hljs-comment"># 非叶子节点需要向下递归解析</span>
+       <span class="hljs-keyword">if</span> dependency_tree[seed_id].lemma <span class="hljs-keyword">in</span> self.status_set:
+           <span class="hljs-comment"># 当前节点为状态节点</span>
+           status_merge_list = []
+           <span class="hljs-keyword">for</span> c_id, c_relation <span class="hljs-keyword">in</span> dependency_tree[seed_id].child:
+               child_bean = dependency_tree[c_id]
+               <span class="hljs-keyword">if</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;COO&#x27;</span>, <span class="hljs-string">&#x27;并列关系&#x27;</span>):
+                   <span class="hljs-comment"># 假设状态下不存在嵌套状态，有视为补充</span>
+                   <span class="hljs-keyword">if</span> dependency_tree[c_id].postag == <span class="hljs-string">&#x27;v&#x27;</span> <span class="hljs-keyword">and</span> len(dependency_tree[c_id].child) == <span class="hljs-number">0</span>:
+                       res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
+                   <span class="hljs-keyword">else</span>:
+                       child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
+                       <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
+                           self.merge_two_tuple_dict(res_dict, child_dict)
+               <span class="hljs-keyword">elif</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;ADV&#x27;</span>, <span class="hljs-string">&#x27;状中结构&#x27;</span>):
+                   <span class="hljs-comment"># 处理状中结构</span>
+                   <span class="hljs-keyword">if</span> child_bean.lemma <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;因&#x27;</span>, <span class="hljs-string">&#x27;受&#x27;</span>, <span class="hljs-string">&#x27;由于&#x27;</span>):
+                       <span class="hljs-comment"># 处理原因</span>
+                       child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
+                       <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
+                           self.merge_two_tuple_dict(res_dict, child_dict)
+                   <span class="hljs-keyword">elif</span> child_bean.lemma == <span class="hljs-string">&#x27;处&#x27;</span> <span class="hljs-keyword">or</span> child_bean.postag == <span class="hljs-string">&#x27;p&#x27;</span>:
+                       child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
+                       <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
+                           self.merge_two_tuple_dict(res_dict, child_dict)
+                   <span class="hljs-keyword">elif</span> child_bean.postag <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;ad&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>):
+                       self.merge_att(dependency_tree, c_id)
+                       status_merge_list.append(c_id)
+                   <span class="hljs-keyword">elif</span> self.check_is_time(dependency_tree, c_id):
+                       self.merge_att(dependency_tree, c_id)
+                       res_dict[<span class="hljs-string">&#x27;time&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
+               <span class="hljs-keyword">elif</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;POB&#x27;</span>, <span class="hljs-string">&#x27;介宾关系&#x27;</span>) <span class="hljs-keyword">and</span> 
+                       child_bean.lemma <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;因&#x27;</span>, <span class="hljs-string">&#x27;受&#x27;</span>, <span class="hljs-string">&#x27;由于&#x27;</span>):
+                   self.merge_att(dependency_tree, c_id)
+                   res_dict[<span class="hljs-string">&#x27;reason&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
+               <span class="hljs-keyword">elif</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;CMP&#x27;</span>, <span class="hljs-string">&#x27;动补结构&#x27;</span>):
+                   self.merge_att(dependency_tree, c_id)
+                   status_merge_list.append(c_id)
+               <span class="hljs-keyword">elif</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;SBV&#x27;</span>, <span class="hljs-string">&#x27;主谓关系&#x27;</span>):
+                   <span class="hljs-comment"># 处理主谓关系，解析具体地点</span>
+                   child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
+                   <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
+                       self.merge_two_tuple_dict(res_dict, child_dict)
+               <span class="hljs-keyword">elif</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;VOB&#x27;</span>, <span class="hljs-string">&#x27;动宾关系&#x27;</span>):
+                   <span class="hljs-keyword">if</span> len(dependency_tree[c_id].child) == <span class="hljs-number">0</span>:
+                       res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
+                   <span class="hljs-keyword">else</span>:
+                       child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
+                       <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
+                           self.merge_two_tuple_dict(res_dict, child_dict)
+
+           status_buffer = []
+           status_merge_list.append(seed_id)
+           status_merge_list.sort()
+           <span class="hljs-keyword">for</span> id <span class="hljs-keyword">in</span> status_merge_list:
+               status_buffer.append(dependency_tree[id].lemma)
+           res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((seed_id, <span class="hljs-string">&#x27;&#x27;</span>.join(status_buffer)))
+
+           res_entity_tuple_list.append(res_dict)
+           <span class="hljs-keyword">return</span> res_entity_tuple_list
+       <span class="hljs-keyword">else</span>:
+           <span class="hljs-comment"># 当前节点为非状态节点</span>
+           pre_head_type = head_type
+           <span class="hljs-keyword">if</span> self.check_is_time(dependency_tree, seed_id):
+               <span class="hljs-comment"># 为时间节点</span>
+               head_type = <span class="hljs-string">&#x27;time&#x27;</span>
+               res_dict[<span class="hljs-string">&#x27;time&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           <span class="hljs-keyword">elif</span> dependency_tree[seed_id].lemma <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;因&#x27;</span>, <span class="hljs-string">&#x27;受&#x27;</span>, <span class="hljs-string">&#x27;由于&#x27;</span>) <span class="hljs-keyword">or</span> head_type == <span class="hljs-string">&#x27;reason&#x27;</span>:
+               <span class="hljs-comment"># 为原因节点</span>
+               head_type = <span class="hljs-string">&#x27;reason&#x27;</span>
+               res_dict[<span class="hljs-string">&#x27;reason&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           <span class="hljs-keyword">else</span>:
+               <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> dependency_tree[seed_id].lemma <span class="hljs-keyword">in</span> self.discard_word_set:
+                   res_dict[<span class="hljs-string">&#x27;place&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
+           child_dict_list = []
+           coo_list = []
+           <span class="hljs-keyword">for</span> c_id, c_relation <span class="hljs-keyword">in</span> dependency_tree[seed_id].child:
+               <span class="hljs-comment"># if c_relation in (&#x27;COO&#x27;, &#x27;并列关系&#x27;):</span>
+               <span class="hljs-comment">#     coo_list.append(c_id)</span>
+               <span class="hljs-keyword">if</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;WP&#x27;</span>, <span class="hljs-string">&#x27;标点符号&#x27;</span>):
+                   <span class="hljs-keyword">continue</span>
+               <span class="hljs-keyword">else</span>:
+                   <span class="hljs-keyword">if</span> head_type == <span class="hljs-string">&#x27;reason&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> pre_head_type == <span class="hljs-string">&#x27;reason&#x27;</span>:
+                       <span class="hljs-keyword">if</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;POB&#x27;</span>, <span class="hljs-string">&#x27;介宾关系&#x27;</span>):
+                           child_dict_list.extend(self.extract_entity_tuple(dependency_tree, c_id, head_type))
+                           <span class="hljs-keyword">if</span> dependency_tree[c_id].lemma <span class="hljs-keyword">in</span> self.status_set:
+                               res_dict[<span class="hljs-string">&#x27;reason&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
+                   <span class="hljs-keyword">else</span>:
+                       child_dict_list.extend(self.extract_entity_tuple(dependency_tree, c_id, head_type))
+
+           <span class="hljs-comment"># 先合并非状态</span>
+           status_dict_list = []
+           <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
+               <span class="hljs-keyword">if</span> len(child_dict[<span class="hljs-string">&#x27;status&#x27;</span>]) &gt; <span class="hljs-number">0</span>:
+                   status_dict_list.append(child_dict)
+               <span class="hljs-keyword">else</span>:
+                   self.merge_two_tuple_dict(res_dict, child_dict)
+
+           <span class="hljs-comment"># 再合并存在状态的</span>
+           <span class="hljs-keyword">if</span> len(status_dict_list) == <span class="hljs-number">0</span>:
+               res_entity_tuple_list.append(res_dict)
+           <span class="hljs-keyword">else</span>:
+               <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> status_dict_list:
+                   <span class="hljs-comment"># tmp_dict = res_dict.copy()</span>
+                   tmp_dict = copy.deepcopy(res_dict)
+                   self.merge_two_tuple_dict(tmp_dict, child_dict)
+                   res_entity_tuple_list.append(tmp_dict)
+
+           <span class="hljs-keyword">return</span> res_entity_tuple_list
+
+
+   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extract_information</span>(<span class="hljs-params">self, line</span>):</span>
+       segs = self.nlp_tokenizer.seg(line)
+       <span class="hljs-comment"># fix segs</span>
+       self.fix_seged_postag(segs)
+       conll_words = self.parser.parse(segs).getWordArray()
+       dependency_tree, root_id = self.construct_dependency_tree(conll_words)
+
+       res_entity.append(self.extract_entity_tuple(dependency_tree, i))
+       res_entity = self.extract_entity_tuple(dependency_tree, root_id)
+
+       <span class="hljs-comment"># print entity tuples</span>
+       <span class="hljs-keyword">for</span> entity <span class="hljs-keyword">in</span> res_entity:
+           entity[<span class="hljs-string">&#x27;time&#x27;</span>].sort()
+           entity[<span class="hljs-string">&#x27;place&#x27;</span>].sort()
+           entity[<span class="hljs-string">&#x27;reason&#x27;</span>].sort()
+           entity[<span class="hljs-string">&#x27;status&#x27;</span>].sort()
+           self.fix_entity_tuple_dict(entity)
+           print(entity)
+       <span class="hljs-keyword">return</span> res_entity
+
+</code></pre>
+<p>实验结果：</p>
+<pre><code class="hljs prolog"># 输入句子
+<span class="hljs-string">&#x27;黄石高速:因交通管制,晋州站、辛集站、藁城东站双向关闭。因沧州服务区附近K81处黄骅方向发生交通事故,沧州服务区附近K81处黄骅方向车辆缓慢通行约4公里。&#x27;</span>
+
+
+# 信息提取结果
+&#123;<span class="hljs-string">&#x27;time&#x27;</span>: [], <span class="hljs-string">&#x27;reason&#x27;</span>: [<span class="hljs-string">&#x27;因交通管制&#x27;</span>], <span class="hljs-string">&#x27;place&#x27;</span>: [<span class="hljs-string">&#x27;黄石高速:, 晋州站, 辛集站, 藁城东站&#x27;</span>], <span class="hljs-string">&#x27;status&#x27;</span>: [<span class="hljs-string">&#x27;交通管制, 双向关闭&#x27;</span>]&#125;
+&#123;<span class="hljs-string">&#x27;time&#x27;</span>: [], <span class="hljs-string">&#x27;reason&#x27;</span>: [<span class="hljs-string">&#x27;因沧州服务区附近K81处黄骅方向&#x27;</span>], <span class="hljs-string">&#x27;place&#x27;</span>: [<span class="hljs-string">&#x27;黄石高速:, 发生交通事故, 沧州服务区附近K81处黄骅方向&#x27;</span>], <span class="hljs-string">&#x27;status&#x27;</span>: [<span class="hljs-string">&#x27;缓慢通行约4公里&#x27;</span>]&#125;
+
+</code></pre>
+<p>可以看到，第一句的解析没问题，但是第二句原因的解析边界出错。当前的解析方法仍然比较依赖于句法依存树的准确性，实体的边界的准确性不够，也是需要改进的地方。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">自然语言处理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">自然语言处理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/git/git-notes/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">git笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/ji-qi-xue-xi/imblanced-samples/">
+                        <span class="hidden-mobile">样本类别不均衡处理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zekizz/commit-utterances');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    }
+    waitElementVisible('comments', loadUtterances)
+  </script>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/kanzaki.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":100,"vOffset":-10},"mobile":{"show":false},"react":{"opacity":0.9}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

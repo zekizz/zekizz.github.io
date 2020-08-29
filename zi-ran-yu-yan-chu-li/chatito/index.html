@@ -1,0 +1,663 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="zekizz">
+  <meta name="keywords" content="">
+  <title>NLP训练数据生成之chatito - 给荔枝打气</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>给荔枝打气</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/bg/bg1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+                NLP训练数据生成之chatito
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2019-11-17 21:11" pubdate>
+      2019年11月17日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">NLP训练数据生成之chatito</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>巧妇难为无米之炊，NLP任务也需好的数据来作为支撑。这里就有两个方面：</p>
+<ol>
+<li>完全没有数据</li>
+<li>有大量未标注脏数据，标注极少甚至没有</li>
+</ol>
+<p>这个问题我打算用几篇博客一一讨论，本篇针对完全没数据的场景，介绍使用chatito来生成数据。</p>
+<a id="more"></a>
+<h1>Chatito简介</h1>
+<p><a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito">Chatito</a>使用简单易上手的<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>语法来为几类场景的NLP任务生成数据。原话是</p>
+<blockquote>
+<p>Generate datasets for AI chatbots, NLP tasks, named entity recognition or text classification models using a simple DSL!</p>
+</blockquote>
+<p>亲测确实方便生成一定量的数据，但是生成的训练集和测试集都是一个模板（构成规则）出来的，训练测试数据同源同构，很容易造成严重的过拟合。典型的表现是在测试集上的准确率和F1等指标会接近1，在未知数据上的泛化性会不好。</p>
+<p>显然，采用这种方式生成数据并不是最好的方式。但在实在没有数据的情况下，怎样去解决同源的问题呢？想到的解决方式有几点：</p>
+<ol>
+<li>生成的过程中，只填入几条典型的场景，同类型的采用词典，并后续任务上构造词典特征</li>
+<li>生成后采用一些数据增强方式（同义词替换、位置交换等），增加训练数据的多样性。</li>
+</ol>
+<p>本文不具体介绍这两种方式，会另外用实际的例子和博客分别进行记录，包括本文的例子都放在repo: <a target="_blank" rel="noopener" href="https://github.com/zekizz/DataGeneratorForNLP">DataGeneratorForNLP</a></p>
+<h2 id="使用前准备">使用前准备</h2>
+<h3 id="安装node-js">安装node.js</h3>
+<p>首先需安装node.js &gt;= v8.11</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/en/">官网</a>下载编译好的包</li>
+<li>解压</li>
+<li>设置软连接</li>
+</ol>
+<pre><code class="hljs shell">ln -s /usr/software/nodejs/bin/npm   /usr/local/bin/ 
+ln -s /usr/software/nodejs/bin/node   /usr/local/bin/</code></pre>
+<p>在mac上直接采用<code>homebrew</code>安装即可</p>
+<pre><code class="hljs shell">brew install node
+brew install npm</code></pre>
+<h3 id="npm配置">npm配置</h3>
+<pre><code class="hljs shell">npm config set registry https://registry.npm.taobao.org --global
+npm config set disturl https://npm.taobao.org/dist --global
+<span class="hljs-meta">#</span><span class="bash"> 更新</span>
+npm install -g npm</code></pre>
+<h3 id="安装chatito-npm-package">安装chatito npm package</h3>
+<pre><code class="hljs shell">npm i chatito --save</code></pre>
+<h2 id="编写构成脚本">编写构成脚本</h2>
+<p>因为一个脚本只能生成一个类型的，比如在分类问题中要生成多个类的数据，最好一个类一个生成文件。所以，最好新建一个文件夹，存放所有脚本，比如<code>chatito</code></p>
+<p>下面以对话中介绍新朋友这样一个场景为例，介绍脚本的写法，完整的语法参见<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>。</p>
+<p>新建一个以<code>.chatito</code>结尾文件，命名为<code>intro_new_user.chatito</code>，内容为：</p>
+<pre><code class="hljs less"><span class="hljs-selector-tag">import</span> ./<span class="hljs-selector-tag">common</span><span class="hljs-selector-class">.chatito</span>
+
+%<span class="hljs-selector-attr">[intro_new_user]</span>(<span class="hljs-string">&#x27;training&#x27;</span>: <span class="hljs-string">&#x27;100&#x27;</span>, <span class="hljs-string">&#x27;testing&#x27;</span>: <span class="hljs-string">&#x27;50&#x27;</span>)
+    *<span class="hljs-selector-attr">[60%]</span> ~<span class="hljs-selector-attr">[hi?]</span>，~<span class="hljs-selector-attr">[pre1?]</span>~<span class="hljs-selector-attr">[pre2]</span>~<span class="hljs-selector-attr">[pre3]</span>，~<span class="hljs-selector-attr">[indicate?]</span>@<span class="hljs-selector-attr">[username]</span>
+    *<span class="hljs-selector-attr">[20%]</span> ~<span class="hljs-selector-attr">[hi?]</span>，~<span class="hljs-selector-attr">[indicate]</span>@<span class="hljs-selector-attr">[username]</span>
+    *<span class="hljs-selector-attr">[20%]</span> ~<span class="hljs-selector-attr">[indicate]</span>@<span class="hljs-selector-attr">[username]</span>
+
+~<span class="hljs-selector-attr">[pre1]</span>
+    给你
+
+~<span class="hljs-selector-attr">[pre2]</span>
+    介绍
+    认识
+    了解
+
+~<span class="hljs-selector-attr">[pre3]</span>
+    一个新朋友
+    一位新朋友
+    个新朋友
+    位新朋友
+    一个朋友
+    一位朋友
+    个朋友
+    位朋友
+    一下
+    下
+
+~<span class="hljs-selector-attr">[indicate]</span>
+    这是
+    他是
+    她是
+    他叫
+    她叫
+    我是
+    我叫
+
+@<span class="hljs-selector-attr">[username]</span>
+    小红
+    小花
+    大黄
+    小明</code></pre>
+<p>其中<code>common.chatito</code>为另外一个提供通用组成部分的脚本，内容为</p>
+<pre><code class="hljs css">~<span class="hljs-selector-attr">[hi]</span>
+    你好
+    嗨
+    嘿
+    哈喽
+    <span class="hljs-selector-tag">hi</span>
+    <span class="hljs-selector-tag">hello</span>
+
+~<span class="hljs-selector-attr">[please]</span>
+    请
+
+~<span class="hljs-selector-attr">[thanks]</span>
+    谢谢
+    谢了
+    <span class="hljs-selector-tag">thx</span>
+    谢谢你</code></pre>
+<p>比如<code>hi</code>，import后就可以采用<code>~[hi]</code>直接引用了。</p>
+<p>因为chatito初衷是给对话生成数据，所以脚本里的概念有三个：意图（%[intent_name]）、槽值（@[slot_name]）和别称（~[alias_name]）。意图可以视为分类问题的类别，槽值可视为NER问题的实体，别称只是为了方便组合，随机选取，有点像正则的里中括号里的内容（如<code>[a-zA-Z]</code>）。p.s. 别称里的内容不会被认为是实体。</p>
+<p>在上面的例子中<code>%[intro_new_user]('training': '100', 'testing': '50')</code>，表明想生成的意图是<code>intro_new_user</code>。并且训练集生成100个样本，测试集50个。</p>
+<p>接下来的一行, <code>*[60%] ~[hi?]，~[pre1?]~[pre2]~[pre3]，~[indicate?]@[username]</code></p>
+<ul>
+<li><code>*[60%]</code>： 表示这一行的构成规则在最好生成数据中占的比例</li>
+<li><code>~[hi?]</code>：随机选择别称<code>hi</code>的一个（比如，选择<code>你好</code>），<code>?</code>表示可以不选，这个与正则中的概念相似</li>
+<li><code>@[username]</code>：随机选取槽<code>username</code>中的一个，在生成的数据中，选取的槽值会被标记为实体，可用于实体识别，有位置信息。</li>
+</ul>
+<p><strong>这里需要注意的是</strong>：各个部分之间如果有空格，生成的结果中也会有空格。生成结果只是替换<code>~[hi?]</code>，<code>~[hi?]</code>和其后面的<code>~[pre1?]</code>之间的<strong>任何内容都会原封不动保留</strong>，比如这里的逗号。所以，<strong>对于要考虑分词的误差的场景下</strong>，建议各个部分之间不要采用空格分隔的方式，保持中文的自然连接。</p>
+<p>基本这些内容就够用了，其他用法可以自行探索<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>。</p>
+<h2 id="生成数据">生成数据</h2>
+<p>生成语法为</p>
+<pre><code class="hljs shell">npx chatito &lt;pathToFileOrDirectory&gt; --format=&lt;format&gt; --formatOptions=&lt;formatOptions&gt; --outputPath=&lt;outputPath&gt; --trainingFileName=&lt;trainingFileName&gt; --testingFileName=&lt;testingFileName&gt; --defaultDistribution=&lt;defaultDistribution&gt; --autoAliases=&lt;autoAliases&gt;</code></pre>
+<ul>
+<li><code>&lt;pathToFileOrDirectory&gt;</code> path to a <code>.chatito</code> file or a directory that contains chatito files. If it is a directory, will search recursively for all <code>*.chatito</code> files inside and use them to generate the dataset. e.g.: <code>lightsChange.chatito</code> or <code>./chatitoFilesFolder</code></li>
+<li><code>&lt;format&gt;</code> Optional. <code>default</code>, <code>rasa</code>, <code>luis</code>, <code>flair</code> or <code>snips</code>.</li>
+<li><code>&lt;formatOptions&gt;</code> Optional. Path to a .json file that each adapter optionally can use</li>
+<li><code>&lt;outputPath&gt;</code> Optional. The directory where to save the generated datasets. Uses the current directory as default.</li>
+<li><code>&lt;trainingFileName&gt;</code> Optional. The name of the generated training dataset file. Do not forget to add a .json extension at the end. Uses ``_dataset_training.json as default file name.</li>
+<li><code>&lt;testingFileName&gt;</code> Optional. The name of the generated testing dataset file. Do not forget to add a .json extension at the end. Uses ``_dataset_testing.json as default file name.</li>
+<li><code>&lt;defaultDistribution&gt;</code> Optional. The default frequency distribution if not defined at the entity level. Defaults to <code>regular</code> and can be set to <code>even</code>.</li>
+<li><code>&lt;autoAliases&gt;</code> Optional. The generaor behavior when finding an undefined alias. Valid opions are <code>allow</code>, <code>warn</code>, <code>restrict</code>. Defauls to ‘allow’.</li>
+</ul>
+<p>可以生成<a target="_blank" rel="noopener" href="https://rasa.com/docs/rasa/">Rasa</a>、<a target="_blank" rel="noopener" href="https://github.com/zalandoresearch/flair">Flair</a>、<a target="_blank" rel="noopener" href="https://www.luis.ai/">LUIS</a>、<a target="_blank" rel="noopener" href="https://snips-nlu.readthedocs.io/en/latest/">Snips NLU</a>格式的数据，以Rasa为例。</p>
+<pre><code class="hljs shell">npx chatito ./chatito --format=rasa --outputPath=./data</code></pre>
+<p>生成的结果放在<code>data</code>文件夹下</p>
+<pre><code class="hljs autohotkey">ras<span class="hljs-built_in">a_dataset</span>_testing.json
+ras<span class="hljs-built_in">a_dataset</span>_training.json</code></pre>
+<p>生成的文件是一行的json，采用<code>pbcopy &lt; rasa_dataset_testing.json</code>, 粘贴在<a target="_blank" rel="noopener" href="http://www.totootool.com/json.html">http://www.totootool.com/json.html</a>。</p>
+<p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/NLU/Screen%20Shot%202019-11-17%20at%2010.42.30%20PM.png" srcset="/img/loading.gif" alt=""></p>
+<p>训练集会多两项</p>
+<pre><code class="hljs elixir"><span class="hljs-string">&quot;regex_features&quot;</span><span class="hljs-symbol">:[]</span>,<span class="hljs-string">&quot;entity_synonyms&quot;</span><span class="hljs-symbol">:[]</span></code></pre>
+<p>具体跟rasa有关，这里不再赘述。</p>
+<p>接下来，会介绍如何使用<a target="_blank" rel="noopener" href="https://www.snorkel.org/">snorkel</a>做NLP数据增强和弱监督训练数据生成。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">自然语言处理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">自然语言处理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/">数据生成</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NLU/">NLU</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ML/">ML</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/zhi-shi-tu-pu/math-graph/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">论文学习——MathGraph</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/bo-ke/blog-comment-view/">
+                        <span class="hidden-mobile">hexo添加评论和访问统计填坑</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zekizz/commit-utterances');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    }
+    waitElementVisible('comments', loadUtterances)
+  </script>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/kanzaki.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":100,"vOffset":-10},"mobile":{"show":false},"react":{"opacity":0.9}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
