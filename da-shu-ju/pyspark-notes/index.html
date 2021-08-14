@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="zekizz">
+  <meta name="keywords" content="">
+  <title>pyspark-notes - 给荔枝打气</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_6peoq002giu.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>给荔枝打气</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/bg/bg1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+                pyspark-notes
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2021-08-14 23:49" pubdate>
+      2021年8月14日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">pyspark-notes</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年8月15日 凌晨
+                
+              </p>
+            
+            <div class="markdown-body" id="post-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录spark使用过程中的一些常用点，不定期更新~</p>
+<a id="more"></a>
+<h2 id="pyspark环境打包">pyspark环境打包</h2>
+<p>先本地构建虚拟环境，打包后提交到集群，已conda为例</p>
+<pre><code class="hljs shell">conda create -n py37 python=3.7 pip
+
+source activate py37
+pip install -r requirements.txt
+
+<span class="hljs-meta">#</span><span class="bash"> install conda pack</span>
+pip install conda-pack
+
+<span class="hljs-meta">#</span><span class="bash"> Pack environment my_env into out_name.tar.gz</span>
+conda pack -n py37 -o py37_env.tar.gz</code></pre>
+<p>打包完成后，可重现环境检查下</p>
+<pre><code class="hljs shell">mkdir -p test_env
+tar -xzf py37_env.tar.gz -C test_env
+source py37_env/bin/activate
+<span class="hljs-meta">#</span><span class="bash"> 查看安装包是否一致</span>
+pip list</code></pre>
+<p>这里插一个，如果想看conda环境安装的包，路径为<code>~conda_path/envs/py37/lib/python3.7/site-packages</code></p>
+<p>采用spark-submit</p>
+<pre><code class="hljs shell">/opt/tiger/spark_deploy/spark-stable/bin/spark-submit \
+    --master yarn \
+    --deploy-mode cluster \
+    --queue $&#123;queue_name&#125; \
+    --conf spark.driver.memory=4g \
+    --conf spark.dynamicAllocation.enabled=true \
+    --conf spark.dynamicAllocation.minExecutors=10 \
+    --conf spark.dynamicAllocation.initialExecutors=10 \
+    --conf spark.dynamicAllocation.maxExecutors=20 \
+    --conf spark.executor.memory=4g \
+    --conf spark.executor.cores=4 \
+    --name spark_test_env \
+    --conf spark.hadoop.yarn.cluster.name=$&#123;cluster_name&#125; \
+    --conf spark.pyspark.python=./py37_env/bin/python3 \
+    --conf spark.pyspark.driver.python=./py37_env/bin/python3 \
+    --archives hdfs_path/py37_env.tar.gz#py37_env
+    main.py</code></pre>
+<p>参考</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qi-yuan-008/p/12199152.html">spark-submit提交任务到集群，分发虚拟环境和第三方包</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sgyuanshi/article/details/114648247">pyspark打包依赖包&amp;使用python虚拟环境</a></p>
+</li>
+</ul>
+<h2 id="工程打包">工程打包</h2>
+<p>pyspark主程序依赖的文件比较少的时候，可以通过<code>--py-files</code>逐个添加，但当依赖的比较多，甚至是整个工程，有比较复杂的目录结构的时候，就需要打包了，打包成.zip,.egg等格式也可通过<code>--py-files</code>传入，这些文件会加入PYTHONPATH中。</p>
+<p>这里需要注意的是，打成zip包的时候，必须是一级目录，这里给出一种正确的打包方式</p>
+<pre><code class="hljs shell">cd project_home
+zip -r ../project_home.zip .</code></pre>
+<h2 id="常用参数">常用参数</h2>
+<h3 id="Spark-Conf">Spark Conf</h3>
+<pre><code class="hljs json">&#123;
+  <span class="hljs-attr">&quot;spark.dynamicAllocation.minExecutors&quot;</span>: <span class="hljs-string">&quot;200&quot;</span>,
+  <span class="hljs-attr">&quot;spark.dynamicAllocation.initialExecutors&quot;</span>: <span class="hljs-string">&quot;200&quot;</span>,
+  <span class="hljs-attr">&quot;spark.dynamicAllocation.maxExecutors&quot;</span>: <span class="hljs-string">&quot;500&quot;</span>,
+  <span class="hljs-attr">&quot;spark.driver.memory&quot;</span>: <span class="hljs-string">&quot;2g&quot;</span>,
+  <span class="hljs-attr">&quot;spark.executor.memory&quot;</span>: <span class="hljs-string">&quot;4g&quot;</span>,
+  <span class="hljs-attr">&quot;spark.driver.cores&quot;</span>: <span class="hljs-string">&quot;4&quot;</span>,
+  <span class="hljs-attr">&quot;spark.yarn.executor.memoryOverhead&quot;</span>: <span class="hljs-string">&quot;4g&quot;</span>,
+  <span class="hljs-attr">&quot;spark.sql.adaptive.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;spark.sql.adaptive.skewedJoin.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;spark.sql.adaptive.skewedJoinWithAgg.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
+  <span class="hljs-attr">&quot;spark.sql.adaptive.multipleSkewedJoin.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>
+&#125;</code></pre>
+<p>其中倒数三个参数是Spark AE SkewedJoin优化的一般参数，应对数据偏斜（处理偏斜优先分析key的取值是否均匀，比如空值等异常值需要被提前先移除掉）。</p>
+<h3 id="依赖资源">依赖资源</h3>
+<p>资源大多通过以下几种方式引入</p>
+<ul>
+<li>files: 逗号分隔的文件，这些文件放在每个executor的工作目录下面</li>
+<li>py-files: 逗号分隔的&quot;.zip&quot;,&quot;.egg&quot;或者&quot;.py&quot;文件，这些文件放在python app的<code>PYTHONPATH</code>下面</li>
+<li>jars: 逗号分隔的本地jar包，包含在driver和executor的classpath下</li>
+<li>archives: 指定压缩文件地址，压缩文件被分发到 executor 上，并且解压，解压路径可通过<code>#</code>指定</li>
+</ul>
+<p>对于以上几个的区别主要是是否会被加入<code>classpath</code>和<code>pythonpath</code>，一般来说数据文件通过<code>--files</code>和<code>--archives</code>来添加，代码文件通过<code>--py-files</code>来添加，后者能被直接import。</p>
+<p>详情参见<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38066318/whats-the-difference-between-archives-files-py-files-in-pyspark-job-argum">What’s the difference between --archives, --files, py-files in pyspark job arguments</a></p>
+<h2 id="跑模型">跑模型</h2>
+<p>通过spark跑深度学习模型时（当然是cpu啦），要想充分利用高并发并且减少模型加载时间的影响，可以使用<code>mapPartitions</code>。</p>
+<p>先看官方给的例子</p>
+<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4], 2)</span>
+<span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; def f(iterator): yield sum(iterator)</span>
+<span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; rdd.mapPartitions(f).collect()</span>
+[3, 7]</code></pre>
+<p>传入和穿出都是迭代器，一条一条的计算。但是如果我们想一个batch一个batch的预测，显然有三个做法</p>
+<ul>
+<li>还是迭代器一条一条，攒一批过模型，再把结果迭代器传出</li>
+<li>利用处理流数据的dataset，如pytorch的<code>IterableDataset</code></li>
+<li>直接把一个partition全部转成list来处理，<strong>需要注意是否会爆内存</strong></li>
+</ul>
+<p>分别给出前两种写法的例子</p>
+<h3 id="方式一：攒数据">方式一：攒数据</h3>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):</span>
+    batch_size = <span class="hljs-number">16</span>
+    count = <span class="hljs-number">0</span>
+    row = partition
+    data_batch = []
+
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        <span class="hljs-keyword">try</span>:
+            content = next(row)
+
+            <span class="hljs-keyword">if</span> count &lt; batch_size:
+                count += <span class="hljs-number">1</span>
+                data_batch.append(content)
+
+            <span class="hljs-keyword">if</span> count &gt;= batch_size:
+                count = <span class="hljs-number">0</span>
+                <span class="hljs-comment"># 过模型</span>
+                predicts = model_predict(data_batch)
+                <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> predicts:
+                    <span class="hljs-keyword">yield</span> p
+                data_batch = []
+        <span class="hljs-keyword">except</span> StopIteration:
+            <span class="hljs-comment"># 最后一个batch，数据量不一定是batch_size</span>
+            <span class="hljs-keyword">if</span> data_batch:
+                predicts = model_predict(data_batch)
+                <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> predicts:
+                    <span class="hljs-keyword">yield</span> p
+                    
+rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapPartitions(infer_batch_by_partition)</code></pre>
+<h3 id="方式二：IterableDataset">方式二：IterableDataset</h3>
+<p>Iterabledataset 的一个例子</p>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyIterableDataset</span>(<span class="hljs-params">torch.utils.data.IterableDataset</span>):</span>
+<span class="hljs-meta">... </span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, your_args</span>):</span>
+<span class="hljs-meta">... </span>        super(MyIterableDataset).__init__()
+<span class="hljs-meta">... </span>        <span class="hljs-comment"># this depends on your dataset, suppose your dataset contains </span>
+<span class="hljs-meta">... </span>        <span class="hljs-comment"># images whose path you save in this list</span>
+<span class="hljs-meta">... </span>        self.dataset = <span class="hljs-comment"># something for load the path of images </span>
+...
+<span class="hljs-meta">... </span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__iter__</span>(<span class="hljs-params">self</span>):</span>
+<span class="hljs-meta">... </span>        <span class="hljs-keyword">for</span> image_path <span class="hljs-keyword">in</span> self.dataset:
+<span class="hljs-meta">... </span>            sample, label = read_single_example(image_path) <span class="hljs-comment"># read an individual sample and its label</span>
+<span class="hljs-meta">... </span>            <span class="hljs-keyword">yield</span> sample, label</code></pre>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">seq_padding</span>(<span class="hljs-params">seq, max_len, value=<span class="hljs-number">0</span></span>):</span>
+    x = [value] * max_len
+    x[:len(seq)] = seq[:max_len]
+    <span class="hljs-keyword">return</span> x
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DedupePairDatasetV2Iter</span>(<span class="hljs-params">IterableDataset</span>):</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, text_data_iter, tokenizer, max_len=<span class="hljs-number">128</span>, max_sen=<span class="hljs-number">16</span>, mode=<span class="hljs-string">&#x27;test&#x27;</span></span>):</span>
+        super(DedupePairDatasetV2Iter, self).__init__()
+        self.max_len = max_len
+        self.max_sen = max_sen
+        self.tokenizer = tokenizer
+        self.text_data_iter = text_data_iter
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gen_doc_input</span>(<span class="hljs-params">self, doc</span>):</span>
+        sentences = doc[<span class="hljs-string">&#x27;summary&#x27;</span>]
+        sentences = sentences[:self.max_sen]
+
+        <span class="hljs-comment"># 构造每个句子的bert输入</span>
+        input_ids_list, token_type_ids_list, attention_mask_list = [], [], []
+        <span class="hljs-keyword">for</span> sen <span class="hljs-keyword">in</span> sentences:
+            token_type_ids = [<span class="hljs-number">0</span>] * self.max_len
+            input_ids, attention_mask = [], []
+            <span class="hljs-keyword">for</span> ch <span class="hljs-keyword">in</span> sen[:self.max_len - <span class="hljs-number">2</span>]:
+                token_idx = self.tokenizer.encode(ch)
+                <span class="hljs-keyword">if</span> len(token_idx) != <span class="hljs-number">3</span>:
+                    <span class="hljs-comment"># 空格等，转为[UNK]</span>
+                    input_ids.append(<span class="hljs-number">100</span>)
+                <span class="hljs-keyword">else</span>:
+                    input_ids.append(token_idx[<span class="hljs-number">1</span>])
+                attention_mask.append(<span class="hljs-number">1</span>)
+            input_ids = [<span class="hljs-number">101</span>] + input_ids + [<span class="hljs-number">102</span>]
+            attention_mask = [<span class="hljs-number">1</span>] + attention_mask + [<span class="hljs-number">1</span>]
+
+            input_ids_list.append(seq_padding(input_ids, self.max_len))
+            token_type_ids_list.append(seq_padding(token_type_ids, self.max_len))
+            attention_mask_list.append(seq_padding(attention_mask, self.max_len))
+        <span class="hljs-comment"># pad doc sentence</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(input_ids_list), self.max_sen):
+            input_ids_list.append([<span class="hljs-number">101</span>] + [<span class="hljs-number">0</span>] * (self.max_len - <span class="hljs-number">2</span>) + [<span class="hljs-number">102</span>])
+            token_type_ids_list.append([<span class="hljs-number">0</span>] * self.max_len)
+            attention_mask_list.append([<span class="hljs-number">1</span>] * self.max_len)
+
+        <span class="hljs-comment"># 增加句子长度，每一个字段分开batch</span>
+        n_sen = min(len(sentences), self.max_sen)
+        sen_mask = [<span class="hljs-number">1</span>] * n_sen + [<span class="hljs-number">0</span>] * (self.max_sen - n_sen)
+        inputs = &#123;
+            <span class="hljs-string">&#x27;input_ids&#x27;</span>: torch.tensor(input_ids_list, dtype=torch.long),
+            <span class="hljs-string">&#x27;token_type_ids&#x27;</span>: torch.tensor(token_type_ids_list, dtype=torch.long),
+            <span class="hljs-string">&#x27;attention_mask&#x27;</span>: torch.tensor(attention_mask_list, dtype=torch.long),
+            <span class="hljs-string">&#x27;sen_mask&#x27;</span>: torch.tensor(sen_mask, dtype=torch.long)
+        &#125;
+
+        <span class="hljs-keyword">return</span> inputs
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__iter__</span>(<span class="hljs-params">self</span>):</span>
+        <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> self.text_data_iter:
+            left = self.gen_doc_input(item[<span class="hljs-string">&#x27;left&#x27;</span>])
+            right = self.gen_doc_input(item[<span class="hljs-string">&#x27;right&#x27;</span>])
+            <span class="hljs-keyword">yield</span> left, right, json.dumps(item, ensure_ascii=<span class="hljs-literal">False</span>)
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_duplicate_pair_iter</span>(<span class="hljs-params">model, </span></span>
+<span class="hljs-function"><span class="hljs-params">                              tokenizer, </span></span>
+<span class="hljs-function"><span class="hljs-params">                              pair_list, </span></span>
+<span class="hljs-function"><span class="hljs-params">                              batch_size=<span class="hljs-number">16</span>, </span></span>
+<span class="hljs-function"><span class="hljs-params">                              max_sen=<span class="hljs-number">16</span>, </span></span>
+<span class="hljs-function"><span class="hljs-params">                              max_seq_len=<span class="hljs-number">128</span>,</span></span>
+<span class="hljs-function"><span class="hljs-params">                              sent_hidden_size=<span class="hljs-number">64</span></span>):</span>
+    device = torch.device(<span class="hljs-string">&#x27;cpu&#x27;</span>)
+
+    <span class="hljs-comment"># test_set = DedupePairDatasetV2(pair_list, tokenizer, mode=&#x27;test&#x27;, max_sen=max_sen, max_len=max_seq_len)</span>
+    test_set = DedupePairDatasetV2Iter(pair_list, tokenizer, mode=<span class="hljs-string">&#x27;test&#x27;</span>, max_sen=max_sen, max_len=max_seq_len)
+    test_params = &#123;<span class="hljs-string">&#x27;batch_size&#x27;</span>: batch_size,
+                   <span class="hljs-string">&#x27;shuffle&#x27;</span>: <span class="hljs-literal">False</span>,
+                   <span class="hljs-string">&#x27;num_workers&#x27;</span>: <span class="hljs-number">0</span>,
+                   &#125;
+    testing_loader = DataLoader(test_set, **test_params)
+
+    model.eval()
+    <span class="hljs-keyword">with</span> torch.no_grad():
+        <span class="hljs-keyword">for</span> _, inputs <span class="hljs-keyword">in</span> enumerate(testing_loader, <span class="hljs-number">0</span>):
+            left, right, items = inputs
+            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> left:
+                left[k] = left[k].to(device, dtype=torch.long)
+            <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> right:
+                right[k] = right[k].to(device, dtype=torch.long)
+            logits = model(left, right)
+            logits = logits.cpu().detach().numpy()
+            score = softmax(logits, axis=<span class="hljs-number">1</span>).tolist()
+            <span class="hljs-keyword">for</span> pair, pred <span class="hljs-keyword">in</span> zip(items, score):
+                pair = json.loads(pair)
+                pair[<span class="hljs-string">&#x27;left&#x27;</span>].pop(<span class="hljs-string">&#x27;summary&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+                pair[<span class="hljs-string">&#x27;right&#x27;</span>].pop(<span class="hljs-string">&#x27;summary&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
+                pair[<span class="hljs-string">&#x27;score&#x27;</span>] = pred[<span class="hljs-number">1</span>]
+                <span class="hljs-keyword">yield</span> json.dumps(pair, ensure_ascii=<span class="hljs-literal">False</span>)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):</span>
+    <span class="hljs-keyword">return</span> infer_duplicate_pair_iter(model_path, tokenizer, partition, batch_size=<span class="hljs-number">8</span>)
+rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapPartitions(infer_batch_by_partition)</code></pre>
+<p>参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1805305">Spark原理 | 关于 mapPartitions 的误区</a></li>
+</ul>
+<h2 id="基本操作">基本操作</h2>
+<p><strong>读取json</strong></p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> SparkSession
+
+spark = SparkSession.builder.config(<span class="hljs-string">&quot;spark.sql.warehouse.dir&quot;</span>, <span class="hljs-string">&quot;file:///C:/temp&quot;</span>).appName(<span class="hljs-string">&quot;readJSON&quot;</span>).getOrCreate()
+
+readJSONDF = spark.read.json(<span class="hljs-string">&#x27;Simple.json&#x27;</span>)
+readJSONDF.show(truncate=<span class="hljs-literal">False</span>)</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/267353998">用pyspark读取json数据的方法汇总</a></p>
+<p><strong>读取csv</strong></p>
+<pre><code class="hljs python">df = spark.read.csv(hdfs_path, header=<span class="hljs-literal">True</span>, inferSchema=<span class="hljs-string">&quot;true&quot;</span>)
+df = df.select(<span class="hljs-string">&#x27;doc_id&#x27;</span>, <span class="hljs-string">&#x27;title&#x27;</span>)
+df = df.withColumnRenamed(<span class="hljs-string">&#x27;title&#x27;</span>, <span class="hljs-string">&#x27;doc_title&#x27;</span>)
+df = df.withColumn(<span class="hljs-string">&#x27;doc_id&#x27;</span>, df[<span class="hljs-string">&#x27;doc_id&#x27;</span>].cast(StringType()))</code></pre>
+<p><strong>写入hive分区</strong></p>
+<pre><code class="hljs python"><span class="hljs-comment"># 指定分区进行重写，而不会重写整张表</span>
+df.createOrReplaceTempView(<span class="hljs-string">&#x27;tmp_push&#x27;</span>)
+query = <span class="hljs-string">&#x27;INSERT OVERWRITE TABLE aaa.bbb PARTITION(date=&quot;$&#123;date&#125;&quot;) SELECT * FROM tmp_push&#x27;</span>
+spark.sql(query)</code></pre>
+<p><strong>多个rdd的联合</strong></p>
+<pre><code class="hljs python">rdd_list.append(rdd1)
+rdd_list.append(rdd2)
+rdd_union = sc.union(rdd_list)</code></pre>
+<p><strong>join</strong></p>
+<p><strong>能用dataframe尽量用dataframe</strong>，有性能优化</p>
+<p><code>left_anti</code>只有dataframe有接口</p>
+<pre><code class="hljs python">df_a_not_in_b = df_a.join(df_b, on=[<span class="hljs-string">&#x27;key&#x27;</span>], how=<span class="hljs-string">&#x27;left_anti&#x27;</span>)</code></pre>
+<p><strong>udf</strong></p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_pair_key</span>(<span class="hljs-params">id1, id2</span>):</span>
+  id1, id2 = str(id1), str(id2)
+  <span class="hljs-keyword">if</span> id1 &gt; id2:
+    id1, id2 = id2, id1
+  <span class="hljs-keyword">return</span> id1 + <span class="hljs-string">&#x27;-&#x27;</span> + id2
+
+udf_make_pair_key = F.udf(make_pair_key, StringType())
+df = df.withColumn(<span class="hljs-string">&#x27;key&#x27;</span>, udf_make_pair_key(df_hist.id1, df_hist.id2))</code></pre>
+<h2 id="骚操作">骚操作</h2>
+<h4 id="运行过程中安装依赖包">运行过程中安装依赖包</h4>
+<p>有一些包的安装比较麻烦，比如spacy的模型<code>zh_core_web_md</code>，正常的安装方式为</p>
+<pre><code class="hljs shell">pip install -U pip setuptools wheel
+pip install -U spacy
+python -m spacy download zh_core_web_md</code></pre>
+<p>最后一步我们没有办法写到requirements中，一个骚操作是把模型文件上传，然后在代码中解压，亲测有效</p>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_spacy_model</span>(<span class="hljs-params">env=<span class="hljs-string">&#x27;local&#x27;</span></span>):</span>
+    <span class="hljs-keyword">import</span> zipfile
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">unzip_model</span>(<span class="hljs-params">zip_file, out_path=<span class="hljs-string">&#x27;.&#x27;</span></span>):</span>
+        zFile = zipfile.ZipFile(zip_file, <span class="hljs-string">&quot;r&quot;</span>)
+        <span class="hljs-keyword">for</span> fileM <span class="hljs-keyword">in</span> zFile.namelist():
+            zFile.extract(fileM, out_path)
+        zFile.close()
+
+   
+  	zip_file = <span class="hljs-string">&#x27;zh_core_web_md-3.0.0.zip&#x27;</span>
+  	out_path = <span class="hljs-string">&#x27;.&#x27;</span>
+
+    unzip_model(zip_file, out_path)
+    NLP = spacy.load(out_path + <span class="hljs-string">&#x27;/zh_core_web_md-3.0.0&#x27;</span>)</code></pre>
+<p>但其实并不需要这么麻烦，更好的做法是直接加载模型</p>
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> SparkSession
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> zipfile
+
+spark = SparkSession.builder.enableHiveSupport().getOrCreate()
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_load_model</span>():</span>
+    sys.path.insert(<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;zh_core_web_md-3.0.0.zip&#x27;</span>)  <span class="hljs-comment"># 通过py-files引入，作为一个路径</span>
+
+    files = os.listdir(<span class="hljs-string">&#x27;./&#x27;</span>)
+    print(<span class="hljs-string">&#x27;x&#x27;</span>*<span class="hljs-number">60</span>, sys.stderr)
+    print(<span class="hljs-string">&#x27;\n&#x27;</span>.join(files), sys.stderr)
+
+    <span class="hljs-keyword">import</span> spacy
+    nlp = spacy.load(<span class="hljs-string">&#x27;zh_core_web_md-3.0.0.zip/zh_core_web_md-3.0.0&#x27;</span>)
+    text = <span class="hljs-string">&#x27;风寒三友即岁寒三友，指松、竹、梅三种植物。&#x27;</span>
+    doc = nlp(text)
+    <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> doc:
+        <span class="hljs-comment"># info = [token.text, token.lemma_, token.pos_, token.tag_, token.dep_,</span>
+        <span class="hljs-comment">#             token.shape_, token.is_alpha, token.is_stop]</span>
+        print(token.text, file=sys.stdout)
+
+</code></pre>
+<p><code>zh_core_web_md-3.0.0</code>的文件内容为：</p>
+<pre><code class="hljs shell">accuracy.json
+attribute_ruler
+config.cfg
+meta.json
+ner
+parser
+senter
+tagger
+tok2vec
+tokenizer
+vocab</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pyspark/">pyspark</a>
+                    
+                      <a class="hover-with-bg" href="/tags/spark/">spark</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/python/pycharm-remote/">
+                        <span class="hidden-mobile">pycharm远程连接并运行</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'zekizz/commit-utterances');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    }
+    waitElementVisible('comments', loadUtterances)
+  </script>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
