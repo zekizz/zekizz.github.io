@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="zekizz">
   <meta name="keywords" content="">
-  <title>regex_preview - 给荔枝打气</title>
+  <title>正则表达式四种预查 - 给荔枝打气</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -167,7 +167,7 @@
           <div class="container page-header text-center fade-in-up">
             <span class="h2" id="subtitle">
               
-                regex_preview
+                正则表达式四种预查
               
             </span>
 
@@ -234,7 +234,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">regex_preview</h1>
+            <h1 style="display: none">正则表达式四种预查</h1>
             
               <p class="note note-info">
                 
@@ -279,7 +279,7 @@
       print(p3, re.search(p3, c))
       print(p4, re.search(p4, c))
       print()</code></pre>
-<p>输出为如下，可以看到只有放于最后的才有效，放于最前面的<code>p1</code>捕获不了<code>abc123</code>，放置于中间的<code>p4</code>捕获不了<code>abc123</code>和<code>ae</code>123。而且正确放置在最后的p2，完全等价于p3（对p3的匹配取group1），无法捕获<code>123</code>，不实用，不如直接用p3。</p>
+<p>输出为如下，可以看到只有放于最后的才有效，放于最前面的<code>p1</code>捕获不了<code>abc123</code>，放置于中间的<code>p4</code>捕获不了<code>abc123</code>和<code>ae</code>123。而且正确放置在最后的<code>p2</code>，完全等价于<code>p3</code>（对<code>p3</code>的匹配取group1），无法捕获<code>123</code>，不实用，不如直接用<code>p3</code>。</p>
 <pre><code class="hljs lsl"><span class="hljs-number">123</span>
 (?=abc|ad)<span class="hljs-number">123</span> None
 <span class="hljs-number">123</span>(?=abc|ad) None
