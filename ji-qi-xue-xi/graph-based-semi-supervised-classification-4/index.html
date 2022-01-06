@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>图半监督节点分类之四——基于自适应高阶近似编码 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,16 +228,10 @@
             <!-- SEO header -->
             <h1 style="display: none">图半监督节点分类之四——基于自适应高阶近似编码</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>上一篇文章已经详细描述了在半监督图编码任务中，保持高阶近似的重要性。尤其当图比较稀疏时，节点的一阶和二阶邻居的数目太少以致于不能准确反映节点的上下文。从更细的角度来看，图中不同节点所处的位置不同，其局部图结构也就不同。有些节点处于图中比较稠密的部分，比如社团中部，邻居信息足够，能准确地反映节点的类别分布。但是信息过多也不一定是一件好事，比如有些节点夹在两类节点和两个社团的中间，这些节点的邻居很多但是信息也很杂，此时需要进一步扩大邻居范围，看其偏向哪一方。同时，也有一些节点处于一条长链的局部结构中，这些节点只有一个或两个邻居，就算扩大视野到2步邻居，信息也不够。在这种情况下，需要扩大感受野到整条链甚至到这条链所连接的社团。</p>
 <p>上述描述是为了说明不同位置的节点需要的感受野大小不同（$k$阶邻居的$k$不同）。目前的模型包括之前提出的Graph-GRU都是对所有节点一视同仁，使得每个节点都捕获相同的$k$阶近似。显然，对于有些节点，这个固定的$k$值可能比较小，邻居信息不够；对于有些节点，$k$值可能稍微偏大，邻居信息太多以致于紊乱。因此，本章的出发点是，能否对不同节点自适应的捕获不同的高阶近似？此外，当捕获的$k$阶近似中$k$较大时，编码过程需要在以目标节点为中心的$k$阶子图上对目标节点的编码进行平滑。 此时，学得的编码可能过于平滑以致于丢失局部细节。基于以上出发点，本章提出了一个端到端的自适应高阶图编码（Adaptive High-Order Graph Embedding, AHOGE）神经网络，在自适应地保持高阶近似的同时保留个体细节特征。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="自适应高阶图编码模型">自适应高阶图编码模型</h2>
 <p>下图给出了在一个拥有五个节点的简单图下的AHOGE模型的结构示意图。受Column Networks<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>的启发，AHOGE利用$k$个隐层的堆叠来扩展半径为$k$的邻居感受野以实现 远程依赖（高阶近似）。由于第$i$个隐层捕捉$i$阶近似，所以AHOGE将一阶近似层连接在其后面所有隐层上，使得后面的隐层在捕获$k$阶近似的时候能融入一阶近似的信息，以防止过于平滑的编码结果。通过交叉验证，本文选择AHOGE的隐层数目$k=7$。<br>
 <img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/model_ahoge.png" srcset="/img/loading.gif" alt="自适应高阶图编码AHOGE模型结构示意图"><br>
@@ -473,8 +459,8 @@ $$ h_i^t  =   a^t_i \circ h_i^{1} + (1-a^t_i) \circ \overline{h}_i^t $$</p>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -487,7 +473,7 @@ $$ h_i^t  =   a^t_i \circ h_i^{1} + (1-a^t_i) \circ \overline{h}_i^t $$</p>
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -498,7 +484,7 @@ $$ h_i^t  =   a^t_i \circ h_i^{1} + (1-a^t_i) \circ \overline{h}_i^t $$</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -527,7 +513,7 @@ $$ h_i^t  =   a^t_i \circ h_i^{1} + (1-a^t_i) \circ \overline{h}_i^t $$</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -556,8 +542,8 @@ $$ h_i^t  =   a^t_i \circ h_i^{1} + (1-a^t_i) \circ \overline{h}_i^t $$</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
@@ -568,50 +554,11 @@ $$ h_i^t  =   a^t_i \circ h_i^{1} + (1-a^t_i) \circ \overline{h}_i^t $$</p>
         $(this).wrap(element);
       }
     );
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
 
-
-  
-
-  
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-  
 
 
 

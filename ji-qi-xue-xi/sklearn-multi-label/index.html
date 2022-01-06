@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>考虑未定义类型的多分类 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,15 +228,9 @@
             <!-- SEO header -->
             <h1 style="display: none">考虑未定义类型的多分类</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>考虑这样一个场景，我们要处理一个多分类问题，由于目标的空间是开放的，我们无法穷举所有的类别。目前我们制定了K类去训练一个多分类模型，在预测未知数据时，有可能出现未识别的类型，此时我们的多分类模型会赋予它k类中的一类。然鹅，这个赋予是错误的。那怎样去避免和处理这样的现象呢？</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="方案思考">方案思考</h2>
 <p>遇到这个问题，很多人的第一直观想法是，分别给没类训练一个one-class classifier（比如one-class svm）不就好了。</p>
 <p>这确实是一个看起来很不错的想法。但是one-class classifer本质上是做异常检测的，如果某一类的样本空间分布很分散，并没有聚成团，此时可能正确的样本都会被判断成错误的类别。实际中遇到各种乱七八糟的数据，我对one-class classifier的性能是打问号的。当然如果能精心设计，以上当我扯淡。</p>
@@ -291,28 +277,28 @@
     <span class="hljs-comment"># lb = LabelEncoder()</span>
     lb = LabelBinarizer()
     y = lb.fit_transform(labels_all)
-    print(lb.classes_)
+    <span class="hljs-built_in">print</span>(lb.classes_)
     text_train, text_test, y_train, y_test = \
         train_test_split(data_all, y, test_size=<span class="hljs-number">0.33</span>, random_state=<span class="hljs-number">0</span>)
     count_vect = CountVectorizer()
     train_vec = count_vect.fit_transform(text_train)
     clf = OneVsRestClassifier(LogisticRegression())
     clf.fit(train_vec, y_train)
-    print(len(clf.estimators_))
+    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(clf.estimators_))
     test_vec = count_vect.transform(text_test)
     pred = clf.predict(test_vec)
-    print(classification_report(y_test, pred))
+    <span class="hljs-built_in">print</span>(classification_report(y_test, pred))
     self.model = clf
     self.vectorizer = count_vect
     pred = self.pred_multi_label(test_vec)
-    print(pred)
+    <span class="hljs-built_in">print</span>(pred)
     
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pred_multi_label</span>(<span class="hljs-params">self, vectors</span>):</span>
     preds = []
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(self.model.estimators_)):
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(self.model.estimators_)):
         preds.append(
             self.model.estimators_[i].predict_proba(vectors)[:, <span class="hljs-number">1</span>])
-    <span class="hljs-keyword">return</span> np.column_stack(tuple(preds))</code></pre>
+    <span class="hljs-keyword">return</span> np.column_stack(<span class="hljs-built_in">tuple</span>(preds))</code></pre>
 <p>这里需要注意的是，在预测过程中，如果采用OneVsRestClassifier默认的predict_proba，得到的没类的概率是归一化的。我想得到的就是具体属于每一类的概率，不要归一化。所以，这里采用了其属性<code>estimators_</code>来计算具体的概率。</p>
 <p>实验发现，效果贼好。对于已知类别，对应类上的概率基本大于80%，而对于未见类别，最高也在57%左右。</p>
 <p>此时我们完全可以采用70%去截断，如果一个类别未达到，那就是未知类别了。</p>
@@ -493,8 +479,8 @@
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -507,7 +493,7 @@
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -518,7 +504,7 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -547,7 +533,7 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -576,8 +562,8 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

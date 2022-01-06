@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>pyspark经验小结 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,25 +228,19 @@
             <!-- SEO header -->
             <h1 style="display: none">pyspark经验小结</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2021年8月15日 中午
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录spark使用过程中的一些常用点，不定期更新~</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="pyspark环境打包">pyspark环境打包</h2>
 <p>先本地构建虚拟环境，打包后提交到集群，已conda为例</p>
 <pre><code class="hljs shell">conda create -n py37 python=3.7 pip
 
 source activate py37
 pip install -r requirements.txt
-
+<span class="hljs-meta"></span>
 <span class="hljs-meta">#</span><span class="bash"> install conda pack</span>
 pip install conda-pack
-
+<span class="hljs-meta"></span>
 <span class="hljs-meta">#</span><span class="bash"> Pack environment my_env into out_name.tar.gz</span>
 conda pack -n py37 -o py37_env.tar.gz</code></pre>
 <p>打包完成后，可重现环境检查下</p>
@@ -345,7 +331,7 @@ zip -r ../project_home.zip .</code></pre>
 
     <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
         <span class="hljs-keyword">try</span>:
-            content = next(row)
+            content = <span class="hljs-built_in">next</span>(row)
 
             <span class="hljs-keyword">if</span> count &lt; batch_size:
                 count += <span class="hljs-number">1</span>
@@ -370,7 +356,7 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
 <p>Iterabledataset 的一个例子</p>
 <pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyIterableDataset</span>(<span class="hljs-params">torch.utils.data.IterableDataset</span>):</span>
 <span class="hljs-meta">... </span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, your_args</span>):</span>
-<span class="hljs-meta">... </span>        super(MyIterableDataset).__init__()
+<span class="hljs-meta">... </span>        <span class="hljs-built_in">super</span>(MyIterableDataset).__init__()
 <span class="hljs-meta">... </span>        <span class="hljs-comment"># this depends on your dataset, suppose your dataset contains </span>
 <span class="hljs-meta">... </span>        <span class="hljs-comment"># images whose path you save in this list</span>
 <span class="hljs-meta">... </span>        self.dataset = <span class="hljs-comment"># something for load the path of images </span>
@@ -381,13 +367,13 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
 <span class="hljs-meta">... </span>            <span class="hljs-keyword">yield</span> sample, label</code></pre>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">seq_padding</span>(<span class="hljs-params">seq, max_len, value=<span class="hljs-number">0</span></span>):</span>
     x = [value] * max_len
-    x[:len(seq)] = seq[:max_len]
+    x[:<span class="hljs-built_in">len</span>(seq)] = seq[:max_len]
     <span class="hljs-keyword">return</span> x
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DedupePairDatasetV2Iter</span>(<span class="hljs-params">IterableDataset</span>):</span>
 
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, text_data_iter, tokenizer, max_len=<span class="hljs-number">128</span>, max_sen=<span class="hljs-number">16</span>, mode=<span class="hljs-string">&#x27;test&#x27;</span></span>):</span>
-        super(DedupePairDatasetV2Iter, self).__init__()
+        <span class="hljs-built_in">super</span>(DedupePairDatasetV2Iter, self).__init__()
         self.max_len = max_len
         self.max_sen = max_sen
         self.tokenizer = tokenizer
@@ -404,7 +390,7 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
             input_ids, attention_mask = [], []
             <span class="hljs-keyword">for</span> ch <span class="hljs-keyword">in</span> sen[:self.max_len - <span class="hljs-number">2</span>]:
                 token_idx = self.tokenizer.encode(ch)
-                <span class="hljs-keyword">if</span> len(token_idx) != <span class="hljs-number">3</span>:
+                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(token_idx) != <span class="hljs-number">3</span>:
                     <span class="hljs-comment"># 空格等，转为[UNK]</span>
                     input_ids.append(<span class="hljs-number">100</span>)
                 <span class="hljs-keyword">else</span>:
@@ -417,13 +403,13 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
             token_type_ids_list.append(seq_padding(token_type_ids, self.max_len))
             attention_mask_list.append(seq_padding(attention_mask, self.max_len))
         <span class="hljs-comment"># pad doc sentence</span>
-        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(input_ids_list), self.max_sen):
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(input_ids_list), self.max_sen):
             input_ids_list.append([<span class="hljs-number">101</span>] + [<span class="hljs-number">0</span>] * (self.max_len - <span class="hljs-number">2</span>) + [<span class="hljs-number">102</span>])
             token_type_ids_list.append([<span class="hljs-number">0</span>] * self.max_len)
             attention_mask_list.append([<span class="hljs-number">1</span>] * self.max_len)
 
         <span class="hljs-comment"># 增加句子长度，每一个字段分开batch</span>
-        n_sen = min(len(sentences), self.max_sen)
+        n_sen = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">len</span>(sentences), self.max_sen)
         sen_mask = [<span class="hljs-number">1</span>] * n_sen + [<span class="hljs-number">0</span>] * (self.max_sen - n_sen)
         inputs = &#123;
             <span class="hljs-string">&#x27;input_ids&#x27;</span>: torch.tensor(input_ids_list, dtype=torch.long),
@@ -443,12 +429,12 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
 
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_duplicate_pair_iter</span>(<span class="hljs-params">model, </span></span>
-<span class="hljs-function"><span class="hljs-params">                              tokenizer, </span></span>
-<span class="hljs-function"><span class="hljs-params">                              pair_list, </span></span>
-<span class="hljs-function"><span class="hljs-params">                              batch_size=<span class="hljs-number">16</span>, </span></span>
-<span class="hljs-function"><span class="hljs-params">                              max_sen=<span class="hljs-number">16</span>, </span></span>
-<span class="hljs-function"><span class="hljs-params">                              max_seq_len=<span class="hljs-number">128</span>,</span></span>
-<span class="hljs-function"><span class="hljs-params">                              sent_hidden_size=<span class="hljs-number">64</span></span>):</span>
+<span class="hljs-params"><span class="hljs-function">                              tokenizer, </span></span>
+<span class="hljs-params"><span class="hljs-function">                              pair_list, </span></span>
+<span class="hljs-params"><span class="hljs-function">                              batch_size=<span class="hljs-number">16</span>, </span></span>
+<span class="hljs-params"><span class="hljs-function">                              max_sen=<span class="hljs-number">16</span>, </span></span>
+<span class="hljs-params"><span class="hljs-function">                              max_seq_len=<span class="hljs-number">128</span>,</span></span>
+<span class="hljs-params"><span class="hljs-function">                              sent_hidden_size=<span class="hljs-number">64</span></span>):</span>
     device = torch.device(<span class="hljs-string">&#x27;cpu&#x27;</span>)
 
     <span class="hljs-comment"># test_set = DedupePairDatasetV2(pair_list, tokenizer, mode=&#x27;test&#x27;, max_sen=max_sen, max_len=max_seq_len)</span>
@@ -459,9 +445,9 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
                    &#125;
     testing_loader = DataLoader(test_set, **test_params)
 
-    model.eval()
+    model.<span class="hljs-built_in">eval</span>()
     <span class="hljs-keyword">with</span> torch.no_grad():
-        <span class="hljs-keyword">for</span> _, inputs <span class="hljs-keyword">in</span> enumerate(testing_loader, <span class="hljs-number">0</span>):
+        <span class="hljs-keyword">for</span> _, inputs <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(testing_loader, <span class="hljs-number">0</span>):
             left, right, items = inputs
             <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> left:
                 left[k] = left[k].to(device, dtype=torch.long)
@@ -470,7 +456,7 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
             logits = model(left, right)
             logits = logits.cpu().detach().numpy()
             score = softmax(logits, axis=<span class="hljs-number">1</span>).tolist()
-            <span class="hljs-keyword">for</span> pair, pred <span class="hljs-keyword">in</span> zip(items, score):
+            <span class="hljs-keyword">for</span> pair, pred <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(items, score):
                 pair = json.loads(pair)
                 pair[<span class="hljs-string">&#x27;left&#x27;</span>].pop(<span class="hljs-string">&#x27;summary&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
                 pair[<span class="hljs-string">&#x27;right&#x27;</span>].pop(<span class="hljs-string">&#x27;summary&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)
@@ -514,7 +500,7 @@ rdd_union = sc.union(rdd_list)</code></pre>
 <pre><code class="hljs python">df_a_not_in_b = df_a.join(df_b, on=[<span class="hljs-string">&#x27;key&#x27;</span>], how=<span class="hljs-string">&#x27;left_anti&#x27;</span>)</code></pre>
 <p><strong>udf</strong></p>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_pair_key</span>(<span class="hljs-params">id1, id2</span>):</span>
-  id1, id2 = str(id1), str(id2)
+  id1, id2 = <span class="hljs-built_in">str</span>(id1), <span class="hljs-built_in">str</span>(id2)
   <span class="hljs-keyword">if</span> id1 &gt; id2:
     id1, id2 = id2, id1
   <span class="hljs-keyword">return</span> id1 + <span class="hljs-string">&#x27;-&#x27;</span> + id2
@@ -556,8 +542,8 @@ spark = SparkSession.builder.enableHiveSupport().getOrCreate()
     sys.path.insert(<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;zh_core_web_md-3.0.0.zip&#x27;</span>)  <span class="hljs-comment"># 通过py-files引入，作为一个路径</span>
 
     files = os.listdir(<span class="hljs-string">&#x27;./&#x27;</span>)
-    print(<span class="hljs-string">&#x27;x&#x27;</span>*<span class="hljs-number">60</span>, sys.stderr)
-    print(<span class="hljs-string">&#x27;\n&#x27;</span>.join(files), sys.stderr)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;x&#x27;</span>*<span class="hljs-number">60</span>, sys.stderr)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;\n&#x27;</span>.join(files), sys.stderr)
 
     <span class="hljs-keyword">import</span> spacy
     nlp = spacy.load(<span class="hljs-string">&#x27;zh_core_web_md-3.0.0.zip/zh_core_web_md-3.0.0&#x27;</span>)
@@ -566,7 +552,7 @@ spark = SparkSession.builder.enableHiveSupport().getOrCreate()
     <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> doc:
         <span class="hljs-comment"># info = [token.text, token.lemma_, token.pos_, token.tag_, token.dep_,</span>
         <span class="hljs-comment">#             token.shape_, token.is_alpha, token.is_stop]</span>
-        print(token.text, file=sys.stdout)
+        <span class="hljs-built_in">print</span>(token.text, file=sys.stdout)
 
 </code></pre>
 <p><code>zh_core_web_md-3.0.0</code>的文件内容为：</p>
@@ -757,8 +743,8 @@ vocab</code></pre>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -771,7 +757,7 @@ vocab</code></pre>
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -782,7 +768,7 @@ vocab</code></pre>
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -811,7 +797,7 @@ vocab</code></pre>
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -840,8 +826,8 @@ vocab</code></pre>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

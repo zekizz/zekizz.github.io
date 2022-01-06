@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>git笔记 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,22 +228,16 @@
             <!-- SEO header -->
             <h1 style="display: none">git笔记</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>git常用小结</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="配置">配置</h2>
 <p>获取配置信息</p>
-<pre><code class="hljs routeros">git<span class="hljs-built_in"> config </span>--system --list
-git<span class="hljs-built_in"> config </span>--local --list</code></pre>
+<pre><code class="hljs brainfuck"><span class="hljs-comment">git</span> <span class="hljs-comment">config</span> --<span class="hljs-comment">system</span> --<span class="hljs-comment">list</span>
+<span class="hljs-comment">git</span> <span class="hljs-comment">config</span> --<span class="hljs-comment">local</span> --<span class="hljs-comment">list</span></code></pre>
 <p>git config</p>
-<pre><code class="hljs routeros">git<span class="hljs-built_in"> config </span>--global user.name <span class="hljs-string">&quot;Your Name&quot;</span>
-git<span class="hljs-built_in"> config </span>--global user.email <span class="hljs-string">&quot;email@example.com&quot;</span></code></pre>
+<pre><code class="hljs verilog">git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.name</span> <span class="hljs-string">&quot;Your Name&quot;</span>
+git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.email</span> <span class="hljs-string">&quot;email@example.com&quot;</span></code></pre>
 <p>github配置ssh</p>
 <ol>
 <li>本地生成ssh密钥对</li>
@@ -265,50 +251,50 @@ git<span class="hljs-built_in"> config </span>--global user.email <span class="h
 <li>添加入github的setting中</li>
 </ol>
 <h2 id="常用命令">常用命令</h2>
-<pre><code class="hljs sql">git diff <span class="hljs-comment">--cached  # 查看已经暂存起来的文件和上次提交时的快照之间的差异</span>
+<pre><code class="hljs livecodeserver">git diff <span class="hljs-comment">--cached  # 查看已经暂存起来的文件和上次提交时的快照之间的差异</span>
 git diff <span class="hljs-comment">--staged  # Git 1.6.1及更高版本，效果同上</span>
 
-git <span class="hljs-keyword">commit</span> -a -m <span class="hljs-string">&#x27;comment&#x27;</span>  <span class="hljs-comment"># 自动把所有已经跟踪过的文件暂存起来一并提交</span>
-git <span class="hljs-keyword">commit</span> <span class="hljs-comment">--amend  # 撤销操作重新提交</span>
+git commit -<span class="hljs-keyword">a</span> -m <span class="hljs-string">&#x27;comment&#x27;</span>  <span class="hljs-comment"># 自动把所有已经跟踪过的文件暂存起来一并提交</span>
+git commit <span class="hljs-comment">--amend  # 撤销操作重新提交</span>
     <span class="hljs-comment"># 只生成一个commit</span>
-    git <span class="hljs-keyword">commit</span> -m <span class="hljs-string">&#x27;initial commit&#x27;</span>
-    git <span class="hljs-keyword">add</span> forgotten_file
-    git <span class="hljs-keyword">commit</span> <span class="hljs-comment">--amend</span>
+    git commit -m <span class="hljs-string">&#x27;initial commit&#x27;</span>
+    git <span class="hljs-built_in">add</span> forgotten_file
+    git commit <span class="hljs-comment">--amend</span>
 
 git rm <span class="hljs-comment">--cached filename  # 移除跟踪但不删除文件</span>
 
-git <span class="hljs-keyword">log</span> 
+git <span class="hljs-built_in">log</span> 
     <span class="hljs-comment">--pretty=oneline  # 每个提交放在一行显示, 其他：short，full 和 fuller</span>
     <span class="hljs-comment">--pretty=format:&quot;%h %s&quot;  # 更加简洁的信息 </span>
     <span class="hljs-comment">--graph  # oneline 或 format 时结合 --graph 选项</span>
     - p  <span class="hljs-comment"># 显示每次提交的内容差异</span>
     - <span class="hljs-number">2</span>  <span class="hljs-comment"># 显示最近的两次更新</span>
-git <span class="hljs-keyword">log</span> <span class="hljs-comment">--graph --pretty=oneline  # 常用查看log</span>
+git <span class="hljs-built_in">log</span> <span class="hljs-comment">--graph --pretty=oneline  # 常用查看log</span>
 
-git <span class="hljs-keyword">reset</span> <span class="hljs-keyword">HEAD</span> &lt;<span class="hljs-keyword">file</span>&gt;  <span class="hljs-comment"># 已经add, 把暂存区的修改撤销掉</span>
+git reset HEAD &lt;<span class="hljs-built_in">file</span>&gt;  <span class="hljs-comment"># 已经add, 把暂存区的修改撤销掉</span>
 git checkout <span class="hljs-comment">-- &lt;file&gt;  # 还未add, 撤销工作区的修改</span>
 
 <span class="hljs-comment"># git log 查看版本号，再版本回退，若想再次恢复到新版本，git reflog 查看版本号</span>
-git <span class="hljs-keyword">reset</span> <span class="hljs-comment">--hard [commit id]  </span>
+git reset <span class="hljs-comment">--hard [commit id]  </span>
 
 git checkout branchname  <span class="hljs-comment"># 切换分支</span>
 git checkout -b brachname  <span class="hljs-comment"># 创建并切换分支</span>
 git branch -d branchname  <span class="hljs-comment"># 删除分支</span>
 <span class="hljs-comment"># 强制禁用Fast forward模式，Git就会在merge时生成一个新的commit</span>
-git <span class="hljs-keyword">merge</span> <span class="hljs-comment">--no-ff -m &#x27;comment&#x27; branch  </span>
+git <span class="hljs-built_in">merge</span> <span class="hljs-comment">--no-ff -m &#x27;comment&#x27; branch  </span>
 
 git stash  <span class="hljs-comment"># bug 分支</span>
-    <span class="hljs-number">1.</span> 在当前分支git stash，工作区恢复到最近一次<span class="hljs-keyword">commit</span>
+    <span class="hljs-number">1.</span> 在当前分支git stash，工作区恢复到最近一次commit
     <span class="hljs-number">2.</span> 处理完其他分支问题
-    <span class="hljs-number">3.</span> 在当前分支git stash <span class="hljs-keyword">list</span>查看stash内容
+    <span class="hljs-number">3.</span> 在当前分支git stash list查看stash内容
     <span class="hljs-number">4.</span> git stash pop，恢复并删除stash
 
 git remote -v  <span class="hljs-comment"># 查看远程库分支</span>
-git push origin <span class="hljs-keyword">master</span>/dev  <span class="hljs-comment"># 推送分支</span>
+git push origin master/dev  <span class="hljs-comment"># 推送分支</span>
 git checkout -b dev origin/dev  <span class="hljs-comment"># 创建远程origin的dev分支到本地，需先创建本地dev分支</span>
 git pull  <span class="hljs-comment"># 拉取远程到本地，遇到推送有冲突的时候，先 git pull，本地解决冲突，再push</span>
 
-git remote <span class="hljs-keyword">add</span> origin git@github.com:xxx/xxx.git  <span class="hljs-comment"># 关联远程库</span></code></pre>
+git remote <span class="hljs-built_in">add</span> origin git@github.com:xxx/xxx.git  <span class="hljs-comment"># 关联远程库</span></code></pre>
 
             </div>
             <hr>
@@ -481,8 +467,8 @@ git remote <span class="hljs-keyword">add</span> origin git@github.com:xxx/xxx.g
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -495,7 +481,7 @@ git remote <span class="hljs-keyword">add</span> origin git@github.com:xxx/xxx.g
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -506,7 +492,7 @@ git remote <span class="hljs-keyword">add</span> origin git@github.com:xxx/xxx.g
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -535,7 +521,7 @@ git remote <span class="hljs-keyword">add</span> origin git@github.com:xxx/xxx.g
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -564,8 +550,8 @@ git remote <span class="hljs-keyword">add</span> origin git@github.com:xxx/xxx.g
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

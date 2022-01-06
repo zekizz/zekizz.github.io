@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>mac通过vnc连接ubuntu远程桌面 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,17 +228,11 @@
             <!-- SEO header -->
             <h1 style="display: none">mac通过vnc连接ubuntu远程桌面</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>虽然ssh能解决大部分问题，但是有时也需要远程桌面。为此，可能大家都采用<code>teamviewer</code>和<code>anydesk</code>来完成。</p>
 <br>  
 <p>但是不久前<code>teamviewer</code>出了问题，<code>anydesk</code>在使用过程中经常出现连接中断、连接慢等毛病。尝试发现通过<code>vnc</code>在局域网环境下连接异常稳定，基本不掉，键盘映射也比anydesk好，做个记录。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="ubuntu配置">ubuntu配置</h2>
 <h3 id="安装x11vnc">安装<code>x11vnc</code></h3>
 <pre><code class="hljs shell">sudo apt-get install x11vnc</code></pre>
@@ -440,8 +426,8 @@
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -454,7 +440,7 @@
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -465,7 +451,7 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -494,7 +480,7 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -523,8 +509,8 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

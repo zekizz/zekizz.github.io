@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>正则表达式四种预查 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,20 +228,14 @@
             <!-- SEO header -->
             <h1 style="display: none">正则表达式四种预查</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2021年10月24日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>正则表达式有[正反]向[肯否]定预查四种预查形式，结论是正向只能放置于末尾，反向只能放置于开头。</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>参考手册：<a target="_blank" rel="noopener" href="https://tool.oschina.net/uploads/apidocs/jquery/regexp.html">https://tool.oschina.net/uploads/apidocs/jquery/regexp.html</a></p>
 <p>只看以上手册，比较难搞清楚使用范围和使用姿势，以下对这四种预查分别做单元测试。</p>
 <h2 id="1-正向肯定">1. 正向肯定</h2>
 <p>测试用例</p>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setUp</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-keyword">None</span>:</span>
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setUp</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:</span>
   self.cases = [
     <span class="hljs-string">&#x27;123&#x27;</span>,
     <span class="hljs-string">&#x27;a123&#x27;</span>,
@@ -273,84 +259,84 @@
     p4 = <span class="hljs-string">&#x27;a(?=bc|d)123&#x27;</span>  <span class="hljs-comment"># 不能处于正则的中间</span>
 
     <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> self.cases:
-      print(c)
-      print(p1, re.search(p1, c))
-      print(p2, re.search(p2, c))
-      print(p3, re.search(p3, c))
-      print(p4, re.search(p4, c))
-      print()</code></pre>
+      <span class="hljs-built_in">print</span>(c)
+      <span class="hljs-built_in">print</span>(p1, re.search(p1, c))
+      <span class="hljs-built_in">print</span>(p2, re.search(p2, c))
+      <span class="hljs-built_in">print</span>(p3, re.search(p3, c))
+      <span class="hljs-built_in">print</span>(p4, re.search(p4, c))
+      <span class="hljs-built_in">print</span>()</code></pre>
 <p>输出为如下，可以看到只有放于最后的才有效，放于最前面的<code>p1</code>捕获不了<code>abc123</code>，放置于中间的<code>p4</code>捕获不了<code>abc123</code>和<code>ae</code>123。而且正确放置在最后的<code>p2</code>，完全等价于<code>p3</code>（对<code>p3</code>的匹配取group1），无法捕获<code>123</code>，不实用，不如直接用<code>p3</code>。</p>
-<pre><code class="hljs lsl"><span class="hljs-number">123</span>
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+<pre><code class="hljs lasso"><span class="hljs-number">123</span>
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 a123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abc123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 ad123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 ac123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 ae123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abcac123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abcae123
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 <span class="hljs-number">123</span>abc
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-(<span class="hljs-number">123</span>)(abc|ad) &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">6</span>), match=&#x27;<span class="hljs-number">123</span>abc&#x27;&gt;
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+(<span class="hljs-number">123</span>)(abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">6</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123abc&#x27;</span>&gt;
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 <span class="hljs-number">123</span>ad
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-(<span class="hljs-number">123</span>)(abc|ad) &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>ad&#x27;&gt;
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+(<span class="hljs-number">123</span>)(abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123ad&#x27;</span>&gt;
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 <span class="hljs-number">123</span>ac
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abc
-(?=abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?=abc|ad) None
-(<span class="hljs-number">123</span>)(abc|ad) None
-a(?=bc|d)<span class="hljs-number">123</span> None</code></pre>
+(?=abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?=abc|ad) <span class="hljs-literal">None</span>
+(<span class="hljs-number">123</span>)(abc|ad) <span class="hljs-literal">None</span>
+a(?=bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span></code></pre>
 <h2 id="2-正向否定">2. 正向否定</h2>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_forward_negative</span>(<span class="hljs-params">self</span>):</span>
     <span class="hljs-string">&quot;&quot;&quot;正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。&quot;&quot;&quot;</span>
@@ -360,84 +346,84 @@ a(?=bc|d)<span class="hljs-number">123</span> None</code></pre>
     p4 = <span class="hljs-string">&#x27;a(?!b|d)123&#x27;</span>  <span class="hljs-comment"># 无效</span>
 
     <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> self.cases:
-        print(c)
-        print(p1, re.search(p1, c))
-        print(p2, re.search(p2, c))
-        print(p3, re.search(p3, c))
-        print(p4, re.search(p4, c))
-        print()</code></pre>
+        <span class="hljs-built_in">print</span>(c)
+        <span class="hljs-built_in">print</span>(p1, re.search(p1, c))
+        <span class="hljs-built_in">print</span>(p2, re.search(p2, c))
+        <span class="hljs-built_in">print</span>(p3, re.search(p3, c))
+        <span class="hljs-built_in">print</span>(p4, re.search(p4, c))
+        <span class="hljs-built_in">print</span>()</code></pre>
 <p>放在最前面的<code>p1</code>捕获了<code>abc123</code>不符合预期，放在中间的<code>p3</code>和<code>p4</code>写了等于没写，只有放在最后的p2正确匹配了，并且后面可以为空（匹配了<code>123</code>）。</p>
-<pre><code class="hljs lsl"><span class="hljs-number">123</span>
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+<pre><code class="hljs lasso"><span class="hljs-number">123</span>
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 a123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">4</span>), match=&#x27;a123&#x27;&gt;
-a(?!b|d)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">4</span>), match=&#x27;a123&#x27;&gt;
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">4</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;a123&#x27;</span>&gt;
+a(?!b|d)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">4</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;a123&#x27;</span>&gt;
 
 abc123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 ad123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 ac123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 ae123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abcac123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abcae123
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 <span class="hljs-number">123</span>abc
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) None
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) <span class="hljs-literal">None</span>
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 <span class="hljs-number">123</span>ad
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) None
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) <span class="hljs-literal">None</span>
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 <span class="hljs-number">123</span>ac
-(?!abc|ad)<span class="hljs-number">123</span> &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-<span class="hljs-number">123</span>(?!abc|ad) &lt;re.Match object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), match=&#x27;<span class="hljs-number">123</span>&#x27;&gt;
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None
+(?!abc|ad)<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>(?!abc|ad) &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
 
 abc
-(?!abc|ad)<span class="hljs-number">123</span> None
-<span class="hljs-number">123</span>(?!abc|ad) None
-a(?!bc|d)<span class="hljs-number">123</span> None
-a(?!b|d)<span class="hljs-number">123</span> None</code></pre>
+(?!abc|ad)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?!abc|ad) <span class="hljs-literal">None</span>
+a(?!bc|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+a(?!b|d)<span class="hljs-number">123</span> <span class="hljs-literal">None</span></code></pre>
 <h2 id="3-反向肯定">3. 反向肯定</h2>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_backward_positive</span>(<span class="hljs-params">self</span>):</span>
     <span class="hljs-string">&quot;&quot;&quot;反向肯定&quot;&quot;&quot;</span>
@@ -448,85 +434,85 @@ a(?!b|d)<span class="hljs-number">123</span> None</code></pre>
     p4 = <span class="hljs-string">&#x27;123(?&lt;=abc)&#x27;</span>  <span class="hljs-comment"># 无效</span>
 
     <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> self.cases:
-        print(c)
-        print(p1, re.search(p1, c))
-        print(p2, re.search(p2, c))
-        print(p3, re.search(p3, c))
-        print(p4, re.search(p4, c))
-        print()</code></pre>
+        <span class="hljs-built_in">print</span>(c)
+        <span class="hljs-built_in">print</span>(p1, re.search(p1, c))
+        <span class="hljs-built_in">print</span>(p2, re.search(p2, c))
+        <span class="hljs-built_in">print</span>(p3, re.search(p3, c))
+        <span class="hljs-built_in">print</span>(p4, re.search(p4, c))
+        <span class="hljs-built_in">print</span>()</code></pre>
 <p>反向的时候需要注意，如果预查多个，不能之前那样写<code>(?&lt;=abc|ad)</code>，同一个预查里的长度必须是相等的。若想处理多个，得写过个预查<code>((?&lt;=abc)|(?&lt;=ad|ac))</code>。</p>
 <p>此外，反向只能放置在最前面，放置在中间完全不符合预期，放在后面也未生效。但正确的写法<code>p1</code>也等价于<code>(abc|ad|ac)123</code>，用预查写起来还麻烦，不如直接group筛选。</p>
-<pre><code class="hljs django"><span class="xml">123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+<pre><code class="hljs lasso"><span class="hljs-number">123</span>
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">a123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+a123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">abc123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> &lt;<span class="hljs-attr">re.Match</span> <span class="hljs-attr">object</span>; <span class="hljs-attr">span</span>=<span class="hljs-string">(3,</span> <span class="hljs-attr">6</span>), <span class="hljs-attr">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;</span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+abc123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">ad123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> &lt;<span class="hljs-attr">re.Match</span> <span class="hljs-attr">object</span>; <span class="hljs-attr">span</span>=<span class="hljs-string">(2,</span> <span class="hljs-attr">5</span>), <span class="hljs-attr">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;</span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+ad123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">ac123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> &lt;<span class="hljs-attr">re.Match</span> <span class="hljs-attr">object</span>; <span class="hljs-attr">span</span>=<span class="hljs-string">(2,</span> <span class="hljs-attr">5</span>), <span class="hljs-attr">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;</span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+ac123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">2</span>, <span class="hljs-number">5</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">ae123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+ae123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">abcac123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> &lt;<span class="hljs-attr">re.Match</span> <span class="hljs-attr">object</span>; <span class="hljs-attr">span</span>=<span class="hljs-string">(5,</span> <span class="hljs-attr">8</span>), <span class="hljs-attr">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;</span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+abcac123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> &lt;re.<span class="hljs-keyword">Match</span> object; span=(<span class="hljs-number">5</span>, <span class="hljs-number">8</span>), <span class="hljs-keyword">match</span>=<span class="hljs-string">&#x27;123&#x27;</span>&gt;
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">abcae123</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+abcae123
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">123abc</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+<span class="hljs-number">123</span>abc
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">123ad</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+<span class="hljs-number">123</span>ad
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">123ac</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+<span class="hljs-number">123</span>ac
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 
-<span class="xml">abc</span>
-<span class="xml">((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad|ac))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123((?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)|(?</span>&lt;=<span class="hljs-string">ad))</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">a((?<span class="hljs-tag">&lt;<span class="hljs-name">=bc)|(?</span>&lt;=<span class="hljs-string">d))123</span> <span class="hljs-attr">None</span></span></span>
-<span class="xml">123(?<span class="hljs-tag">&lt;<span class="hljs-name">=abc)</span> <span class="hljs-attr">None</span></span></span>
+abc
+((?&lt;=abc)|(?&lt;=ad|ac))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>((?&lt;=abc)|(?&lt;=ad)) <span class="hljs-literal">None</span>
+a((?&lt;=bc)|(?&lt;=d))<span class="hljs-number">123</span> <span class="hljs-literal">None</span>
+<span class="hljs-number">123</span>(?&lt;=abc) <span class="hljs-literal">None</span>
 </code></pre>
 <h2 id="4-反向否定">4. 反向否定</h2>
 <pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_backward_negative</span>(<span class="hljs-params">self</span>):</span>
@@ -539,14 +525,14 @@ a(?!b|d)<span class="hljs-number">123</span> None</code></pre>
     p6 = <span class="hljs-string">&#x27;(?&lt;!abc)(?&lt;!ad|ac)123&#x27;</span>  <span class="hljs-comment"># 正确写法，必须满足全部不等于</span>
 
     <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> self.cases:
-        print(c)
-        print(p1, re.search(p1, c))
-        print(p2, re.search(p2, c))
-        print(p3, re.search(p3, c))
-        print(p4, re.search(p4, c))
-        print(p5, re.search(p5, c))
-        print(p6, re.search(p6, c))
-        print()</code></pre>
+        <span class="hljs-built_in">print</span>(c)
+        <span class="hljs-built_in">print</span>(p1, re.search(p1, c))
+        <span class="hljs-built_in">print</span>(p2, re.search(p2, c))
+        <span class="hljs-built_in">print</span>(p3, re.search(p3, c))
+        <span class="hljs-built_in">print</span>(p4, re.search(p4, c))
+        <span class="hljs-built_in">print</span>(p5, re.search(p5, c))
+        <span class="hljs-built_in">print</span>(p6, re.search(p6, c))
+        <span class="hljs-built_in">print</span>()</code></pre>
 <p>同上，只有放置在最前面的是正确的，这里需要注意的事<code>p1</code>和<code>p6</code>。<code>p1</code>只要不等于其一都可匹配，比如<code>abc123</code>不匹配<code>ad|ac</code>，这明显不符合预期。这个时候需要取并集，只需要拆开写过个就好，顺序无关，如见<code>p6</code>。</p>
 <pre><code class="hljs xml">123
 ((?<span class="hljs-meta">&lt;!abc)|(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>))123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(0, 3), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
@@ -572,7 +558,7 @@ a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keywor
 (?<span class="hljs-meta">&lt;!abc)123 <span class="hljs-meta-keyword">None</span></span>
 <span class="hljs-meta">(?&lt;!<span class="hljs-meta-keyword">abc</span>)(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>)123 <span class="hljs-meta-keyword">None</span></span>
 <span class="hljs-meta"></span>
-<span class="hljs-meta">ad123</span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">ad123</span></span>
 <span class="hljs-meta">((?&lt;!<span class="hljs-meta-keyword">abc</span>)|(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>))123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 123((?<span class="hljs-meta">&lt;!abc)|(?&lt;!<span class="hljs-meta-keyword">ad</span>)) &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keyword">None</span></span>
@@ -580,7 +566,7 @@ a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keywor
 (?<span class="hljs-meta">&lt;!abc)123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 (?<span class="hljs-meta">&lt;!abc)(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>)123 <span class="hljs-meta-keyword">None</span></span>
 <span class="hljs-meta"></span>
-<span class="hljs-meta">ac123</span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">ac123</span></span>
 <span class="hljs-meta">((?&lt;!<span class="hljs-meta-keyword">abc</span>)|(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>))123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 123((?<span class="hljs-meta">&lt;!abc)|(?&lt;!<span class="hljs-meta-keyword">ad</span>)) &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keyword">None</span></span>
@@ -588,7 +574,7 @@ a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keywor
 (?<span class="hljs-meta">&lt;!abc)123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 (?<span class="hljs-meta">&lt;!abc)(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>)123 <span class="hljs-meta-keyword">None</span></span>
 <span class="hljs-meta"></span>
-<span class="hljs-meta">ae123</span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">ae123</span></span>
 <span class="hljs-meta">((?&lt;!<span class="hljs-meta-keyword">abc</span>)|(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>))123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 123((?<span class="hljs-meta">&lt;!abc)|(?&lt;!<span class="hljs-meta-keyword">ad</span>)) &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(2, 5), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keyword">None</span></span>
@@ -604,7 +590,7 @@ a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keywor
 (?<span class="hljs-meta">&lt;!abc)123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(5, 8), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 (?<span class="hljs-meta">&lt;!abc)(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>)123 <span class="hljs-meta-keyword">None</span></span>
 <span class="hljs-meta"></span>
-<span class="hljs-meta">abcae123</span>
+<span class="hljs-meta"><span class="hljs-meta-keyword">abcae123</span></span>
 <span class="hljs-meta">((?&lt;!<span class="hljs-meta-keyword">abc</span>)|(?&lt;!<span class="hljs-meta-keyword">ad</span>|<span class="hljs-meta-keyword">ac</span>))123 &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(5, 8), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 123((?<span class="hljs-meta">&lt;!abc)|(?&lt;!<span class="hljs-meta-keyword">ad</span>)) &lt;re.Match <span class="hljs-meta-keyword">object</span>; <span class="hljs-meta-keyword">span</span>=(5, 8), <span class="hljs-meta-keyword">match</span>=<span class="hljs-meta-string">&#x27;123&#x27;</span>&gt;</span>
 a((?<span class="hljs-meta">&lt;!bc)|(?&lt;!d))123 <span class="hljs-meta-keyword">None</span></span>
@@ -811,8 +797,8 @@ abc
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -825,7 +811,7 @@ abc
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -836,7 +822,7 @@ abc
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -865,7 +851,7 @@ abc
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -894,8 +880,8 @@ abc
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>hexo搭建github个人博客简明教程 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -235,12 +227,6 @@
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
             <h1 style="display: none">hexo搭建github个人博客简明教程</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
             
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>从零开始搭建github个人博客，基于window系统（linux同理），适合大众。<br>
@@ -270,7 +256,7 @@
 <p>打开你的github主页，进入 <code>setting -&gt; SSH and GPG keys -&gt; New SSH key</code></p>
 <p>将刚才复制的内容粘贴到Key中，title随便填，保存。</p>
 <p>测试是否成功</p>
-<pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> -T git<span class="hljs-variable">@github</span>.com <span class="hljs-comment"># 注意邮箱地址不用改</span></code></pre>
+<pre><code class="hljs autoit">ssh -T git<span class="hljs-symbol">@github</span>.com <span class="hljs-meta"># 注意邮箱地址不用改</span></code></pre>
 <p>如果提示<code>Are you sure you want to continue connecting (yes/no)?</code>，输入yes，然后会看到</p>
 <pre><code class="hljs ada">Hi XXX! You<span class="hljs-symbol">&#x27;ve</span> successfully authenticated, but GitHub does <span class="hljs-keyword">not</span> provide shell <span class="hljs-keyword">access</span>.</code></pre>
 <p>说明SSH配置成功</p>
@@ -284,7 +270,7 @@ git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global
 <p>下一步是创建博客项目和初始化</p>
 <p>首先，在你喜欢的地方创建一个文件夹，用于存放博客项目代码，比如 <code>E:\git_code\blog\Hexo</code>，路径上最好不要有中文吧</p>
 <p>然后在该目录下，右键打开<code>git bash</code>, 输入</p>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">hexo init</span></code></pre>
+<pre><code class="hljs csharp">hexo <span class="hljs-keyword">init</span></code></pre>
 <p>hexo会自动下载一些文件到这个目录，我们首先不管内容</p>
 <p>继续在<code>git bash</code>中输入</p>
 <pre><code class="hljs nginx"><span class="hljs-attribute">hexo</span> g <span class="hljs-comment"># 生成</span>
@@ -309,13 +295,13 @@ hexo s <span class="hljs-comment"># 启动服务</span></code></pre>
 <h1>上传github</h1>
 <p>首先配置hexo目录下的<code>_config.yml</code>，<br>
 修改<code>deploy</code>部分</p>
-<pre><code class="hljs less"><span class="hljs-attribute">deploy</span>:
-  <span class="hljs-attribute">type</span>: git
-  <span class="hljs-attribute">repository</span>: git<span class="hljs-variable">@github</span>.<span class="hljs-attribute">com</span>:zekizz/zekizz.github.io.git
-  <span class="hljs-attribute">branch</span>: master</code></pre>
+<pre><code class="hljs dts"><span class="hljs-symbol">deploy:</span>
+<span class="hljs-symbol">  type:</span> git
+<span class="hljs-symbol">  repository:</span> git@github.com:zekizz/zekizz.github.io.git
+<span class="hljs-symbol">  branch:</span> master</code></pre>
 <p><strong>这里替换成你自己的</strong>，在clone or download那里</p>
 <p>其次，安装一个插件</p>
-<pre><code class="hljs sql">npm <span class="hljs-keyword">install</span> hexo-deployer-git <span class="hljs-comment">--save</span>
+<pre><code class="hljs ada">npm install hexo-deployer-git <span class="hljs-comment">--save</span>
 </code></pre>
 <p>如果前面都OK了，在hexo目录下，打开<code>git bash</code>，然后输入</p>
 <pre><code class="hljs ebnf"><span class="hljs-attribute">hexo d</span></code></pre>
@@ -323,16 +309,16 @@ hexo s <span class="hljs-comment"># 启动服务</span></code></pre>
 <p>一般上传可以采用组合键</p>
 <pre><code class="hljs nginx"><span class="hljs-attribute">hexo</span> d -g <span class="hljs-comment">#生成并上传</span></code></pre>
 <p>这里给出常用hexo命令</p>
-<pre><code class="hljs routeros">hexo new <span class="hljs-string">&quot;postName&quot;</span> #新建文章
-hexo new<span class="hljs-built_in"> page </span><span class="hljs-string">&quot;pageName&quot;</span> #新建页面
-hexo generate #生成静态页面至public目录
-hexo<span class="hljs-built_in"> server </span>#开启预览访问端口（默认端口4000，<span class="hljs-string">&#x27;ctrl + c&#x27;</span>关闭server）
-hexo deploy #部署到GitHub
-hexo help  # 查看帮助
-hexo version  #查看Hexo的版本</code></pre>
+<pre><code class="hljs axapta">hexo <span class="hljs-keyword">new</span> <span class="hljs-string">&quot;postName&quot;</span> <span class="hljs-meta">#新建文章</span>
+hexo <span class="hljs-keyword">new</span> page <span class="hljs-string">&quot;pageName&quot;</span> <span class="hljs-meta">#新建页面</span>
+hexo generate <span class="hljs-meta">#生成静态页面至public目录</span>
+hexo <span class="hljs-keyword">server</span> <span class="hljs-meta">#开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关闭server）</span>
+hexo deploy <span class="hljs-meta">#部署到GitHub</span>
+hexo help  <span class="hljs-meta"># 查看帮助</span>
+hexo version  <span class="hljs-meta">#查看Hexo的版本</span></code></pre>
 <p>对应的简写</p>
-<pre><code class="hljs routeros">hexo n == hexo new
-hexo g == hexo generate
+<pre><code class="hljs verilog">hexo n == hexo <span class="hljs-keyword">new</span>
+hexo g == hexo <span class="hljs-keyword">generate</span>
 hexo s == hexo server
 hexo d == hexo deploy</code></pre>
 <h1>写新博客并上传</h1>
@@ -348,10 +334,10 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 <p>写完后，组合键</p>
 <pre><code class="hljs nginx"><span class="hljs-attribute">hexo</span> d -g <span class="hljs-comment">#生成并上传</span></code></pre>
 <p>完成上传，或者</p>
-<pre><code class="hljs properties"><span class="hljs-attr">hexo</span> <span class="hljs-string">clean</span>
-<span class="hljs-attr">hexo</span> <span class="hljs-string">g</span>
-<span class="hljs-attr">hexo</span> <span class="hljs-string">g</span>
-<span class="hljs-attr">hexo</span> <span class="hljs-string">d</span></code></pre>
+<pre><code class="hljs ebnf"><span class="hljs-attribute">hexo clean</span>
+<span class="hljs-attribute">hexo g</span>
+<span class="hljs-attribute">hexo g</span>
+<span class="hljs-attribute">hexo d</span></code></pre>
 <h1>博客内容</h1>
 <p>最前面的页面设置，举一个栗子</p>
 <pre><code class="hljs yaml"><span class="hljs-meta">---</span>
@@ -363,7 +349,7 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 <span class="hljs-attr">mathjax2:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">categories:</span> <span class="hljs-string">ML</span>
 <span class="hljs-meta">---</span>
-
+<span class="hljs-meta"></span>
 <span class="hljs-string">line</span> <span class="hljs-number">1</span> <span class="hljs-string">xxx</span>
 <span class="hljs-string">line</span> <span class="hljs-number">2</span> <span class="hljs-string">xxx</span>
 
@@ -605,8 +591,8 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -619,7 +605,7 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -630,7 +616,7 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -659,7 +645,7 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -688,8 +674,8 @@ mac: Mou(目前最新mac版本好像不支持)、MacDown</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

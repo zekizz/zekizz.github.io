@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>基于句法依存树的信息抽取 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,19 +228,13 @@
             <!-- SEO header -->
             <h1 style="display: none">基于句法依存树的信息抽取</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>信息抽取是一个常见的nlp任务，为经常一起提到的知识图谱的基础。</p>
 <p>这里有一份比较好的知识图谱入门资料:<br>
 <a target="_blank" rel="noopener" href="https://kgtutorial.github.io/">Mining Knowledge Graphs from Text</a></p>
 <p>信息抽取分为有监督和无监督方法。实际中监督信息往往是缺失的，所以本文主要提无监督方法。</p>
 <p>在无监督方法中，一个广泛采用的工具是句法依存树，或者叫句法解析树（Dependency Tree）。</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>可视化工具：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://spyysalo.github.io/conllu.js/">conllu.js</a></li>
@@ -268,7 +254,7 @@
 <li>修正后处理</li>
 </ol>
 <p>以提取文本中，关于道路信息的（时间、原因、地点、时间）四元组为例，输入句子：</p>
-<pre><code class="hljs angelscript">黄石高速:因交通管制,晋州站、辛集站、藁城东站双向关闭。因沧州服务区附近K81处黄骅方向发生交通事故,沧州服务区附近K81处黄骅方向车辆缓慢通行约<span class="hljs-number">4</span>公里</code></pre>
+<pre><code class="hljs makefile"><span class="hljs-section">黄石高速:因交通管制,晋州站、辛集站、藁城东站双向关闭。因沧州服务区附近K81处黄骅方向发生交通事故,沧州服务区附近K81处黄骅方向车辆缓慢通行约4公里</span></code></pre>
 <p>句法解析树：</p>
 <pre><code class="hljs haxe"><span class="hljs-number">1</span>	黄石	黄石	nh	nr	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
 <span class="hljs-number">2</span>	高速	高速	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
@@ -312,7 +298,7 @@
 <span class="hljs-number">40</span>	。	。	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span></code></pre>
 <p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/NLP/test_dependency.png" srcset="/img/loading.gif" alt=""><br>
 核心代码如下：</p>
-<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WordBean</span>(<span class="hljs-params">object</span>):</span>
+<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WordBean</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
    <span class="hljs-string">&#x27;&#x27;&#x27; 扩展conllword，存储父节点与孩子节点索引 &#x27;&#x27;&#x27;</span>
 
        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
@@ -336,13 +322,13 @@
    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extract_entity_tuple</span>(<span class="hljs-params">self, dependency_tree, seed_id, head_type=<span class="hljs-string">&#x27;&#x27;</span></span>):</span>
        <span class="hljs-string">&#x27;&#x27;&#x27;自上而下解析树&#x27;&#x27;&#x27;</span>
        res_entity_tuple_list = []
-       res_dict = dict()
+       res_dict = <span class="hljs-built_in">dict</span>()
        res_dict[<span class="hljs-string">&#x27;time&#x27;</span>] = []
        res_dict[<span class="hljs-string">&#x27;reason&#x27;</span>] = []
        res_dict[<span class="hljs-string">&#x27;place&#x27;</span>] = []
        res_dict[<span class="hljs-string">&#x27;status&#x27;</span>] = []
        <span class="hljs-comment"># 判断是否是叶子节点</span>
-       <span class="hljs-keyword">if</span> len(dependency_tree[seed_id].child) == <span class="hljs-number">0</span>:
+       <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(dependency_tree[seed_id].child) == <span class="hljs-number">0</span>:
            <span class="hljs-keyword">if</span> dependency_tree[seed_id].lemma <span class="hljs-keyword">in</span> self.status_set:
                res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((seed_id, dependency_tree[seed_id].lemma))
            <span class="hljs-keyword">elif</span> self.check_is_time(dependency_tree, seed_id):
@@ -365,7 +351,7 @@
                child_bean = dependency_tree[c_id]
                <span class="hljs-keyword">if</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;COO&#x27;</span>, <span class="hljs-string">&#x27;并列关系&#x27;</span>):
                    <span class="hljs-comment"># 假设状态下不存在嵌套状态，有视为补充</span>
-                   <span class="hljs-keyword">if</span> dependency_tree[c_id].postag == <span class="hljs-string">&#x27;v&#x27;</span> <span class="hljs-keyword">and</span> len(dependency_tree[c_id].child) == <span class="hljs-number">0</span>:
+                   <span class="hljs-keyword">if</span> dependency_tree[c_id].postag == <span class="hljs-string">&#x27;v&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-built_in">len</span>(dependency_tree[c_id].child) == <span class="hljs-number">0</span>:
                        res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
                    <span class="hljs-keyword">else</span>:
                        child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
@@ -401,7 +387,7 @@
                    <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
                        self.merge_two_tuple_dict(res_dict, child_dict)
                <span class="hljs-keyword">elif</span> c_relation <span class="hljs-keyword">in</span> (<span class="hljs-string">&#x27;VOB&#x27;</span>, <span class="hljs-string">&#x27;动宾关系&#x27;</span>):
-                   <span class="hljs-keyword">if</span> len(dependency_tree[c_id].child) == <span class="hljs-number">0</span>:
+                   <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(dependency_tree[c_id].child) == <span class="hljs-number">0</span>:
                        res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((c_id, dependency_tree[c_id].lemma))
                    <span class="hljs-keyword">else</span>:
                        child_dict_list = self.extract_entity_tuple(dependency_tree, c_id)
@@ -411,8 +397,8 @@
            status_buffer = []
            status_merge_list.append(seed_id)
            status_merge_list.sort()
-           <span class="hljs-keyword">for</span> id <span class="hljs-keyword">in</span> status_merge_list:
-               status_buffer.append(dependency_tree[id].lemma)
+           <span class="hljs-keyword">for</span> <span class="hljs-built_in">id</span> <span class="hljs-keyword">in</span> status_merge_list:
+               status_buffer.append(dependency_tree[<span class="hljs-built_in">id</span>].lemma)
            res_dict[<span class="hljs-string">&#x27;status&#x27;</span>].append((seed_id, <span class="hljs-string">&#x27;&#x27;</span>.join(status_buffer)))
 
            res_entity_tuple_list.append(res_dict)
@@ -450,13 +436,13 @@
            <span class="hljs-comment"># 先合并非状态</span>
            status_dict_list = []
            <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> child_dict_list:
-               <span class="hljs-keyword">if</span> len(child_dict[<span class="hljs-string">&#x27;status&#x27;</span>]) &gt; <span class="hljs-number">0</span>:
+               <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(child_dict[<span class="hljs-string">&#x27;status&#x27;</span>]) &gt; <span class="hljs-number">0</span>:
                    status_dict_list.append(child_dict)
                <span class="hljs-keyword">else</span>:
                    self.merge_two_tuple_dict(res_dict, child_dict)
 
            <span class="hljs-comment"># 再合并存在状态的</span>
-           <span class="hljs-keyword">if</span> len(status_dict_list) == <span class="hljs-number">0</span>:
+           <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(status_dict_list) == <span class="hljs-number">0</span>:
                res_entity_tuple_list.append(res_dict)
            <span class="hljs-keyword">else</span>:
                <span class="hljs-keyword">for</span> child_dict <span class="hljs-keyword">in</span> status_dict_list:
@@ -485,7 +471,7 @@
            entity[<span class="hljs-string">&#x27;reason&#x27;</span>].sort()
            entity[<span class="hljs-string">&#x27;status&#x27;</span>].sort()
            self.fix_entity_tuple_dict(entity)
-           print(entity)
+           <span class="hljs-built_in">print</span>(entity)
        <span class="hljs-keyword">return</span> res_entity
 
 </code></pre>
@@ -674,8 +660,8 @@
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -688,7 +674,7 @@
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -699,7 +685,7 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -728,7 +714,7 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -757,8 +743,8 @@
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(

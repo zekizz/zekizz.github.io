@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>图半监督节点分类之二——基于条件随机场 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,15 +228,9 @@
             <!-- SEO header -->
             <h1 style="display: none">图半监督节点分类之二——基于条件随机场</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>本文关注于采用半监督图编码方法来对图中节点分类，根据上文的介绍，半监督图编码方法有两个过程：节点特征编码和节点分类。本文介绍基于条件随机场的图卷积网络（Graph Convolutional Network with Conditional Random Field, GCN-CRF）模型，关注于优化节点分类过程。GCN-CRF通过在softmax层前添加条件随机场模块来平滑GCN的分类结果。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="条件随机场">条件随机场</h2>
 <p>条件随机场（Conditional Random Field, CRF）已经成功地应用到了图像分割和图像标注等问题上。通常的做法是在像素点或者图像区块上定义条件随机场<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup><sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，然后做最大后验（MAP）推理。CRF通过引入一些约束来平滑分类结果，这些约束倾向于减少对象边缘附近的错误分类。全连接CRF已经成功地被用来改善卷积神经网络CNN的语义标记结果<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。接下来本文以图像像素级标注问题为例，简要介绍条件随机场模型。</p>
 <p>令$Y_i$为隶属于像素点$i$的随机变量，表示赋予像素点$i$的类别标签。$Y_i$的取值范围为预先定义的标签集合$\mathbb{L} = {l_1, l_2,\cdots,  l_c}$ ，$c$为类别的个数。给定一张有$N$个像素点的图像，以及图像的全局观测$X$（每个像素点的特征，这里一般为RGB三通道的值），观测标签对 $(X,Y)$ 可以被建模为一个形式为吉布斯分布 $P(Y=y|X) = \frac{1}{Z(X)} \exp(-E(y|X))$ 的条件随机场。这里$E(y|X)$为标记$y \in \mathcal{L}^N$的Gibbs能量。从现在开始，为了方便起见，我们在公式中去除了条件于$X$，例如用$E(y)$替代$E(y|X)$。</p>
@@ -479,8 +465,8 @@ $$ \mathcal{L}  = \sum_{i \in V^L} \sum_{j=1}^C Y_{ij} \ln \frac{1}{ \widehat{Y}
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -493,7 +479,7 @@ $$ \mathcal{L}  = \sum_{i \in V^L} \sum_{j=1}^C Y_{ij} \ln \frac{1}{ \widehat{Y}
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -504,7 +490,7 @@ $$ \mathcal{L}  = \sum_{i \in V^L} \sum_{j=1}^C Y_{ij} \ln \frac{1}{ \widehat{Y}
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -533,7 +519,7 @@ $$ \mathcal{L}  = \sum_{i \in V^L} \sum_{j=1}^C Y_{ij} \ln \frac{1}{ \widehat{Y}
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -562,8 +548,8 @@ $$ \mathcal{L}  = \sum_{i \in V^L} \sum_{j=1}^C Y_{ij} \ln \frac{1}{ \widehat{Y}
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
@@ -574,50 +560,11 @@ $$ \mathcal{L}  = \sum_{i \in V^L} \sum_{j=1}^C Y_{ij} \ln \frac{1}{ \widehat{Y}
         $(this).wrap(element);
       }
     );
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
 
-
-  
-
-  
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-  
 
 
 

@@ -19,15 +19,15 @@
   <meta name="keywords" content="">
   <title>图半监督节点分类之三——基于循环神经网络 - 给荔枝打气</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
   
 
   
@@ -49,7 +49,7 @@
 
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="给荔枝打气" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
@@ -203,14 +203,6 @@
 
   
   
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
 </div>
 
             
@@ -236,15 +228,9 @@
             <!-- SEO header -->
             <h1 style="display: none">图半监督节点分类之三——基于循环神经网络</h1>
             
-              <p class="note note-info">
-                
-                  本文最后更新于：2020年8月29日 晚上
-                
-              </p>
-            
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>高阶依赖建模一直是图编码研究的热门话题，通过高阶依赖建模能捕获更长的网络结构依赖，保持节点之间的高阶近似。直观上，两个节点没有边相连，并不意味着这两个节点不相似。相反，如果两个节点在网络上通过某些节点能建立很强的联系，这两个节点仍然可以被认为相似。上一章提出的GCN-CRF模型，是基于GCN做图编码的。但是GCN是基于图上谱卷积的一阶近似方法，从而只能捕获一阶依赖。本章的目标是对更远的依赖范围进行建模。接下来的部分将具体给出针对高阶依赖进行建模的思考与建模过程。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h1>高阶依赖建模</h1>
 <p>本文认为不同节点之间的$k$阶关系信息（对于不同的$k$值）揭示了与该图相关的有用的全局结构信息，并且在学习一个良好的图表示时，显式充分利用这一点非常重要。 下图给出了一些说明性的例子<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，展示了对于节点$A_1$和$A_2$，需要捕获$k$阶（对于$k=2,3,4$）关系的重要性。<br>
 <img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/high-order.png" srcset="/img/loading.gif" alt="在图中捕获高阶依赖的示意图。"><br>
@@ -484,8 +470,8 @@ $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
 </footer>
 
 <!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/debouncer.js" ></script>
 <script  src="/js/main.js" ></script>
 
@@ -498,7 +484,7 @@ $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
 
 
 
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
   <script  src="/js/clipboard-use.js" ></script>
 
 
@@ -509,7 +495,7 @@ $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
   <script>
     $(document).ready(function () {
       var boardCtn = $('#board-ctn');
@@ -538,7 +524,7 @@ $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
   <script>
     anchors.options = {
       placement: "right",
@@ -567,8 +553,8 @@ $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
 
   <script>
     $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
@@ -579,50 +565,11 @@ $$ h^t_i = z^t_i \circ h_i^{t-1} + (1-z^t_i) \circ \widetilde{h}^t_i $$</p>
         $(this).wrap(element);
       }
     );
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
 
-
-  
-
-  
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-  
 
 
 
