@@ -1,3 +1,4 @@
+https://zekizz.github.io/bo-ke/echarts-in-blog/
 https://zekizz.github.io/python/regex-preview/
 https://zekizz.github.io/da-shu-ju/pyspark-notes/
 https://zekizz.github.io/python/pycharm-remote/
@@ -7,4 +8,3 @@ https://zekizz.github.io/zi-ran-yu-yan-chu-li/chatito/
 https://zekizz.github.io/bo-ke/blog-comment-view/
 https://zekizz.github.io/ji-qi-xue-xi/sklearn-multi-label/
 https://zekizz.github.io/qian-duan/vue-wen-jian-shang-chuan-xia-zai/
-https://zekizz.github.io/zi-ran-yu-yan-chu-li/nlu-survey/
