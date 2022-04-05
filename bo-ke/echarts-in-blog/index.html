@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      925 字
+      923 字
     </span>
   
 
@@ -255,10 +255,10 @@ option = &#123;
 &#125;;
 
 &#123;% endecharts %&#125;</code></pre>
-<div id="echarts5680" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts4697" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts5680'));
+        var myChart = echarts.init(document.getElementById('echarts4697'));
 
         // 指定图表的配置项和数据
         var option = option = {
@@ -292,7 +292,7 @@ option = &#123;
   date.<span class="hljs-title function_">push</span>([now.<span class="hljs-title function_">getFullYear</span>(), now.<span class="hljs-title function_">getMonth</span>() + <span class="hljs-number">1</span>, now.<span class="hljs-title function_">getDate</span>()].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;/&#x27;</span>));
   <span class="hljs-keyword">var</span> v = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>((<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() - <span class="hljs-number">0.5</span>) * <span class="hljs-number">20</span> + data[i - <span class="hljs-number">1</span>][<span class="hljs-number">3</span>]);
   <span class="hljs-comment">// 开盘价、收盘价、最低价、最高价</span>
-  data.<span class="hljs-title function_">push</span>([v*(<span class="hljs-number">0.99</span> + (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() - <span class="hljs-number">0.5</span>)*<span class="hljs-number">0.01</span>), v, v*<span class="hljs-number">0.98</span>, v*<span class="hljs-number">1.002</span>]);
+  data.<span class="hljs-title function_">push</span>([v*(<span class="hljs-number">1</span> + (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() - <span class="hljs-number">0.5</span>)*<span class="hljs-number">0.01</span>), v, v*<span class="hljs-number">0.995</span>, v*<span class="hljs-number">1.005</span>]);
 &#125;
 
 option = &#123;
@@ -397,14 +397,14 @@ let base = +new Date(2010, 1, 1);
     date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
     var v = Math.round((Math.random() - 0.5) * 20 + data[i - 1][3]);
     // 开盘价、收盘价、最低价、最高价
-    data.push([v*(0.99 + (Math.random() - 0.5)*0.01), v, v*0.98, v*1.002]);
+    data.push([v*(1 + (Math.random() - 0.5)*0.01), v, v*0.995, v*1.005]);
   };
 
 </script>
-<div id="echarts6466" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<div id="echarts5510" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts6466'));
+        var myChart = echarts.init(document.getElementById('echarts5510'));
 
         // 指定图表的配置项和数据
         var option = option = {

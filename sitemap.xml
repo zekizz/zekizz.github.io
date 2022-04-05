@@ -377,27 +377,6 @@
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/tags/%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/</loc>
-    <lastmod>2022-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/tags/NLU/</loc>
-    <lastmod>2022-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/tags/ML/</loc>
-    <lastmod>2022-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zekizz.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2022-04-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -419,6 +398,27 @@
   </url>
   
   <url>
+    <loc>https://zekizz.github.io/tags/%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90/</loc>
+    <lastmod>2022-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/tags/NLU/</loc>
+    <lastmod>2022-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/tags/ML/</loc>
+    <lastmod>2022-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zekizz.github.io/tags/python/</loc>
     <lastmod>2022-04-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -427,6 +427,13 @@
   
   <url>
     <loc>https://zekizz.github.io/tags/excel/</loc>
+    <lastmod>2022-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zekizz.github.io/tags/git/</loc>
     <lastmod>2022-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -461,7 +468,7 @@
   </url>
   
   <url>
-    <loc>https://zekizz.github.io/tags/git/</loc>
+    <loc>https://zekizz.github.io/tags/CRF/</loc>
     <lastmod>2022-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -469,13 +476,6 @@
   
   <url>
     <loc>https://zekizz.github.io/tags/RNN/</loc>
-    <lastmod>2022-04-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zekizz.github.io/tags/CRF/</loc>
     <lastmod>2022-04-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
