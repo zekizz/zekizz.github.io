@@ -233,11 +233,11 @@
 <span id="more"></span>
 <h2 id="配置">配置</h2>
 <p>获取配置信息</p>
-<pre><code class="hljs brainfuck"><span class="hljs-comment">git</span> <span class="hljs-comment">config</span> --<span class="hljs-comment">system</span> --<span class="hljs-comment">list</span>
-<span class="hljs-comment">git</span> <span class="hljs-comment">config</span> --<span class="hljs-comment">local</span> --<span class="hljs-comment">list</span></code></pre>
+<pre><code class="hljs brainfuck"><span class="hljs-comment">git config</span> <span class="hljs-literal">--</span><span class="hljs-comment">system</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span>
+<span class="hljs-comment">git config</span> <span class="hljs-literal">--</span><span class="hljs-comment">local</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span></code></pre>
 <p>git config</p>
-<pre><code class="hljs verilog">git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.name</span> <span class="hljs-string">&quot;Your Name&quot;</span>
-git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.email</span> <span class="hljs-string">&quot;email@example.com&quot;</span></code></pre>
+<pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;Your Name&quot;</span>
+git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;email@example.com&quot;</span></code></pre>
 <p>github配置ssh</p>
 <ol>
 <li>本地生成ssh密钥对</li>
@@ -251,50 +251,50 @@ git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global
 <li>添加入github的setting中</li>
 </ol>
 <h2 id="常用命令">常用命令</h2>
-<pre><code class="hljs livecodeserver">git diff <span class="hljs-comment">--cached  # 查看已经暂存起来的文件和上次提交时的快照之间的差异</span>
-git diff <span class="hljs-comment">--staged  # Git 1.6.1及更高版本，效果同上</span>
+<pre><code class="hljs perl">git diff --cached  <span class="hljs-comment"># 查看已经暂存起来的文件和上次提交时的快照之间的差异</span>
+git diff --staged  <span class="hljs-comment"># Git 1.6.1及更高版本，效果同上</span>
 
-git commit -<span class="hljs-keyword">a</span> -m <span class="hljs-string">&#x27;comment&#x27;</span>  <span class="hljs-comment"># 自动把所有已经跟踪过的文件暂存起来一并提交</span>
-git commit <span class="hljs-comment">--amend  # 撤销操作重新提交</span>
+git commit -a -m <span class="hljs-string">&#x27;comment&#x27;</span>  <span class="hljs-comment"># 自动把所有已经跟踪过的文件暂存起来一并提交</span>
+git commit --amend  <span class="hljs-comment"># 撤销操作重新提交</span>
     <span class="hljs-comment"># 只生成一个commit</span>
     git commit -m <span class="hljs-string">&#x27;initial commit&#x27;</span>
-    git <span class="hljs-built_in">add</span> forgotten_file
-    git commit <span class="hljs-comment">--amend</span>
+    git add forgotten_file
+    git commit --amend
 
-git rm <span class="hljs-comment">--cached filename  # 移除跟踪但不删除文件</span>
+git rm --cached filename  <span class="hljs-comment"># 移除跟踪但不删除文件</span>
 
-git <span class="hljs-built_in">log</span> 
-    <span class="hljs-comment">--pretty=oneline  # 每个提交放在一行显示, 其他：short，full 和 fuller</span>
-    <span class="hljs-comment">--pretty=format:&quot;%h %s&quot;  # 更加简洁的信息 </span>
-    <span class="hljs-comment">--graph  # oneline 或 format 时结合 --graph 选项</span>
+git <span class="hljs-keyword">log</span> 
+    --pretty=oneline  <span class="hljs-comment"># 每个提交放在一行显示, 其他：short，full 和 fuller</span>
+    --pretty=<span class="hljs-keyword">format</span>:<span class="hljs-string">&quot;%h %s&quot;</span>  <span class="hljs-comment"># 更加简洁的信息 </span>
+    --graph  <span class="hljs-comment"># oneline 或 format 时结合 --graph 选项</span>
     - p  <span class="hljs-comment"># 显示每次提交的内容差异</span>
     - <span class="hljs-number">2</span>  <span class="hljs-comment"># 显示最近的两次更新</span>
-git <span class="hljs-built_in">log</span> <span class="hljs-comment">--graph --pretty=oneline  # 常用查看log</span>
+git <span class="hljs-keyword">log</span> --graph --pretty=oneline  <span class="hljs-comment"># 常用查看log</span>
 
-git reset HEAD &lt;<span class="hljs-built_in">file</span>&gt;  <span class="hljs-comment"># 已经add, 把暂存区的修改撤销掉</span>
-git checkout <span class="hljs-comment">-- &lt;file&gt;  # 还未add, 撤销工作区的修改</span>
+git <span class="hljs-keyword">reset</span> HEAD &lt;file&gt;  <span class="hljs-comment"># 已经add, 把暂存区的修改撤销掉</span>
+git checkout -- &lt;file&gt;  <span class="hljs-comment"># 还未add, 撤销工作区的修改</span>
 
 <span class="hljs-comment"># git log 查看版本号，再版本回退，若想再次恢复到新版本，git reflog 查看版本号</span>
-git reset <span class="hljs-comment">--hard [commit id]  </span>
+git <span class="hljs-keyword">reset</span> --hard [commit id]  
 
 git checkout branchname  <span class="hljs-comment"># 切换分支</span>
 git checkout -b brachname  <span class="hljs-comment"># 创建并切换分支</span>
 git branch -d branchname  <span class="hljs-comment"># 删除分支</span>
 <span class="hljs-comment"># 强制禁用Fast forward模式，Git就会在merge时生成一个新的commit</span>
-git <span class="hljs-built_in">merge</span> <span class="hljs-comment">--no-ff -m &#x27;comment&#x27; branch  </span>
+git merge --<span class="hljs-keyword">no</span>-ff -m <span class="hljs-string">&#x27;comment&#x27;</span> branch  
 
 git stash  <span class="hljs-comment"># bug 分支</span>
-    <span class="hljs-number">1.</span> 在当前分支git stash，工作区恢复到最近一次commit
-    <span class="hljs-number">2.</span> 处理完其他分支问题
-    <span class="hljs-number">3.</span> 在当前分支git stash list查看stash内容
-    <span class="hljs-number">4.</span> git stash pop，恢复并删除stash
+    <span class="hljs-number">1</span>. 在当前分支git stash，工作区恢复到最近一次commit
+    <span class="hljs-number">2</span>. 处理完其他分支问题
+    <span class="hljs-number">3</span>. 在当前分支git stash list查看stash内容
+    <span class="hljs-number">4</span>. git stash <span class="hljs-keyword">pop</span>，恢复并删除stash
 
 git remote -v  <span class="hljs-comment"># 查看远程库分支</span>
-git push origin master/dev  <span class="hljs-comment"># 推送分支</span>
+git <span class="hljs-keyword">push</span> origin master/dev  <span class="hljs-comment"># 推送分支</span>
 git checkout -b dev origin/dev  <span class="hljs-comment"># 创建远程origin的dev分支到本地，需先创建本地dev分支</span>
 git pull  <span class="hljs-comment"># 拉取远程到本地，遇到推送有冲突的时候，先 git pull，本地解决冲突，再push</span>
 
-git remote <span class="hljs-built_in">add</span> origin git@github.com:xxx/xxx.git  <span class="hljs-comment"># 关联远程库</span></code></pre>
+git remote add origin git@github.com:xxx/xxx.git  <span class="hljs-comment"># 关联远程库</span></code></pre>
 
             </div>
             <hr>

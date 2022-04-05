@@ -245,12 +245,12 @@
 <p>选取到的文件存放在compenent data的dataFile中。</p>
 <h2 id="2-读取文件内容">2. 读取文件内容</h2>
 <pre><code class="hljs javascript">loadFile () &#123;
-  <span class="hljs-keyword">const</span> reader = <span class="hljs-keyword">new</span> FileReader();
-  <span class="hljs-keyword">const</span> _this = <span class="hljs-built_in">this</span>;
-  reader.readAsText(_this.dataFile);
-  reader.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>();
+  <span class="hljs-keyword">const</span> _this = <span class="hljs-variable language_">this</span>;
+  reader.<span class="hljs-title function_">readAsText</span>(_this.<span class="hljs-property">dataFile</span>);
+  reader.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
     <span class="hljs-comment">// this.result为读取到的json字符串，需转成json对象</span>
-    _this.importJSON = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">this</span>.result);
+    _this.<span class="hljs-property">importJSON</span> = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">result</span>);
   &#125;
 &#125;,</code></pre>
 <h1>文件下载</h1>
@@ -258,11 +258,11 @@
 <p>安装</p>
 <pre><code class="hljs shell">npm i file-saver</code></pre>
 <p>不需要在头部import，采用<code>require</code>的方式</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-title">saveData</span>(<span class="hljs-params"></span>)</span>&#123;
-    <span class="hljs-keyword">var</span> FileSaver = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;file-saver&#x27;</span>);
-    <span class="hljs-keyword">var</span> data = <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-built_in">this</span>.graph, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
-    <span class="hljs-keyword">var</span> blob = <span class="hljs-keyword">new</span> Blob([data], &#123;<span class="hljs-attr">type</span>: <span class="hljs-string">&quot;application/json;charset=utf-8&quot;</span>&#125;);
-    FileSaver(blob, <span class="hljs-string">&quot;output.json&quot;</span>);
+<pre><code class="hljs js"><span class="hljs-title function_">saveData</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> <span class="hljs-title class_">FileSaver</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;file-saver&#x27;</span>);
+    <span class="hljs-keyword">var</span> data = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">graph</span>, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>);
+    <span class="hljs-keyword">var</span> blob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Blob</span>([data], &#123;<span class="hljs-attr">type</span>: <span class="hljs-string">&quot;application/json;charset=utf-8&quot;</span>&#125;);
+    <span class="hljs-title class_">FileSaver</span>(blob, <span class="hljs-string">&quot;output.json&quot;</span>);
 &#125;</code></pre>
 <p>注意：这里的api与github上readme上写的已经不一样了，我目前的最新版本号<code>2.0.2</code>。这里不再采用<code>FileSaver.saveAs(file)</code></p>
 

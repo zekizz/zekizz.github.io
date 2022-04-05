@@ -256,52 +256,52 @@
 <p>以提取文本中，关于道路信息的（时间、原因、地点、时间）四元组为例，输入句子：</p>
 <pre><code class="hljs makefile"><span class="hljs-section">黄石高速:因交通管制,晋州站、辛集站、藁城东站双向关闭。因沧州服务区附近K81处黄骅方向发生交通事故,沧州服务区附近K81处黄骅方向车辆缓慢通行约4公里</span></code></pre>
 <p>句法解析树：</p>
-<pre><code class="hljs haxe"><span class="hljs-number">1</span>	黄石	黄石	nh	nr	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">2</span>	高速	高速	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">3</span>	:	<span class="hljs-type"></span>:	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">0</span>	HED	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">4</span>	因	因	p	p	<span class="hljs-literal">_</span>	<span class="hljs-number">14</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">5</span>	交通管制	交通管制	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">4</span>	POB	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">6</span>	,	,	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">4</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">7</span>	晋州站	晋州站	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">14</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">8</span>	、	、	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">9</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">9</span>	辛集站	辛集站	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">7</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">10</span>	、	、	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">12</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">11</span>	藁城	藁城	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">12</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">12</span>	东站	东站	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">7</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">13</span>	双向	双向	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">14</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">14</span>	关闭	关闭	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">15</span>	。	。	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">16</span>	因	因	p	p	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">17</span>	沧州	沧州	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">18</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">18</span>	服务区	服务区	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">19</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">19</span>	附近	附近	nd	f	<span class="hljs-literal">_</span>	<span class="hljs-number">21</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">20</span>	K81	K81	ws	nx	<span class="hljs-literal">_</span>	<span class="hljs-number">21</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">21</span>	处	处	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">22</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">22</span>	黄骅	黄骅	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">23</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">23</span>	方向	方向	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">16</span>	POB	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">24</span>	发生	发生	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">25</span>	交通事故	交通事故	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	VOB	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">26</span>	,	,	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">27</span>	沧州	沧州	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">28</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">28</span>	服务区	服务区	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">29</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">29</span>	附近	附近	nd	f	<span class="hljs-literal">_</span>	<span class="hljs-number">31</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">30</span>	K81	K81	ws	nx	<span class="hljs-literal">_</span>	<span class="hljs-number">31</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">31</span>	处	处	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">34</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">32</span>	黄骅	黄骅	ns	ns	<span class="hljs-literal">_</span>	<span class="hljs-number">33</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">33</span>	方向	方向	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">34</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">34</span>	车辆	车辆	n	n	<span class="hljs-literal">_</span>	<span class="hljs-number">36</span>	SBV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">35</span>	缓慢	缓慢	a	ad	<span class="hljs-literal">_</span>	<span class="hljs-number">36</span>	ADV	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">36</span>	通行	通行	v	v	<span class="hljs-literal">_</span>	<span class="hljs-number">24</span>	COO	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">37</span>	约	约	d	d	<span class="hljs-literal">_</span>	<span class="hljs-number">38</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">38</span>	<span class="hljs-number">4</span>	<span class="hljs-number">4</span>	m	m	<span class="hljs-literal">_</span>	<span class="hljs-number">39</span>	ATT	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">39</span>	公里	公里	q	q	<span class="hljs-literal">_</span>	<span class="hljs-number">36</span>	CMP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span>
-<span class="hljs-number">40</span>	。	。	wp	w	<span class="hljs-literal">_</span>	<span class="hljs-number">3</span>	WP	<span class="hljs-literal">_</span>	<span class="hljs-literal">_</span></code></pre>
+<pre><code class="hljs apache"><span class="hljs-attribute">1</span>	黄石	黄石	nh	nr	_	<span class="hljs-number">3</span>	SBV	_	_
+<span class="hljs-attribute">2</span>	高速	高速	d	d	_	<span class="hljs-number">3</span>	ADV	_	_
+<span class="hljs-attribute">3</span>	:	:	v	v	_	<span class="hljs-number">0</span>	HED	_	_
+<span class="hljs-attribute">4</span>	因	因	p	p	_	<span class="hljs-number">14</span>	ADV	_	_
+<span class="hljs-attribute">5</span>	交通管制	交通管制	v	v	_	<span class="hljs-number">4</span>	POB	_	_
+<span class="hljs-attribute">6</span>	,	,	wp	w	_	<span class="hljs-number">4</span>	WP	_	_
+<span class="hljs-attribute">7</span>	晋州站	晋州站	ns	ns	_	<span class="hljs-number">14</span>	SBV	_	_
+<span class="hljs-attribute">8</span>	、	、	wp	w	_	<span class="hljs-number">9</span>	WP	_	_
+<span class="hljs-attribute">9</span>	辛集站	辛集站	n	n	_	<span class="hljs-number">7</span>	COO	_	_
+<span class="hljs-attribute">10</span>	、	、	wp	w	_	<span class="hljs-number">12</span>	WP	_	_
+<span class="hljs-attribute">11</span>	藁城	藁城	ns	ns	_	<span class="hljs-number">12</span>	ATT	_	_
+<span class="hljs-attribute">12</span>	东站	东站	n	n	_	<span class="hljs-number">7</span>	COO	_	_
+<span class="hljs-attribute">13</span>	双向	双向	d	d	_	<span class="hljs-number">14</span>	ADV	_	_
+<span class="hljs-attribute">14</span>	关闭	关闭	v	v	_	<span class="hljs-number">3</span>	COO	_	_
+<span class="hljs-attribute">15</span>	。	。	wp	w	_	<span class="hljs-number">3</span>	WP	_	_
+<span class="hljs-attribute">16</span>	因	因	p	p	_	<span class="hljs-number">24</span>	ADV	_	_
+<span class="hljs-attribute">17</span>	沧州	沧州	ns	ns	_	<span class="hljs-number">18</span>	ATT	_	_
+<span class="hljs-attribute">18</span>	服务区	服务区	n	n	_	<span class="hljs-number">19</span>	ATT	_	_
+<span class="hljs-attribute">19</span>	附近	附近	nd	f	_	<span class="hljs-number">21</span>	ATT	_	_
+<span class="hljs-attribute">20</span>	K81	K81	ws	nx	_	<span class="hljs-number">21</span>	ATT	_	_
+<span class="hljs-attribute">21</span>	处	处	n	n	_	<span class="hljs-number">22</span>	ATT	_	_
+<span class="hljs-attribute">22</span>	黄骅	黄骅	ns	ns	_	<span class="hljs-number">23</span>	ATT	_	_
+<span class="hljs-attribute">23</span>	方向	方向	n	n	_	<span class="hljs-number">16</span>	POB	_	_
+<span class="hljs-attribute">24</span>	发生	发生	v	v	_	<span class="hljs-number">3</span>	COO	_	_
+<span class="hljs-attribute">25</span>	交通事故	交通事故	n	n	_	<span class="hljs-number">24</span>	VOB	_	_
+<span class="hljs-attribute">26</span>	,	,	wp	w	_	<span class="hljs-number">24</span>	WP	_	_
+<span class="hljs-attribute">27</span>	沧州	沧州	ns	ns	_	<span class="hljs-number">28</span>	ATT	_	_
+<span class="hljs-attribute">28</span>	服务区	服务区	n	n	_	<span class="hljs-number">29</span>	ATT	_	_
+<span class="hljs-attribute">29</span>	附近	附近	nd	f	_	<span class="hljs-number">31</span>	ATT	_	_
+<span class="hljs-attribute">30</span>	K81	K81	ws	nx	_	<span class="hljs-number">31</span>	ATT	_	_
+<span class="hljs-attribute">31</span>	处	处	n	n	_	<span class="hljs-number">34</span>	ATT	_	_
+<span class="hljs-attribute">32</span>	黄骅	黄骅	ns	ns	_	<span class="hljs-number">33</span>	ATT	_	_
+<span class="hljs-attribute">33</span>	方向	方向	n	n	_	<span class="hljs-number">34</span>	ATT	_	_
+<span class="hljs-attribute">34</span>	车辆	车辆	n	n	_	<span class="hljs-number">36</span>	SBV	_	_
+<span class="hljs-attribute">35</span>	缓慢	缓慢	a	ad	_	<span class="hljs-number">36</span>	ADV	_	_
+<span class="hljs-attribute">36</span>	通行	通行	v	v	_	<span class="hljs-number">24</span>	COO	_	_
+<span class="hljs-attribute">37</span>	约	约	d	d	_	<span class="hljs-number">38</span>	ATT	_	_
+<span class="hljs-attribute">38</span>	<span class="hljs-number">4</span>	<span class="hljs-number">4</span>	m	m	_	<span class="hljs-number">39</span>	ATT	_	_
+<span class="hljs-attribute">39</span>	公里	公里	q	q	_	<span class="hljs-number">36</span>	CMP	_	_
+<span class="hljs-attribute">40</span>	。	。	wp	w	_	<span class="hljs-number">3</span>	WP	_	_</code></pre>
 <p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/NLP/test_dependency.png" srcset="/img/loading.gif" alt=""><br>
 核心代码如下：</p>
-<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WordBean</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span>
+<pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">WordBean</span>(<span class="hljs-title class_ inherited__">object</span>):
    <span class="hljs-string">&#x27;&#x27;&#x27; 扩展conllword，存储父节点与孩子节点索引 &#x27;&#x27;&#x27;</span>
 
-       <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
+       <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
            self.lemma = <span class="hljs-literal">None</span>
            self.postag = <span class="hljs-literal">None</span>
            self.relation = <span class="hljs-literal">None</span>
@@ -309,17 +309,17 @@
            self.flag = <span class="hljs-literal">True</span>  <span class="hljs-comment"># 是否还处于树中标志位，已合并的ATT将置为False</span>
            self.child = []
    
-       <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_word</span>(<span class="hljs-params">self, conll_word</span>):</span>
+       <span class="hljs-keyword">def</span> <span class="hljs-title function_">set_word</span>(<span class="hljs-params">self, conll_word</span>):
            self.lemma = conll_word.LEMMA
            self.postag = conll_word.POSTAG
            self.relation = conll_word.DEPREL
            self.head_id = conll_word.HEAD.ID - <span class="hljs-number">1</span>
    
-       <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add_child</span>(<span class="hljs-params">self, child_id, child_relation</span>):</span>
+       <span class="hljs-keyword">def</span> <span class="hljs-title function_">add_child</span>(<span class="hljs-params">self, child_id, child_relation</span>):
            self.child.append((child_id, child_relation))
        
    
-   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extract_entity_tuple</span>(<span class="hljs-params">self, dependency_tree, seed_id, head_type=<span class="hljs-string">&#x27;&#x27;</span></span>):</span>
+   <span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_entity_tuple</span>(<span class="hljs-params">self, dependency_tree, seed_id, head_type=<span class="hljs-string">&#x27;&#x27;</span></span>):
        <span class="hljs-string">&#x27;&#x27;&#x27;自上而下解析树&#x27;&#x27;&#x27;</span>
        res_entity_tuple_list = []
        res_dict = <span class="hljs-built_in">dict</span>()
@@ -454,7 +454,7 @@
            <span class="hljs-keyword">return</span> res_entity_tuple_list
 
 
-   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">extract_information</span>(<span class="hljs-params">self, line</span>):</span>
+   <span class="hljs-keyword">def</span> <span class="hljs-title function_">extract_information</span>(<span class="hljs-params">self, line</span>):
        segs = self.nlp_tokenizer.seg(line)
        <span class="hljs-comment"># fix segs</span>
        self.fix_seged_postag(segs)
@@ -503,9 +503,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/">自然语言处理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NLP/">NLP</a>
                     
                   </div>
                 

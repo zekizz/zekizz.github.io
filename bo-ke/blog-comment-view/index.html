@@ -239,32 +239,32 @@
 <h1>不蒜子</h1>
 <p>参考<a target="_blank" rel="noopener" href="https://busuanzi.ibruce.info/">不蒜子</a>官网的介绍，使用只需</p>
 <pre><code class="hljs js">&lt;script <span class="hljs-keyword">async</span> src=<span class="hljs-string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span>本站总访问量<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>次<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></code></pre>
+<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span>本站总访问量<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>次<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></code></pre>
 <p>但是默认，默认开启后，发现前端不显示，进一步查发现<code>display:none</code>。</p>
 <p>解决方案如下</p>
 <h2 id="1-post-pug">1. post.pug</h2>
 <p>找到不蒜子部分，删掉<code>span#busuanzi_container_page_pv= ' | '</code>中的<code>#busuanzi_container_page_pv</code>，完整的不蒜子部分</p>
-<pre><code class="hljs js"><span class="hljs-keyword">if</span> theme.busuanzi == <span class="hljs-literal">true</span>
+<pre><code class="hljs js"><span class="hljs-keyword">if</span> theme.<span class="hljs-property">busuanzi</span> == <span class="hljs-literal">true</span>
         <span class="hljs-comment">//- script(src=&#x27;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&#x27;, async) // 老版，不蒜子已更换域名</span>
         &lt;script <span class="hljs-keyword">async</span> src=<span class="hljs-string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;
         span= <span class="hljs-string">&#x27; | &#x27;</span>
           span#busuanzi_value_page_pv
-          span= <span class="hljs-string">&#x27; &#x27;</span> + __(<span class="hljs-string">&#x27;Hits&#x27;</span>)</code></pre>
+          span= <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-title function_">__</span>(<span class="hljs-string">&#x27;Hits&#x27;</span>)</code></pre>
 <h2 id="2-footer-pug">2. footer.pug</h2>
 <p><a target="_blank" rel="noopener" href="https://github.com/tufu9441/maupassant-hexo">maupassant-hexo</a>默认主题下是没有在footer中做站点统计的，只有篇章统计。添加如下</p>
 <pre><code class="hljs js">#footer
-  <span class="hljs-keyword">if</span> theme.busuanzi == <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> theme.<span class="hljs-property">busuanzi</span> == <span class="hljs-literal">true</span>
       &lt;script <span class="hljs-keyword">async</span> src=<span class="hljs-string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>本站总访问量<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>次<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>总访客<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_uv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>人<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>本站总访问量<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>次<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
+      <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>总访客<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_uv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>人<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span>
       &lt;br&gt;
-  = <span class="hljs-string">&#x27;Copyright © &#x27;</span> + date(<span class="hljs-built_in">Date</span>.now(), <span class="hljs-string">&#x27;YYYY&#x27;</span>) + <span class="hljs-string">&#x27; &#x27;</span>
-  a(href=url_for(<span class="hljs-string">&#x27;.&#x27;</span>), rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>)= config.title + <span class="hljs-string">&#x27;.&#x27;</span>
-  |  Powered by
-  a(rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>, target=<span class="hljs-string">&#x27;_blank&#x27;</span>, href=<span class="hljs-string">&#x27;https://hexo.io&#x27;</span>)  Hexo.
-  a(rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>, target=<span class="hljs-string">&#x27;_blank&#x27;</span>, href=<span class="hljs-string">&#x27;https://github.com/tufu9441/maupassant-hexo&#x27;</span>)  Theme
+  = <span class="hljs-string">&#x27;Copyright © &#x27;</span> + <span class="hljs-title function_">date</span>(<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>(), <span class="hljs-string">&#x27;YYYY&#x27;</span>) + <span class="hljs-string">&#x27; &#x27;</span>
+  <span class="hljs-title function_">a</span>(href=<span class="hljs-title function_">url_for</span>(<span class="hljs-string">&#x27;.&#x27;</span>), rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>)= config.<span class="hljs-property">title</span> + <span class="hljs-string">&#x27;.&#x27;</span>
+  |  <span class="hljs-title class_">Powered</span> by
+  <span class="hljs-title function_">a</span>(rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>, target=<span class="hljs-string">&#x27;_blank&#x27;</span>, href=<span class="hljs-string">&#x27;https://hexo.io&#x27;</span>)  <span class="hljs-title class_">Hexo</span>.
+  <span class="hljs-title function_">a</span>(rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>, target=<span class="hljs-string">&#x27;_blank&#x27;</span>, href=<span class="hljs-string">&#x27;https://github.com/tufu9441/maupassant-hexo&#x27;</span>)  <span class="hljs-title class_">Theme</span>
   |  by
-  a(rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>, target=<span class="hljs-string">&#x27;_blank&#x27;</span>, href=<span class="hljs-string">&#x27;https://github.com/pagecho&#x27;</span>)  Cho.
+  <span class="hljs-title function_">a</span>(rel=<span class="hljs-string">&#x27;nofollow&#x27;</span>, target=<span class="hljs-string">&#x27;_blank&#x27;</span>, href=<span class="hljs-string">&#x27;https://github.com/pagecho&#x27;</span>)  <span class="hljs-title class_">Cho</span>.
 </code></pre>
 <p>这里也填了一个坑。</p>
 <p>如果按照其他家博客的介绍，</p>

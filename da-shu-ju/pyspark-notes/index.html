@@ -237,17 +237,17 @@
 
 source activate py37
 pip install -r requirements.txt
-<span class="hljs-meta"></span>
-<span class="hljs-meta">#</span><span class="bash"> install conda pack</span>
+<span class="hljs-meta prompt_"></span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">install conda pack</span>
 pip install conda-pack
-<span class="hljs-meta"></span>
-<span class="hljs-meta">#</span><span class="bash"> Pack environment my_env into out_name.tar.gz</span>
+<span class="hljs-meta prompt_"></span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">Pack environment my_env into out_name.tar.gz</span>
 conda pack -n py37 -o py37_env.tar.gz</code></pre>
 <p>打包完成后，可重现环境检查下</p>
 <pre><code class="hljs shell">mkdir -p test_env
 tar -xzf py37_env.tar.gz -C test_env
 source py37_env/bin/activate
-<span class="hljs-meta">#</span><span class="bash"> 查看安装包是否一致</span>
+<span class="hljs-meta prompt_"># </span><span class="language-bash">查看安装包是否一致</span>
 pip list</code></pre>
 <p>这里插一个，如果想看conda环境安装的包，路径为<code>~conda_path/envs/py37/lib/python3.7/site-packages</code></p>
 <p>采用spark-submit</p>
@@ -284,19 +284,19 @@ pip list</code></pre>
 zip -r ../project_home.zip .</code></pre>
 <h2 id="常用参数">常用参数</h2>
 <h3 id="Spark-Conf">Spark Conf</h3>
-<pre><code class="hljs json">&#123;
-  <span class="hljs-attr">&quot;spark.dynamicAllocation.minExecutors&quot;</span>: <span class="hljs-string">&quot;200&quot;</span>,
-  <span class="hljs-attr">&quot;spark.dynamicAllocation.initialExecutors&quot;</span>: <span class="hljs-string">&quot;200&quot;</span>,
-  <span class="hljs-attr">&quot;spark.dynamicAllocation.maxExecutors&quot;</span>: <span class="hljs-string">&quot;500&quot;</span>,
-  <span class="hljs-attr">&quot;spark.driver.memory&quot;</span>: <span class="hljs-string">&quot;2g&quot;</span>,
-  <span class="hljs-attr">&quot;spark.executor.memory&quot;</span>: <span class="hljs-string">&quot;4g&quot;</span>,
-  <span class="hljs-attr">&quot;spark.driver.cores&quot;</span>: <span class="hljs-string">&quot;4&quot;</span>,
-  <span class="hljs-attr">&quot;spark.yarn.executor.memoryOverhead&quot;</span>: <span class="hljs-string">&quot;4g&quot;</span>,
-  <span class="hljs-attr">&quot;spark.sql.adaptive.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
-  <span class="hljs-attr">&quot;spark.sql.adaptive.skewedJoin.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
-  <span class="hljs-attr">&quot;spark.sql.adaptive.skewedJoinWithAgg.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,
-  <span class="hljs-attr">&quot;spark.sql.adaptive.multipleSkewedJoin.enabled&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>
-&#125;</code></pre>
+<pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
+  <span class="hljs-attr">&quot;spark.dynamicAllocation.minExecutors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;200&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.dynamicAllocation.initialExecutors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;200&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.dynamicAllocation.maxExecutors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;500&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.driver.memory&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2g&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.executor.memory&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4g&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.driver.cores&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.yarn.executor.memoryOverhead&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;4g&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.sql.adaptive.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.sql.adaptive.skewedJoin.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.sql.adaptive.skewedJoinWithAgg.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;spark.sql.adaptive.multipleSkewedJoin.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span>
+<span class="hljs-punctuation">&#125;</span></code></pre>
 <p>其中倒数三个参数是Spark AE SkewedJoin优化的一般参数，应对数据偏斜（处理偏斜优先分析key的取值是否均匀，比如空值等异常值需要被提前先移除掉）。</p>
 <h3 id="依赖资源">依赖资源</h3>
 <p>资源大多通过以下几种方式引入</p>
@@ -311,9 +311,9 @@ zip -r ../project_home.zip .</code></pre>
 <h2 id="跑模型">跑模型</h2>
 <p>通过spark跑深度学习模型时（当然是cpu啦），要想充分利用高并发并且减少模型加载时间的影响，可以使用<code>mapPartitions</code>。</p>
 <p>先看官方给的例子</p>
-<pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4], 2)</span>
-<span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; def f(iterator): yield sum(iterator)</span>
-<span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; rdd.mapPartitions(f).collect()</span>
+<pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4], 2)</span>
+<span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; def f(iterator): yield <span class="hljs-built_in">sum</span>(iterator)</span>
+<span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; rdd.mapPartitions(f).collect()</span>
 [3, 7]</code></pre>
 <p>传入和穿出都是迭代器，一条一条的计算。但是如果我们想一个batch一个batch的预测，显然有三个做法</p>
 <ul>
@@ -323,7 +323,7 @@ zip -r ../project_home.zip .</code></pre>
 </ul>
 <p>分别给出前两种写法的例子</p>
 <h3 id="方式一：攒数据">方式一：攒数据</h3>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):</span>
+<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):
     batch_size = <span class="hljs-number">16</span>
     count = <span class="hljs-number">0</span>
     row = partition
@@ -354,32 +354,32 @@ zip -r ../project_home.zip .</code></pre>
 rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapPartitions(infer_batch_by_partition)</code></pre>
 <h3 id="方式二：IterableDataset">方式二：IterableDataset</h3>
 <p>Iterabledataset 的一个例子</p>
-<pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyIterableDataset</span>(<span class="hljs-params">torch.utils.data.IterableDataset</span>):</span>
-<span class="hljs-meta">... </span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, your_args</span>):</span>
+<pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyIterableDataset</span>(torch.utils.data.IterableDataset):
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, your_args</span>):
 <span class="hljs-meta">... </span>        <span class="hljs-built_in">super</span>(MyIterableDataset).__init__()
 <span class="hljs-meta">... </span>        <span class="hljs-comment"># this depends on your dataset, suppose your dataset contains </span>
 <span class="hljs-meta">... </span>        <span class="hljs-comment"># images whose path you save in this list</span>
 <span class="hljs-meta">... </span>        self.dataset = <span class="hljs-comment"># something for load the path of images </span>
 ...
-<span class="hljs-meta">... </span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__iter__</span>(<span class="hljs-params">self</span>):</span>
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):
 <span class="hljs-meta">... </span>        <span class="hljs-keyword">for</span> image_path <span class="hljs-keyword">in</span> self.dataset:
 <span class="hljs-meta">... </span>            sample, label = read_single_example(image_path) <span class="hljs-comment"># read an individual sample and its label</span>
 <span class="hljs-meta">... </span>            <span class="hljs-keyword">yield</span> sample, label</code></pre>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">seq_padding</span>(<span class="hljs-params">seq, max_len, value=<span class="hljs-number">0</span></span>):</span>
+<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">seq_padding</span>(<span class="hljs-params">seq, max_len, value=<span class="hljs-number">0</span></span>):
     x = [value] * max_len
     x[:<span class="hljs-built_in">len</span>(seq)] = seq[:max_len]
     <span class="hljs-keyword">return</span> x
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DedupePairDatasetV2Iter</span>(<span class="hljs-params">IterableDataset</span>):</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">DedupePairDatasetV2Iter</span>(<span class="hljs-title class_ inherited__">IterableDataset</span>):
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, text_data_iter, tokenizer, max_len=<span class="hljs-number">128</span>, max_sen=<span class="hljs-number">16</span>, mode=<span class="hljs-string">&#x27;test&#x27;</span></span>):</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, text_data_iter, tokenizer, max_len=<span class="hljs-number">128</span>, max_sen=<span class="hljs-number">16</span>, mode=<span class="hljs-string">&#x27;test&#x27;</span></span>):
         <span class="hljs-built_in">super</span>(DedupePairDatasetV2Iter, self).__init__()
         self.max_len = max_len
         self.max_sen = max_sen
         self.tokenizer = tokenizer
         self.text_data_iter = text_data_iter
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gen_doc_input</span>(<span class="hljs-params">self, doc</span>):</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">gen_doc_input</span>(<span class="hljs-params">self, doc</span>):
         sentences = doc[<span class="hljs-string">&#x27;summary&#x27;</span>]
         sentences = sentences[:self.max_sen]
 
@@ -420,7 +420,7 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
 
         <span class="hljs-keyword">return</span> inputs
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__iter__</span>(<span class="hljs-params">self</span>):</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):
         <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> self.text_data_iter:
             left = self.gen_doc_input(item[<span class="hljs-string">&#x27;left&#x27;</span>])
             right = self.gen_doc_input(item[<span class="hljs-string">&#x27;right&#x27;</span>])
@@ -428,13 +428,13 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
 
 
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_duplicate_pair_iter</span>(<span class="hljs-params">model, </span></span>
-<span class="hljs-params"><span class="hljs-function">                              tokenizer, </span></span>
-<span class="hljs-params"><span class="hljs-function">                              pair_list, </span></span>
-<span class="hljs-params"><span class="hljs-function">                              batch_size=<span class="hljs-number">16</span>, </span></span>
-<span class="hljs-params"><span class="hljs-function">                              max_sen=<span class="hljs-number">16</span>, </span></span>
-<span class="hljs-params"><span class="hljs-function">                              max_seq_len=<span class="hljs-number">128</span>,</span></span>
-<span class="hljs-params"><span class="hljs-function">                              sent_hidden_size=<span class="hljs-number">64</span></span>):</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">infer_duplicate_pair_iter</span>(<span class="hljs-params">model, </span>
+<span class="hljs-params">                              tokenizer, </span>
+<span class="hljs-params">                              pair_list, </span>
+<span class="hljs-params">                              batch_size=<span class="hljs-number">16</span>, </span>
+<span class="hljs-params">                              max_sen=<span class="hljs-number">16</span>, </span>
+<span class="hljs-params">                              max_seq_len=<span class="hljs-number">128</span>,</span>
+<span class="hljs-params">                              sent_hidden_size=<span class="hljs-number">64</span></span>):
     device = torch.device(<span class="hljs-string">&#x27;cpu&#x27;</span>)
 
     <span class="hljs-comment"># test_set = DedupePairDatasetV2(pair_list, tokenizer, mode=&#x27;test&#x27;, max_sen=max_sen, max_len=max_seq_len)</span>
@@ -464,7 +464,7 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
                 <span class="hljs-keyword">yield</span> json.dumps(pair, ensure_ascii=<span class="hljs-literal">False</span>)
 
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):
     <span class="hljs-keyword">return</span> infer_duplicate_pair_iter(model_path, tokenizer, partition, batch_size=<span class="hljs-number">8</span>)
 rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapPartitions(infer_batch_by_partition)</code></pre>
 <p>参考：</p>
@@ -499,7 +499,7 @@ rdd_union = sc.union(rdd_list)</code></pre>
 <p><code>left_anti</code>只有dataframe有接口</p>
 <pre><code class="hljs python">df_a_not_in_b = df_a.join(df_b, on=[<span class="hljs-string">&#x27;key&#x27;</span>], how=<span class="hljs-string">&#x27;left_anti&#x27;</span>)</code></pre>
 <p><strong>udf</strong></p>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_pair_key</span>(<span class="hljs-params">id1, id2</span>):</span>
+<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">make_pair_key</span>(<span class="hljs-params">id1, id2</span>):
   id1, id2 = <span class="hljs-built_in">str</span>(id1), <span class="hljs-built_in">str</span>(id2)
   <span class="hljs-keyword">if</span> id1 &gt; id2:
     id1, id2 = id2, id1
@@ -514,10 +514,10 @@ df = df.withColumn(<span class="hljs-string">&#x27;key&#x27;</span>, udf_make_pa
 pip install -U spacy
 python -m spacy download zh_core_web_md</code></pre>
 <p>最后一步我们没有办法写到requirements中，一个骚操作是把模型文件上传，然后在代码中解压，亲测有效</p>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">load_spacy_model</span>(<span class="hljs-params">env=<span class="hljs-string">&#x27;local&#x27;</span></span>):</span>
+<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">load_spacy_model</span>(<span class="hljs-params">env=<span class="hljs-string">&#x27;local&#x27;</span></span>):
     <span class="hljs-keyword">import</span> zipfile
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">unzip_model</span>(<span class="hljs-params">zip_file, out_path=<span class="hljs-string">&#x27;.&#x27;</span></span>):</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">unzip_model</span>(<span class="hljs-params">zip_file, out_path=<span class="hljs-string">&#x27;.&#x27;</span></span>):
         zFile = zipfile.ZipFile(zip_file, <span class="hljs-string">&quot;r&quot;</span>)
         <span class="hljs-keyword">for</span> fileM <span class="hljs-keyword">in</span> zFile.namelist():
             zFile.extract(fileM, out_path)
@@ -538,7 +538,7 @@ python -m spacy download zh_core_web_md</code></pre>
 spark = SparkSession.builder.enableHiveSupport().getOrCreate()
 
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_load_model</span>():</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_load_model</span>():
     sys.path.insert(<span class="hljs-number">0</span>, <span class="hljs-string">&#x27;zh_core_web_md-3.0.0.zip&#x27;</span>)  <span class="hljs-comment"># 通过py-files引入，作为一个路径</span>
 
     files = os.listdir(<span class="hljs-string">&#x27;./&#x27;</span>)

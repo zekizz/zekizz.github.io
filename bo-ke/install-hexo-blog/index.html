@@ -248,7 +248,7 @@
 <h1>配置SSH key</h1>
 <p>配置的目的是方便提交代码，否则每次都需要输入用户名和密码很麻烦。</p>
 <p>首先在任意位置右键打开<code>Git Bash</code>, 输入</p>
-<pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> ~<span class="hljs-string">/.ssh</span> <span class="hljs-comment">#检查本机是否已存在的ssh密钥</span></code></pre>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh <span class="hljs-comment">#检查本机是否已存在的ssh密钥</span></code></pre>
 <p>如果提示：<code>No such file or directory</code>，说明是第一次使用git，如果是，生成key</p>
 <pre><code class="hljs excel">ssh-keygen -<span class="hljs-built_in">t</span> rsa -C <span class="hljs-string">&quot;你的github注册邮件地址&quot;</span></code></pre>
 <p>一路回车，最终会在 <code>C:\Users\你的用户名\</code>文件夹下生成密钥文件。</p>
@@ -256,14 +256,14 @@
 <p>打开你的github主页，进入 <code>setting -&gt; SSH and GPG keys -&gt; New SSH key</code></p>
 <p>将刚才复制的内容粘贴到Key中，title随便填，保存。</p>
 <p>测试是否成功</p>
-<pre><code class="hljs autoit">ssh -T git<span class="hljs-symbol">@github</span>.com <span class="hljs-meta"># 注意邮箱地址不用改</span></code></pre>
+<pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> -T git<span class="hljs-variable">@github</span>.com <span class="hljs-comment"># 注意邮箱地址不用改</span></code></pre>
 <p>如果提示<code>Are you sure you want to continue connecting (yes/no)?</code>，输入yes，然后会看到</p>
 <pre><code class="hljs ada">Hi XXX! You<span class="hljs-symbol">&#x27;ve</span> successfully authenticated, but GitHub does <span class="hljs-keyword">not</span> provide shell <span class="hljs-keyword">access</span>.</code></pre>
 <p>说明SSH配置成功</p>
 <p>最后配置git用户信息</p>
-<pre><code class="hljs verilog">git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.name</span> <span class="hljs-string">&quot;username&quot;</span><span class="hljs-comment">// 你的github用户名，非昵称</span>
+<pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;username&quot;</span><span class="hljs-comment">// 你的github用户名，非昵称</span>
 
-git <span class="hljs-keyword">config</span> --<span class="hljs-keyword">global</span> user<span class="hljs-variable">.email</span>  <span class="hljs-string">&quot;email&quot;</span><span class="hljs-comment">// 填写你的github注册邮箱</span></code></pre>
+git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span>  <span class="hljs-string">&quot;email&quot;</span><span class="hljs-comment">// 填写你的github注册邮箱</span></code></pre>
 <h1>安装hexo</h1>
 <p>安装只需要一条命令，在git bash中输入</p>
 <pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> -g hexo</code></pre>
@@ -317,10 +317,10 @@ hexo deploy <span class="hljs-meta">#部署到GitHub</span>
 hexo help  <span class="hljs-meta"># 查看帮助</span>
 hexo version  <span class="hljs-meta">#查看Hexo的版本</span></code></pre>
 <p>对应的简写</p>
-<pre><code class="hljs verilog">hexo n == hexo <span class="hljs-keyword">new</span>
-hexo g == hexo <span class="hljs-keyword">generate</span>
-hexo s == hexo server
-hexo d == hexo deploy</code></pre>
+<pre><code class="hljs abnf">hexo n <span class="hljs-operator">=</span><span class="hljs-operator">=</span> hexo new
+hexo g <span class="hljs-operator">=</span><span class="hljs-operator">=</span> hexo generate
+hexo s <span class="hljs-operator">=</span><span class="hljs-operator">=</span> hexo server
+hexo d <span class="hljs-operator">=</span><span class="hljs-operator">=</span> hexo deploy</code></pre>
 <h1>写新博客并上传</h1>
 <p>首先定位到hexo根目录，打开<code>git bash</code></p>
 <pre><code class="hljs applescript">hexo new &#x27;<span class="hljs-keyword">my</span>-<span class="hljs-keyword">first</span>-blog&#x27; <span class="hljs-comment"># 替换为你的取得博客文件名</span></code></pre>
