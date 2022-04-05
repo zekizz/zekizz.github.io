@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      555 字
+      551 字
     </span>
   
 
@@ -231,27 +231,15 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>git常用小结</p>
 <span id="more"></span>
-<h2 id="配置">配置</h2>
-<p>获取配置信息</p>
-<pre><code class="hljs brainfuck"><span class="hljs-comment">git config</span> <span class="hljs-literal">--</span><span class="hljs-comment">system</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span>
-<span class="hljs-comment">git config</span> <span class="hljs-literal">--</span><span class="hljs-comment">local</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span></code></pre>
-<p>git config</p>
-<pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;Your Name&quot;</span>
-git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;email@example.com&quot;</span></code></pre>
-<p>github配置ssh</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>获取配置信息<br><pre><code class="hljs brainfuck"><span class="hljs-comment">git config</span> <span class="hljs-literal">--</span><span class="hljs-comment">system</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span>
+<span class="hljs-comment">git config</span> <span class="hljs-literal">--</span><span class="hljs-comment">local</span> <span class="hljs-literal">--</span><span class="hljs-comment">list</span></code></pre><br>git config<br><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;Your Name&quot;</span>
+git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;email@example.com&quot;</span></code></pre><br>github配置ssh</p>
 <ol>
-<li>本地生成ssh密钥对</li>
-</ol>
-<pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen -t rsa</span></code></pre>
-<ol start="2">
-<li>密钥对生成完成后存放于当前用户 ~/.ssh 目录中，查看 id_rsa.pub</li>
-</ol>
-<pre><code class="hljs arcade">cat ~<span class="hljs-regexp">/.ssh/i</span>d_rsa.pub</code></pre>
-<ol start="3">
+<li>本地生成ssh密钥对<pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen -t rsa</span></code></pre></li>
+<li>密钥对生成完成后存放于当前用户 ~/.ssh 目录中，查看 id_rsa.pub<pre><code class="hljs arcade">cat ~<span class="hljs-regexp">/.ssh/i</span>d_rsa.pub</code></pre></li>
 <li>添加入github的setting中</li>
 </ol>
-<h2 id="常用命令">常用命令</h2>
-<pre><code class="hljs perl">git diff --cached  <span class="hljs-comment"># 查看已经暂存起来的文件和上次提交时的快照之间的差异</span>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><pre><code class="hljs perl">git diff --cached  <span class="hljs-comment"># 查看已经暂存起来的文件和上次提交时的快照之间的差异</span>
 git diff --staged  <span class="hljs-comment"># Git 1.6.1及更高版本，效果同上</span>
 
 git commit -a -m <span class="hljs-string">&#x27;comment&#x27;</span>  <span class="hljs-comment"># 自动把所有已经跟踪过的文件暂存起来一并提交</span>

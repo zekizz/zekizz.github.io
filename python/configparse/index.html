@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      83 字
+      82 字
     </span>
   
 
@@ -229,16 +229,14 @@
             <h1 style="display: none">configparser配置解析</h1>
             
             <div class="markdown-body" id="post-body">
-              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>使用configparser解析ini格式的配置文件</p>
-<span id="more"></span>
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>使用configparser解析ini格式的配置文件<br><span id="more"></span></p>
 <ul>
 <li>lib: <a target="_blank" rel="noopener" href="https://pypi.org/project/configparser/">https://pypi.org/project/configparser/</a></li>
-<li>doc: <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/configparser.html">https://docs.python.org/3/library/configparser.html</a></li>
+<li>doc: <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/configparser.html">https://docs.python.org/3/library/configparser.html</a><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> configparser</code></pre>
+</li>
 </ul>
-<pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> configparser</code></pre>
 <p>get的时候，如果key在DEFAULT段中，get设置的deflault无效，总是返回DEFAULT段中的值</p>
-<p>ini格式的config文件示例</p>
-<pre><code class="hljs ini"><span class="hljs-section">[DEFAULT]</span>
+<p>ini格式的config文件示例<br><pre><code class="hljs ini"><span class="hljs-section">[DEFAULT]</span>
 <span class="hljs-attr">ServerAliveInterval</span> = <span class="hljs-number">45</span>
 <span class="hljs-attr">Compression</span> = <span class="hljs-literal">yes</span>
 <span class="hljs-attr">CompressionLevel</span> = <span class="hljs-number">9</span>
@@ -249,7 +247,7 @@
 
 <span class="hljs-section">[topsecret.server.com]</span>
 <span class="hljs-attr">Port</span> = <span class="hljs-number">50022</span>
-<span class="hljs-attr">ForwardX11</span> = <span class="hljs-literal">no</span></code></pre>
+<span class="hljs-attr">ForwardX11</span> = <span class="hljs-literal">no</span></code></pre></p>
 
             </div>
             <hr>

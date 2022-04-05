@@ -236,8 +236,7 @@
 </ol>
 <p>这个问题我打算用几篇博客一一讨论，本篇针对完全没数据的场景，介绍使用chatito来生成数据。</p>
 <span id="more"></span>
-<h1>Chatito简介</h1>
-<p><a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito">Chatito</a>使用简单易上手的<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>语法来为几类场景的NLP任务生成数据。原话是</p>
+<h1 id="Chatito简介"><a href="#Chatito简介" class="headerlink" title="Chatito简介"></a>Chatito简介</h1><p><a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito">Chatito</a>使用简单易上手的<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>语法来为几类场景的NLP任务生成数据。原话是</p>
 <blockquote>
 <p>Generate datasets for AI chatbots, NLP tasks, named entity recognition or text classification models using a simple DSL!</p>
 </blockquote>
@@ -248,9 +247,7 @@
 <li>生成后采用一些数据增强方式（同义词替换、位置交换等），增加训练数据的多样性。</li>
 </ol>
 <p>本文不具体介绍这两种方式，会另外用实际的例子和博客分别进行记录，包括本文的例子都放在repo: <a target="_blank" rel="noopener" href="https://github.com/zekizz/DataGeneratorForNLP">DataGeneratorForNLP</a></p>
-<h2 id="使用前准备">使用前准备</h2>
-<h3 id="安装node-js">安装node.js</h3>
-<p>首先需安装node.js &gt;= v8.11</p>
+<h2 id="使用前准备"><a href="#使用前准备" class="headerlink" title="使用前准备"></a>使用前准备</h2><h3 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h3><p>首先需安装node.js &gt;= v8.11</p>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://nodejs.org/en/">官网</a>下载编译好的包</li>
 <li>解压</li>
@@ -261,15 +258,12 @@ ln -s /usr/software/nodejs/bin/node   /usr/local/bin/</code></pre>
 <p>在mac上直接采用<code>homebrew</code>安装即可</p>
 <pre><code class="hljs shell">brew install node
 brew install npm</code></pre>
-<h3 id="npm配置">npm配置</h3>
-<pre><code class="hljs shell">npm config set registry https://registry.npm.taobao.org --global
+<h3 id="npm配置"><a href="#npm配置" class="headerlink" title="npm配置"></a>npm配置</h3><pre><code class="hljs shell">npm config set registry https://registry.npm.taobao.org --global
 npm config set disturl https://npm.taobao.org/dist --global
 <span class="hljs-meta prompt_"># </span><span class="language-bash">更新</span>
 npm install -g npm</code></pre>
-<h3 id="安装chatito-npm-package">安装chatito npm package</h3>
-<pre><code class="hljs shell">npm i chatito --save</code></pre>
-<h2 id="编写构成脚本">编写构成脚本</h2>
-<p>因为一个脚本只能生成一个类型的，比如在分类问题中要生成多个类的数据，最好一个类一个生成文件。所以，最好新建一个文件夹，存放所有脚本，比如<code>chatito</code></p>
+<h3 id="安装chatito-npm-package"><a href="#安装chatito-npm-package" class="headerlink" title="安装chatito npm package"></a>安装chatito npm package</h3><pre><code class="hljs shell">npm i chatito --save</code></pre>
+<h2 id="编写构成脚本"><a href="#编写构成脚本" class="headerlink" title="编写构成脚本"></a>编写构成脚本</h2><p>因为一个脚本只能生成一个类型的，比如在分类问题中要生成多个类的数据，最好一个类一个生成文件。所以，最好新建一个文件夹，存放所有脚本，比如<code>chatito</code></p>
 <p>下面以对话中介绍新朋友这样一个场景为例，介绍脚本的写法，完整的语法参见<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>。</p>
 <p>新建一个以<code>.chatito</code>结尾文件，命名为<code>intro_new_user.chatito</code>，内容为：</p>
 <pre><code class="hljs less"><span class="hljs-selector-tag">import</span> ./<span class="hljs-selector-tag">common</span><span class="hljs-selector-class">.chatito</span>
@@ -332,7 +326,7 @@ npm install -g npm</code></pre>
     谢谢你</code></pre>
 <p>比如<code>hi</code>，import后就可以采用<code>~[hi]</code>直接引用了。</p>
 <p>因为chatito初衷是给对话生成数据，所以脚本里的概念有三个：意图（%[intent_name]）、槽值（@[slot_name]）和别称（~[alias_name]）。意图可以视为分类问题的类别，槽值可视为NER问题的实体，别称只是为了方便组合，随机选取，有点像正则的里中括号里的内容（如<code>[a-zA-Z]</code>）。p.s. 别称里的内容不会被认为是实体。</p>
-<p>在上面的例子中<code>%[intro_new_user]('training': '100', 'testing': '50')</code>，表明想生成的意图是<code>intro_new_user</code>。并且训练集生成100个样本，测试集50个。</p>
+<p>在上面的例子中<code>%[intro_new_user](&#39;training&#39;: &#39;100&#39;, &#39;testing&#39;: &#39;50&#39;)</code>，表明想生成的意图是<code>intro_new_user</code>。并且训练集生成100个样本，测试集50个。</p>
 <p>接下来的一行, <code>*[60%] ~[hi?]，~[pre1?]~[pre2]~[pre3]，~[indicate?]@[username]</code></p>
 <ul>
 <li><code>*[60%]</code>： 表示这一行的构成规则在最好生成数据中占的比例</li>
@@ -341,8 +335,7 @@ npm install -g npm</code></pre>
 </ul>
 <p><strong>这里需要注意的是</strong>：各个部分之间如果有空格，生成的结果中也会有空格。生成结果只是替换<code>~[hi?]</code>，<code>~[hi?]</code>和其后面的<code>~[pre1?]</code>之间的<strong>任何内容都会原封不动保留</strong>，比如这里的逗号。所以，<strong>对于要考虑分词的误差的场景下</strong>，建议各个部分之间不要采用空格分隔的方式，保持中文的自然连接。</p>
 <p>基本这些内容就够用了，其他用法可以自行探索<a target="_blank" rel="noopener" href="https://github.com/rodrigopivi/Chatito/blob/master/spec.md">DSL</a>。</p>
-<h2 id="生成数据">生成数据</h2>
-<p>生成语法为</p>
+<h2 id="生成数据"><a href="#生成数据" class="headerlink" title="生成数据"></a>生成数据</h2><p>生成语法为</p>
 <pre><code class="hljs shell">npx chatito &lt;pathToFileOrDirectory&gt; --format=&lt;format&gt; --formatOptions=&lt;formatOptions&gt; --outputPath=&lt;outputPath&gt; --trainingFileName=&lt;trainingFileName&gt; --testingFileName=&lt;testingFileName&gt; --defaultDistribution=&lt;defaultDistribution&gt; --autoAliases=&lt;autoAliases&gt;</code></pre>
 <ul>
 <li><code>&lt;pathToFileOrDirectory&gt;</code> path to a <code>.chatito</code> file or a directory that contains chatito files. If it is a directory, will search recursively for all <code>*.chatito</code> files inside and use them to generate the dataset. e.g.: <code>lightsChange.chatito</code> or <code>./chatitoFilesFolder</code></li>

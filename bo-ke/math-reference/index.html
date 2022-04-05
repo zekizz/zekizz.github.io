@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      396 字
+      395 字
     </span>
   
 
@@ -231,21 +231,15 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>折腾公式+参考文献</p>
 <span id="more"></span>
-<h2 id="公式">公式</h2>
-<p><strong>不兼容问题</strong><br>
-采用kramed</p>
-<pre><code class="hljs ada">npm uninstall hexo-renderer-marked <span class="hljs-comment">--save</span>
-npm install hexo-renderer-kramed <span class="hljs-comment">--save</span></code></pre>
-<p>同时修改<code>\node_modules\kramed\lib\rules\inline.js</code></p>
-<pre><code class="hljs javascript"><span class="hljs-comment">//11行</span>
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p><strong>不兼容问题</strong><br>采用kramed<br><pre><code class="hljs ada">npm uninstall hexo-renderer-marked <span class="hljs-comment">--save</span>
+npm install hexo-renderer-kramed <span class="hljs-comment">--save</span></code></pre><br>同时修改<code>\node_modules\kramed\lib\rules\inline.js</code><br><pre><code class="hljs javascript"><span class="hljs-comment">//11行</span>
 <span class="hljs-comment">// escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span>
 <span class="hljs-attr">escape</span>: <span class="hljs-regexp">/^\\([`*\[\]()#$+\-.!_&gt;])/</span>,
 
 <span class="hljs-comment">//21行</span>
 <span class="hljs-comment">//em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span>
-<span class="hljs-attr">em</span>: <span class="hljs-regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</code></pre>
-<p>配置MathJax</p>
-<pre><code class="hljs routeros">&lt;!-- MathJax配置，可通过单美元符号书写行内公式等 --&gt;
+<span class="hljs-attr">em</span>: <span class="hljs-regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</code></pre></p>
+<p>配置MathJax<br><pre><code class="hljs routeros">&lt;!-- MathJax配置，可通过单美元符号书写行内公式等 --&gt;
 script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;text/javascript&#x27;</span>, <span class="hljs-attribute">src</span>=<span class="hljs-string">&#x27;cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&#x27;</span>)
 
 script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;text/x-mathjax-config&#x27;</span>).
@@ -280,15 +274,11 @@ script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;
   &#125;);
 
 &lt;!-- script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;text/javascript&#x27;</span>, <span class="hljs-attribute">src</span>=<span class="hljs-string">&#x27;cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&#x27;</span>) --&gt;
-&lt;!-- script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;text/javascript&#x27;</span>, <span class="hljs-attribute">src</span>=<span class="hljs-string">&#x27;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#x27;</span>) --&gt;</code></pre>
-<p><strong>这里有个坑需注意</strong><br>
-<img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/math.png" srcset="/img/loading.gif" alt=""><br>
-千万别好奇选择了<code>MathML</code></p>
-<h2 id="参考文献">参考文献</h2>
-<p>采用<strong>hexo-renderer-markdown-it</strong>插件</p>
+&lt;!-- script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;text/javascript&#x27;</span>, <span class="hljs-attribute">src</span>=<span class="hljs-string">&#x27;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&#x27;</span>) --&gt;</code></pre></p>
+<p><strong>这里有个坑需注意</strong><br><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/math.png" srcset="/img/loading.gif" alt=""><br>千万别好奇选择了<code>MathML</code></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>采用<strong>hexo-renderer-markdown-it</strong>插件</p>
 <p>参见<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/588ab3d22eb8">hexo-renderer-markdown-it 插件 详解</a></p>
-<p>对应的maupassant主题css配置</p>
-<pre><code class="hljs css"><span class="hljs-selector-class">.footnote-item</span>&#123;
+<p>对应的maupassant主题css配置<br><pre><code class="hljs css"><span class="hljs-selector-class">.footnote-item</span>&#123;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">15px</span>;
     <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.77</span>; 
     <span class="hljs-attribute">color</span>: <span class="hljs-number">#2097d2</span>;
@@ -301,7 +291,7 @@ script(<span class="hljs-attribute">type</span>=<span class="hljs-string">&#x27;
 <span class="hljs-selector-class">.footnote-backref</span>&#123;
     <span class="hljs-attribute">display</span>: none;   
 &#125;
-</code></pre>
+</code></pre></p>
 
             </div>
             <hr>

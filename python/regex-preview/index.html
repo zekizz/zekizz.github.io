@@ -233,8 +233,7 @@
 <span id="more"></span>
 <p>参考手册：<a target="_blank" rel="noopener" href="https://tool.oschina.net/uploads/apidocs/jquery/regexp.html">https://tool.oschina.net/uploads/apidocs/jquery/regexp.html</a></p>
 <p>只看以上手册，比较难搞清楚使用范围和使用姿势，以下对这四种预查分别做单元测试。</p>
-<h2 id="1-正向肯定">1. 正向肯定</h2>
-<p>测试用例</p>
+<h2 id="1-正向肯定"><a href="#1-正向肯定" class="headerlink" title="1. 正向肯定"></a>1. 正向肯定</h2><p>测试用例</p>
 <pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">setUp</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:
   self.cases = [
     <span class="hljs-string">&#x27;123&#x27;</span>,
@@ -337,8 +336,7 @@ abc
 <span class="hljs-number">123</span>(?=abc|<span class="hljs-type">ad</span>) None
 (<span class="hljs-number">123</span>)(abc|<span class="hljs-type">ad</span>) None
 a(?=bc|<span class="hljs-type">d</span>)<span class="hljs-number">123</span> None</code></pre>
-<h2 id="2-正向否定">2. 正向否定</h2>
-<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_forward_negative</span>(<span class="hljs-params">self</span>):
+<h2 id="2-正向否定"><a href="#2-正向否定" class="headerlink" title="2. 正向否定"></a>2. 正向否定</h2><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_forward_negative</span>(<span class="hljs-params">self</span>):
     <span class="hljs-string">&quot;&quot;&quot;正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。&quot;&quot;&quot;</span>
     p1 = <span class="hljs-string">&#x27;(?!abc|ad)123&#x27;</span>  <span class="hljs-comment"># 放在最前面不起作用</span>
     p2 = <span class="hljs-string">&#x27;123(?!abc|ad)&#x27;</span>  <span class="hljs-comment"># 只能放置于最后，后面能为空</span>
@@ -424,8 +422,7 @@ abc
 <span class="hljs-number">123</span>(?!abc|ad) None
 a(?!bc|d)<span class="hljs-number">123</span> None
 a(?!b|d)<span class="hljs-number">123</span> None</code></pre>
-<h2 id="3-反向肯定">3. 反向肯定</h2>
-<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_backward_positive</span>(<span class="hljs-params">self</span>):
+<h2 id="3-反向肯定"><a href="#3-反向肯定" class="headerlink" title="3. 反向肯定"></a>3. 反向肯定</h2><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_backward_positive</span>(<span class="hljs-params">self</span>):
     <span class="hljs-string">&quot;&quot;&quot;反向肯定&quot;&quot;&quot;</span>
     <span class="hljs-comment"># p1 = &#x27;(?&lt;=abc|ad)123&#x27;  # 报错, re.error: look-behind requires fixed-width pattern</span>
     p1 = <span class="hljs-string">&#x27;((?&lt;=abc)|(?&lt;=ad|ac))123&#x27;</span>  <span class="hljs-comment"># 只能处于最前面，等价于(abc|ad|ac)123</span>
@@ -514,8 +511,7 @@ abc
 a((?&lt;=bc)|<span class="hljs-type">(?&lt;=d</span>))<span class="hljs-number">123</span> None
 <span class="hljs-number">123</span>(?&lt;=abc) None
 </code></pre>
-<h2 id="4-反向否定">4. 反向否定</h2>
-<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_backward_negative</span>(<span class="hljs-params">self</span>):
+<h2 id="4-反向否定"><a href="#4-反向否定" class="headerlink" title="4. 反向否定"></a>4. 反向否定</h2><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_backward_negative</span>(<span class="hljs-params">self</span>):
     <span class="hljs-string">&quot;&quot;&quot;反向否定&quot;&quot;&quot;</span>
     p1 = <span class="hljs-string">&#x27;((?&lt;!abc)|(?&lt;!ad|ac))123&#x27;</span>  <span class="hljs-comment"># 错误写法，只要满足不等于其中一个即可</span>
     p2 = <span class="hljs-string">&#x27;123((?&lt;!abc)|(?&lt;!ad))&#x27;</span>  <span class="hljs-comment">#</span>

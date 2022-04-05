@@ -229,22 +229,16 @@
             <h1 style="display: none">excel去除文本中的不可打印字符</h1>
             
             <div class="markdown-body" id="post-body">
-              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>处理csv文件的时候，有时文本中有一些不可打印的字符，影响诸如文件分行和excel的解析。<br>
-主要需要去除文本中的换行符和制表符。</p>
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>处理csv文件的时候，有时文本中有一些不可打印的字符，影响诸如文件分行和excel的解析。<br>主要需要去除文本中的换行符和制表符。</p>
 <span id="more"></span>
-<h3 id="方法一：用CLEAN函数">方法一：用CLEAN函数</h3>
-<p>CLEAN函数可以删除文本中不能打印的字符。</p>
-<p>假如A1单元格包含换行符，可在B1单元格中输入公式：</p>
- <pre><code class="hljs 1c"><span class="hljs-string">&quot;=CLEAN(A1)&quot;</span></code></pre>
-<p>即可删除换行符。</p>
-<h3 id="方法二：查找替换法-不好用">方法二：查找替换法(不好用)</h3>
-<ol>
+<h3 id="方法一：用CLEAN函数"><a href="#方法一：用CLEAN函数" class="headerlink" title="方法一：用CLEAN函数"></a>方法一：用CLEAN函数</h3><p> CLEAN函数可以删除文本中不能打印的字符。</p>
+<p> 假如A1单元格包含换行符，可在B1单元格中输入公式：<br> <pre><code class="hljs 1c"><span class="hljs-string">&quot;=CLEAN(A1)&quot;</span></code></pre><br> 即可删除换行符。</p>
+<h3 id="方法二：查找替换法-不好用"><a href="#方法二：查找替换法-不好用" class="headerlink" title="方法二：查找替换法(不好用)"></a>方法二：查找替换法(不好用)</h3><ol>
 <li>按快捷键<strong>Ctrl+H</strong>，打开“查找和替换”对话框；</li>
 <li>选择“查找内容”后的文本框，按住<strong>Alt</strong>键，在数字键盘中输入“<strong>0010</strong>”。需要注意的是这样输入后，在“查找内容”后的文本框中不会显示任何内容，但实际上是有的；</li>
 <li>单击“全部替换”按钮，换行符将被全部替换。</li>
 </ol>
-<p>参考文献:<br>
-<a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_49f78a4b0102e3br.html">如何快速批量删除Excel单元格中的“换行符”</a></p>
+<p>参考文献:<br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_49f78a4b0102e3br.html">如何快速批量删除Excel单元格中的“换行符”</a></p>
 
             </div>
             <hr>

@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      280 字
+      275 字
     </span>
   
 
@@ -229,28 +229,23 @@
             <h1 style="display: none">mac通过vnc连接ubuntu远程桌面</h1>
             
             <div class="markdown-body" id="post-body">
-              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>虽然ssh能解决大部分问题，但是有时也需要远程桌面。为此，可能大家都采用<code>teamviewer</code>和<code>anydesk</code>来完成。</p>
-<br>  
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>虽然ssh能解决大部分问题，但是有时也需要远程桌面。为此，可能大家都采用<code>teamviewer</code>和<code>anydesk</code>来完成。  </p>
+<p><br>  </p>
 <p>但是不久前<code>teamviewer</code>出了问题，<code>anydesk</code>在使用过程中经常出现连接中断、连接慢等毛病。尝试发现通过<code>vnc</code>在局域网环境下连接异常稳定，基本不掉，键盘映射也比anydesk好，做个记录。</p>
 <span id="more"></span>
-<h2 id="ubuntu配置">ubuntu配置</h2>
-<h3 id="安装x11vnc">安装<code>x11vnc</code></h3>
-<pre><code class="hljs shell">sudo apt-get install x11vnc</code></pre>
-<h3 id="设置vnc密码">设置vnc密码</h3>
-<pre><code class="hljs shell">x11vnc -storepasswd</code></pre>
+<h2 id="ubuntu配置"><a href="#ubuntu配置" class="headerlink" title="ubuntu配置"></a>ubuntu配置</h2><h3 id="安装x11vnc"><a href="#安装x11vnc" class="headerlink" title="安装x11vnc"></a>安装<code>x11vnc</code></h3><pre><code class="hljs shell">sudo apt-get install x11vnc</code></pre>
+<h3 id="设置vnc密码"><a href="#设置vnc密码" class="headerlink" title="设置vnc密码"></a>设置vnc密码</h3><pre><code class="hljs shell">x11vnc -storepasswd</code></pre>
 <p>回车，在提示下输入和确认密码。保存在默认位置<code>$HOME/.vnc/passwd</code></p>
-<h3 id="启动vnc服务">启动vnc服务</h3>
-<pre><code class="hljs shell">x11vnc -forever -shared -rfbauth ~/.vnc/passwd</code></pre>
+<h3 id="启动vnc服务"><a href="#启动vnc服务" class="headerlink" title="启动vnc服务"></a>启动vnc服务</h3><pre><code class="hljs shell">x11vnc -forever -shared -rfbauth ~/.vnc/passwd</code></pre>
 <p>当然也可以放在后台运行</p>
 <p>将上诉命名放在sh脚本中</p>
 <pre><code class="hljs shell">nohup sh ./start.sh &amp;</code></pre>
 <p>可以在nohup.out中最后几行查看其vnc运行的端口号：<code>PORT=5900</code></p>
-<h2 id="mac连接">mac连接</h2>
-<p>mac自带一个vnc客户端：</p>
-<p><code>/System/Library/CoreServices/Applications/Screen Sharing.app</code></p>
-<br>  
-<p>打开后，输入ubuntu的局域网ip即可（试过貌似不需要端口号），然后输入之前设置的密码就可以了。</p>
-<br>  
+<h2 id="mac连接"><a href="#mac连接" class="headerlink" title="mac连接"></a>mac连接</h2><p>mac自带一个vnc客户端：  </p>
+<p><code>/System/Library/CoreServices/Applications/Screen Sharing.app</code>  </p>
+<p><br>  </p>
+<p> 打开后，输入ubuntu的局域网ip即可（试过貌似不需要端口号），然后输入之前设置的密码就可以了。  </p>
+<p><br>  </p>
 <p>可能会发现页面缩放的问题，点击<code>Screen Sharing</code>左上角的<code>scaling</code>即可。</p>
 
             </div>

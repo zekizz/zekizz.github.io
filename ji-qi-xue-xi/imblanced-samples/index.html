@@ -231,15 +231,13 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>分类任务中样本类别不均衡是常有的事，当样本之间的不均衡程度较小的时候，可以不作处理，当正负样本比例较大（比如10:1）且训练数据较少的时候，就需要做不均衡的处理。常见的处理方式可以分为如下几类：</p>
 <ul>
-<li>采样方法
-<ul>
+<li>采样方法<ul>
 <li>下采样（或欠采样，under-sampling）</li>
 <li>上采样（或过采样，over-sampling）</li>
 <li>混合采样</li>
 </ul>
 </li>
-<li>数据增强
-<ul>
+<li>数据增强<ul>
 <li>收集更多的数据</li>
 <li>造数据</li>
 </ul>
@@ -247,11 +245,10 @@
 <li>更改评价指标</li>
 <li>cost sensitive（代价敏感，class weight）</li>
 <li>模型集成</li>
-<li>one-class classifier</li>
+<li>one-class classifier<span id="more"></span>
+</li>
 </ul>
-<span id="more"></span>
-<h2 id="采样方法">采样方法</h2>
-<p>对于下采样，最简单方便的是随机采样。以两分类为例，这里涉及两个问题：</p>
+<h2 id="采样方法"><a href="#采样方法" class="headerlink" title="采样方法"></a>采样方法</h2><p>对于下采样，最简单方便的是随机采样。以两分类为例，这里涉及两个问题：</p>
 <ol>
 <li>应该采样哪些样本？</li>
 <li>采样比例应该采样为1:1么？</li>
@@ -266,24 +263,16 @@
 <p>还有几种EditedNearestNeighbours的扩张不再赘述。以上几种方法的本质是<strong>挑选分类边界附近的样本</strong>。这一部分其实可以参考半监督学习，可参考周志华老师的一篇经典paper:<a target="_blank" rel="noopener" href="https://papers.nips.cc/paper/4176-active-learning-by-querying-informative-and-representative-examples.pdf">Active Learning by Querying Informative and Representative Examples</a>，挑选最具信息量和最具代表性的样本。</p>
 <p>对于上采样，这一部分与数据增强有一部分重叠，因为其本质是生成新样本。</p>
 <p>简单copy少数样本，新生成的样本也就是数据集中样本的一个复制，这样对有些算法是无效的。</p>
-<p>其次，可以通过简单差值的方式生成新样本。<br>
-最后，常用的两个方法：</p>
+<p>其次，可以通过简单差值的方式生成新样本。<br>最后，常用的两个方法：</p>
 <ol>
 <li>the Synthetic Minority Oversampling Technique (SMOTE)</li>
 <li>the Adaptive Synthetic (ADASYN)</li>
 </ol>
-<h2 id="更改评价指标">更改评价指标</h2>
-<p>一般分类问题的评价指标为，准确率和p、r、f值。当类别失衡时，准确率就不太可信。<br>
-这是还可以使用AUC和ROC，但是AUC在类别不均衡时也不太可信，一般还要综合看一下PR曲线。</p>
-<h2 id="代价敏感">代价敏感</h2>
-<p>我使用代价敏感这个词，最开始是在贝叶斯中学习得来的，有个最小风险贝叶斯估计。其中会指定一个风险矩阵，调整loss function。</p>
-<p>一般机器学习方法的损失函数为交叉熵、log损失、最小二乘、指数损失、hinge损失等。<br>
-下面以深度学习中的交叉熵为例。</p>
-<p>常用计算方式如下</p>
-<pre><code class="hljs reasonml">losses = tf.nn.softmax<span class="hljs-constructor">_cross_entropy_with_logits(<span class="hljs-params">logits</span>=<span class="hljs-params">self</span>.<span class="hljs-params">scores</span>, <span class="hljs-params">labels</span>=<span class="hljs-params">self</span>.<span class="hljs-params">input_y</span>)</span></code></pre>
-<p>那么能不能像sklearn那样简单添加class weight的方式来调整损失呢？</p>
-<p>答案是可以的。tf中有一个API可以帮忙解决来，<strong>tf.losses.softmax_cross_entropy</strong>。<br>
-其中有一个参数为：weights。反映的是batch中每个样本的权重，我们可以通过生成这个weights来变相实现class_weight。具体方式如下：</p>
+<h2 id="更改评价指标"><a href="#更改评价指标" class="headerlink" title="更改评价指标"></a>更改评价指标</h2><p>一般分类问题的评价指标为，准确率和p、r、f值。当类别失衡时，准确率就不太可信。<br>这是还可以使用AUC和ROC，但是AUC在类别不均衡时也不太可信，一般还要综合看一下PR曲线。</p>
+<h2 id="代价敏感"><a href="#代价敏感" class="headerlink" title="代价敏感"></a>代价敏感</h2><p>我使用代价敏感这个词，最开始是在贝叶斯中学习得来的，有个最小风险贝叶斯估计。其中会指定一个风险矩阵，调整loss function。</p>
+<p>一般机器学习方法的损失函数为交叉熵、log损失、最小二乘、指数损失、hinge损失等。<br>下面以深度学习中的交叉熵为例。</p>
+<p>常用计算方式如下<br><pre><code class="hljs reasonml">losses = tf.nn.softmax<span class="hljs-constructor">_cross_entropy_with_logits(<span class="hljs-params">logits</span>=<span class="hljs-params">self</span>.<span class="hljs-params">scores</span>, <span class="hljs-params">labels</span>=<span class="hljs-params">self</span>.<span class="hljs-params">input_y</span>)</span></code></pre><br>那么能不能像sklearn那样简单添加class weight的方式来调整损失呢？</p>
+<p>答案是可以的。tf中有一个API可以帮忙解决来，<strong>tf.losses.softmax_cross_entropy</strong>。<br>其中有一个参数为：weights。反映的是batch中每个样本的权重，我们可以通过生成这个weights来变相实现class_weight。具体方式如下：</p>
 <pre><code class="hljs python">self.class_weight = tf.placeholder(tf.float32, shape=[<span class="hljs-number">1</span>, num_classes], name=<span class="hljs-string">&#x27;class_weight&#x27;</span>)
 
 sample_weights = tf.reduce_sum(tf.multiply(self.input_y, self.class_weight), <span class="hljs-number">1</span>) <span class="hljs-comment"># size of class_weights: [1, num_classes]</span>
@@ -293,21 +282,18 @@ losses = tf.losses.softmax_cross_entropy(onehot_labels=self.input_y, logits=self
 <pre><code class="hljs python">categoris = np.argmax(y_train, axis=<span class="hljs-number">1</span>)
 train_class_weight = n_train_samples / (n_classes * np.bincount(categoris))
 train_class_weight = train_class_weight.reshape(<span class="hljs-number">1</span>, n_classes)</code></pre>
-<h2 id="模型集成">模型集成</h2>
-<p>模型集成也分为两种</p>
+<h2 id="模型集成"><a href="#模型集成" class="headerlink" title="模型集成"></a>模型集成</h2><p>模型集成也分为两种</p>
 <ol>
 <li>单纯的集成方法，比如adboost、gbdt、random forest等；</li>
 <li>通过数据采样来造成训练样本差异</li>
 </ol>
-<p>第一种方法就不用说了，树模型天生对数据不均衡不敏感。<br>
-第二种方法，通过不同的采样率生成不同正负样本比例的数据集进行训练，然后再集成这些模型。</p>
+<p>第一种方法就不用说了，树模型天生对数据不均衡不敏感。<br>第二种方法，通过不同的采样率生成不同正负样本比例的数据集进行训练，然后再集成这些模型。</p>
 <p>比如：</p>
 <ul>
 <li>分别设置采样率为1:1, 1:2, 1:3等的采样数据集</li>
 <li>保留n个少数类样本，并随机抽取10*n 个多数类样本。然后，只需将 10*n个样本分成10份，并训练10个不同的模型。</li>
 </ul>
-<h2 id="one-class-classifier">one-class classifier</h2>
-<p>转为一分类问题，one-class classifier本身为一种异常检查算法，尽量学得目标类别的边界。</p>
+<h2 id="one-class-classifier"><a href="#one-class-classifier" class="headerlink" title="one-class classifier"></a>one-class classifier</h2><p>转为一分类问题，one-class classifier本身为一种异常检查算法，尽量学得目标类别的边界。</p>
 
             </div>
             <hr>

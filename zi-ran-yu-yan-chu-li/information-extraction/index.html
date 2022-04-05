@@ -230,11 +230,9 @@
             
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>信息抽取是一个常见的nlp任务，为经常一起提到的知识图谱的基础。</p>
-<p>这里有一份比较好的知识图谱入门资料:<br>
-<a target="_blank" rel="noopener" href="https://kgtutorial.github.io/">Mining Knowledge Graphs from Text</a></p>
+<p>这里有一份比较好的知识图谱入门资料:<br><a target="_blank" rel="noopener" href="https://kgtutorial.github.io/">Mining Knowledge Graphs from Text</a></p>
 <p>信息抽取分为有监督和无监督方法。实际中监督信息往往是缺失的，所以本文主要提无监督方法。</p>
-<p>在无监督方法中，一个广泛采用的工具是句法依存树，或者叫句法解析树（Dependency Tree）。</p>
-<span id="more"></span>
+<p>在无监督方法中，一个广泛采用的工具是句法依存树，或者叫句法解析树（Dependency Tree）。<br><span id="more"></span></p>
 <p>可视化工具：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://spyysalo.github.io/conllu.js/">conllu.js</a></li>
@@ -243,8 +241,7 @@
 <p>工作中总结出来的一种基于句法解析树的信息提取的一般方法（尚未完善）：</p>
 <ol>
 <li>从CONLL格式的句法依存解析结果，生成具备孩子节点和父节点索引的树，并获取根结点root_id；</li>
-<li>自上而下递归的进行解析，孩子节点的解析结果上传到父节点进行汇总；
-<ol>
+<li>自上而下递归的进行解析，孩子节点的解析结果上传到父节点进行汇总；<ol>
 <li>如果当前节点为叶子节点（无孩子节点），判断当前节点类型，返回dict，上传给父节点；</li>
 <li>如果当前词为动词（一般句子的核心是动词，一般方法也都是从动词开始扩展）或者用户指定的目标词，根据制定的规则提取指定关系类型的孩子，如定中关系、状中关系、动宾关系、主谓关系等，这里需要注意的是并列关系，有可能是补充，有可能是同级并列；</li>
 <li>如果当前词非动词，先判断其所属信息类型，若能判断，关系向孩子传递，如不能判断，等待孩子节点上传的结果；</li>
@@ -296,8 +293,7 @@
 <span class="hljs-attribute">38</span>	<span class="hljs-number">4</span>	<span class="hljs-number">4</span>	m	m	_	<span class="hljs-number">39</span>	ATT	_	_
 <span class="hljs-attribute">39</span>	公里	公里	q	q	_	<span class="hljs-number">36</span>	CMP	_	_
 <span class="hljs-attribute">40</span>	。	。	wp	w	_	<span class="hljs-number">3</span>	WP	_	_</code></pre>
-<p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/NLP/test_dependency.png" srcset="/img/loading.gif" alt=""><br>
-核心代码如下：</p>
+<p><img src="https://picbed-1252770021.cos.ap-chengdu.myqcloud.com/NLP/test_dependency.png" srcset="/img/loading.gif" alt=""><br>核心代码如下：</p>
 <pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">WordBean</span>(<span class="hljs-title class_ inherited__">object</span>):
    <span class="hljs-string">&#x27;&#x27;&#x27; 扩展conllword，存储父节点与孩子节点索引 &#x27;&#x27;&#x27;</span>
 

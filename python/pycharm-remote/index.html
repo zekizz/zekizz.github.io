@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      386 字
+      385 字
     </span>
   
 
@@ -231,14 +231,11 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>使用pycharm远程连接repo并远程运行。</p>
 <span id="more"></span>
-<h2 id="配置">配置</h2>
-<ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ol>
 <li>本地新建repo（可以先clone远程repo），并用Pycharm（pycharm-professional-2019.3.2）打开</li>
-<li>选择pycharm中，<code>Tools &gt; Deployment &gt; Configuration </code>，点击左上角的<code>+</code>，添加配置</li>
-<li>配置信息说明
-<ol>
-<li>Connection
-<ol>
+<li>选择pycharm中，<code>Tools &gt; Deployment &gt; Configuration</code>，点击左上角的<code>+</code>，添加配置</li>
+<li>配置信息说明<ol>
+<li>Connection<ol>
 <li>Type: SFTP</li>
 <li>Host: 远程ip地址</li>
 <li>User name: 远程机器用户名</li>
@@ -246,8 +243,7 @@
 <li>Root path: 远程根目录，需要自己选择（更新：最好选择根目录，防止后面mapping出问题）</li>
 </ol>
 </li>
-<li>Mappings
-<ol>
+<li>Mappings<ol>
 <li>Local path: 本地repo地址</li>
 <li>Deployment path: 远程repo地址</li>
 <li>Web path: 暂时不用设置，貌似 Web 相关的程序会用到</li>
@@ -256,22 +252,18 @@
 <li>Excluded Paths: 可以设置一些不想同步的目录，例如软件的配置文件目录等，可忽略</li>
 </ol>
 </li>
-<li>以上弄完，点击确认，接着配置解释器
-<ol>
+<li>以上弄完，点击确认，接着配置解释器<ol>
 <li>打开<code>Pycharm &gt; Preferences &gt; Project &gt; Project Interpreter</code></li>
 <li>点击<code>project Interpreter</code>右边的齿轮，点击<code>Add</code></li>
 <li>选择<code>SSH Interpreter</code>，由于之前（第3步）配置过远程连接，直接选择<code>Existing server configuration</code>即可</li>
 <li>3点击后，下方会出现一个<code>Create</code>，点击后，点击<code>Next</code></li>
 <li>在最上面的<code>Interpreter</code>中选择远程的python解释器，注意是绝对路径</li>
-<li>在下面的<code>Sync floder </code>中选择要同步的远程repo即可</li>
+<li>在下面的<code>Sync floder</code>中选择要同步的远程repo即可</li>
 </ol>
 </li>
 </ol>
-<h2 id="使用">使用</h2>
-<h3 id="上传文件">上传文件</h3>
-<p>新版默认是及时同步，手动同步选择<code>Tools &gt; Deployment &gt; Upload to</code></p>
-<h3 id="运行程序">运行程序</h3>
-<p>直接右键运行即可，与本地运行没有使用上差异，实际上从控制台可以看出，是ssh远程执行</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>新版默认是及时同步，手动同步选择<code>Tools &gt; Deployment &gt; Upload to</code></p>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><p>直接右键运行即可，与本地运行没有使用上差异，实际上从控制台可以看出，是ssh远程执行</p>
 <pre><code class="hljs bash">ssh://user@rempte_ip:22/home/user/anaconda3/envs/nlp3/bin/python3 -u /home/user/test_repo_path/test.py
 </code></pre>
 

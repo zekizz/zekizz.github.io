@@ -232,12 +232,12 @@
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>最近想做一个基金的标注工具，用echarts开发了前端部分，顺便看到<code>fluid</code>这个主题可以很方便的在博客中插入echarts图表，做一个记录。</p>
 <span id="more"></span>
 <p>教程参见: <a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/posts/hexo-echarts/">使用 ECharts 插件绘制炫酷图表</a></p>
-<p>第一步是安装插件</p>
-<pre><code class="hljs shell">npm install hexo-tag-echarts --save</code></pre>
+<p>第一步是安装插件<br><pre><code class="hljs shell">npm install hexo-tag-echarts --save</code></pre></p>
 <script src="https://cdn.jsdelivr.net/npm/echarts@4.8.0/dist/echarts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts-gl@1.1.1/dist/echarts-gl.min.js"></script>
-<p>基础图表的例子</p>
-<pre><code class="hljs js">&#123;% echarts <span class="hljs-number">400</span> <span class="hljs-string">&#x27;85%&#x27;</span> %&#125;
+
+
+<p>基础图表的例子<br><pre><code class="hljs js">&#123;% echarts <span class="hljs-number">400</span> <span class="hljs-string">&#x27;85%&#x27;</span> %&#125;
 option = &#123;
   <span class="hljs-attr">xAxis</span>: &#123;
     <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;category&#x27;</span>,
@@ -254,11 +254,11 @@ option = &#123;
   ]
 &#125;;
 
-&#123;% endecharts %&#125;</code></pre>
-<div id="echarts8351" style="width: 85%;height: 400px;margin: 0 auto"></div>
+&#123;% endecharts %&#125;</code></pre></p>
+<div id="echarts56" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts8351'));
+        var myChart = echarts.init(document.getElementById('echarts56'));
 
         // 指定图表的配置项和数据
         var option = option = {
@@ -281,8 +281,7 @@ option = &#123;
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
 </script>
-<p>标注工具代码</p>
-<pre><code class="hljs js"><span class="hljs-keyword">let</span> base = +<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2010</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+<p>标注工具代码<br><pre><code class="hljs js"><span class="hljs-keyword">let</span> base = +<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">2010</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
 <span class="hljs-keyword">let</span> oneDay = <span class="hljs-number">24</span> * <span class="hljs-number">3600</span> * <span class="hljs-number">1000</span>;
 <span class="hljs-keyword">let</span> date = [];
 <span class="hljs-keyword">let</span> s = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() * <span class="hljs-number">300</span>;
@@ -290,7 +289,7 @@ option = &#123;
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">365</span>*<span class="hljs-number">12</span>; i++) &#123;
   <span class="hljs-keyword">var</span> now = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>((base += oneDay));
   date.<span class="hljs-title function_">push</span>([now.<span class="hljs-title function_">getFullYear</span>(), now.<span class="hljs-title function_">getMonth</span>() + <span class="hljs-number">1</span>, now.<span class="hljs-title function_">getDate</span>()].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;/&#x27;</span>));
-  <span class="hljs-keyword">var</span> v = ((<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() - <span class="hljs-number">0.5</span>) * <span class="hljs-number">0.05</span> + <span class="hljs-number">1</span>)*data[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);
+  <span class="hljs-keyword">var</span> v = ((<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() - <span class="hljs-number">0.5</span>) * <span class="hljs-number">0.05</span> + <span class="hljs-number">1</span>)*data[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>];
   <span class="hljs-comment">// 开盘价、收盘价、最低价、最高价</span>
   data.<span class="hljs-title function_">push</span>([v*(<span class="hljs-number">1</span> + (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() - <span class="hljs-number">0.5</span>)*<span class="hljs-number">0.01</span>), v, v*<span class="hljs-number">0.995</span>, v*<span class="hljs-number">1.005</span>]);
 &#125;
@@ -357,10 +356,9 @@ myChart.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(target.<span class="hljs-property">length</span>);
   &#125;
     
-&#125;);</code></pre>
+&#125;);</code></pre></p>
 <p><strong>这里需要注意的是：</strong></p>
-<p>如果直接把上述所有代码放入<code>&#123;% echarts 400 '85%' %&#125; &#123;% endecharts %&#125;</code>里是无法显示的。因为<code>hexo-tag-echarts</code>这个插件在生成js代码的时候是将里面的东西均作为配置来用模板套用。比如上面的那个简单的折线图，生成的结果如下：</p>
-<pre><code class="hljs js">&lt;script type=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;
+<p>如果直接把上述所有代码放入<code>&#123;% echarts 400 '85%' %&#125; &#123;% endecharts %&#125;</code>里是无法显示的。因为<code>hexo-tag-echarts</code>这个插件在生成js代码的时候是将里面的东西均作为配置来用模板套用。比如上面的那个简单的折线图，生成的结果如下：<br><pre><code class="hljs js">&lt;script type=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;
         <span class="hljs-comment">// 基于准备好的dom，初始化echarts实例</span>
         <span class="hljs-keyword">var</span> myChart = echarts.<span class="hljs-title function_">init</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;echarts8038&#x27;</span>));
 
@@ -384,8 +382,7 @@ myChart.<span class="hljs-title function_">on</span>(<span class="hljs-string">&
 
         <span class="hljs-comment">// 使用刚指定的配置项和数据显示图表。</span>
         myChart.<span class="hljs-title function_">setOption</span>(option);
-&lt;/script&gt;</code></pre>
-<p>所以需要将数据部分单独拎出来，放到<code>&lt;script&gt;&lt;/script&gt;</code>中。</p>
+&lt;/script&gt;</code></pre><br>所以需要将数据部分单独拎出来，放到<code>&lt;script&gt;&lt;/script&gt;</code>中。</p>
 <script>
 let base = +new Date(2010, 1, 1);
   let oneDay = 24 * 3600 * 1000;
@@ -395,16 +392,17 @@ let base = +new Date(2010, 1, 1);
   for (let i = 1; i < 365*12; i++) {
     var now = new Date((base += oneDay));
     date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-    var v = ((Math.random() - 0.5) * 0.05 + 1)*data[i - 1][1]);
+    var v = ((Math.random() - 0.5) * 0.05 + 1)*data[i - 1][1];
     // 开盘价、收盘价、最低价、最高价
     data.push([v*(1 + (Math.random() - 0.5)*0.01), v, v*0.995, v*1.005]);
   };
 
 </script>
-<div id="echarts6850" style="width: 85%;height: 400px;margin: 0 auto"></div>
+
+<div id="echarts1257" style="width: 85%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts6850'));
+        var myChart = echarts.init(document.getElementById('echarts1257'));
 
         // 指定图表的配置项和数据
         var option = option = {

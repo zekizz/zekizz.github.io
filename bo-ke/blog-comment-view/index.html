@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      759 字
+      760 字
     </span>
   
 
@@ -231,27 +231,23 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>hexo采用<a target="_blank" rel="noopener" href="https://www.livere.com/">LiveRe</a>(来必力)添加评论系统，<a target="_blank" rel="noopener" href="https://busuanzi.ibruce.info/">不蒜子</a>添加访客统计。</p>
 <span id="more"></span>
-<h1>评论系统</h1>
-<p>本来之前采用的是gittalk，想着照顾没有github账号和想匿名留言的同学。调查了一通，发现了一个比较好的工具：<a target="_blank" rel="noopener" href="https://leancloud.cn/">LeanCloud</a>。不仅有匿名留言，还有访客统计。满怀期待，最后发现还要实名认证，弃！</p>
+<h1 id="评论系统"><a href="#评论系统" class="headerlink" title="评论系统"></a>评论系统</h1><p>本来之前采用的是gittalk，想着照顾没有github账号和想匿名留言的同学。调查了一通，发现了一个比较好的工具：<a target="_blank" rel="noopener" href="https://leancloud.cn/">LeanCloud</a>。不仅有匿名留言，还有访客统计。满怀期待，最后发现还要实名认证，弃！</p>
 <p>逛了一圈，综合稳定性和美观性，选用了<a target="_blank" rel="noopener" href="https://www.livere.com/">LiveRe</a>(来必力)。去注册一个账号，选择社区，复制data-uid，填到主题的<code>_config.yml</code>中的<code>livere=your id</code>即可。</p>
 <pre><code class="hljs js">&lt;div id=<span class="hljs-string">&quot;lv-container&quot;</span> data-id=<span class="hljs-string">&quot;city&quot;</span> data-uid=<span class="hljs-string">&quot;you id&quot;</span>&gt;</code></pre>
 <p>需要注意的是，需要在<code>管理页面</code>中设置社交平台和评论提醒邮件地址。</p>
-<h1>不蒜子</h1>
-<p>参考<a target="_blank" rel="noopener" href="https://busuanzi.ibruce.info/">不蒜子</a>官网的介绍，使用只需</p>
+<h1 id="不蒜子"><a href="#不蒜子" class="headerlink" title="不蒜子"></a>不蒜子</h1><p>参考<a target="_blank" rel="noopener" href="https://busuanzi.ibruce.info/">不蒜子</a>官网的介绍，使用只需</p>
 <pre><code class="hljs js">&lt;script <span class="hljs-keyword">async</span> src=<span class="hljs-string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;
 <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_container_site_pv&quot;</span>&gt;</span>本站总访问量<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;busuanzi_value_site_pv&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>次<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span></code></pre>
 <p>但是默认，默认开启后，发现前端不显示，进一步查发现<code>display:none</code>。</p>
 <p>解决方案如下</p>
-<h2 id="1-post-pug">1. post.pug</h2>
-<p>找到不蒜子部分，删掉<code>span#busuanzi_container_page_pv= ' | '</code>中的<code>#busuanzi_container_page_pv</code>，完整的不蒜子部分</p>
+<h2 id="1-post-pug"><a href="#1-post-pug" class="headerlink" title="1. post.pug"></a>1. post.pug</h2><p>找到不蒜子部分，删掉<code>span#busuanzi_container_page_pv= &#39; | &#39;</code>中的<code>#busuanzi_container_page_pv</code>，完整的不蒜子部分</p>
 <pre><code class="hljs js"><span class="hljs-keyword">if</span> theme.<span class="hljs-property">busuanzi</span> == <span class="hljs-literal">true</span>
         <span class="hljs-comment">//- script(src=&#x27;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&#x27;, async) // 老版，不蒜子已更换域名</span>
         &lt;script <span class="hljs-keyword">async</span> src=<span class="hljs-string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;
         span= <span class="hljs-string">&#x27; | &#x27;</span>
           span#busuanzi_value_page_pv
           span= <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-title function_">__</span>(<span class="hljs-string">&#x27;Hits&#x27;</span>)</code></pre>
-<h2 id="2-footer-pug">2. footer.pug</h2>
-<p><a target="_blank" rel="noopener" href="https://github.com/tufu9441/maupassant-hexo">maupassant-hexo</a>默认主题下是没有在footer中做站点统计的，只有篇章统计。添加如下</p>
+<h2 id="2-footer-pug"><a href="#2-footer-pug" class="headerlink" title="2. footer.pug"></a>2. footer.pug</h2><p><a target="_blank" rel="noopener" href="https://github.com/tufu9441/maupassant-hexo">maupassant-hexo</a>默认主题下是没有在footer中做站点统计的，只有篇章统计。添加如下</p>
 <pre><code class="hljs js">#footer
   <span class="hljs-keyword">if</span> theme.<span class="hljs-property">busuanzi</span> == <span class="hljs-literal">true</span>
       &lt;script <span class="hljs-keyword">async</span> src=<span class="hljs-string">&quot;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;
@@ -271,8 +267,7 @@
 <pre><code class="hljs js">&lt;span id=<span class="hljs-string">&quot;这里是有id的（busuanzi_container_site_pv）&quot;</span>&gt;本站总访问量&lt;span id=<span class="hljs-string">&quot;busuanzi_value_site_pv&quot;</span>&gt;&lt;<span class="hljs-regexp">/span&gt;次&lt;/</span>span&gt;</code></pre>
 <p>同理，这里也两个<code>span</code>的id删掉了。</p>
 <p>大工告成。</p>
-<h1>看板娘</h1>
-<p>多说一句，如果想使用自己的看板娘，参考: <a target="_blank" rel="noopener" href="https://www.yanjiayu.cn/posts/ff508987.html">Hexo 博客利用 live2d 插件放置一个萌萌哒看板娘</a></p>
+<h1 id="看板娘"><a href="#看板娘" class="headerlink" title="看板娘"></a>看板娘</h1><p>多说一句，如果想使用自己的看板娘，参考: <a target="_blank" rel="noopener" href="https://www.yanjiayu.cn/posts/ff508987.html">Hexo 博客利用 live2d 插件放置一个萌萌哒看板娘</a></p>
 <p>简单做法</p>
 <pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 在您博客根目录下创建一个 live2d<span class="hljs-emphasis">_models 文件夹</span>
 <span class="hljs-emphasis">2. 在此文件夹内新建一个子文件夹, 如 <span class="hljs-strong">**mymodel**</span></span>

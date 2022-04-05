@@ -231,8 +231,7 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>考虑这样一个场景，我们要处理一个多分类问题，由于目标的空间是开放的，我们无法穷举所有的类别。目前我们制定了K类去训练一个多分类模型，在预测未知数据时，有可能出现未识别的类型，此时我们的多分类模型会赋予它k类中的一类。然鹅，这个赋予是错误的。那怎样去避免和处理这样的现象呢？</p>
 <span id="more"></span>
-<h2 id="方案思考">方案思考</h2>
-<p>遇到这个问题，很多人的第一直观想法是，分别给没类训练一个one-class classifier（比如one-class svm）不就好了。</p>
+<h2 id="方案思考"><a href="#方案思考" class="headerlink" title="方案思考"></a>方案思考</h2><p>遇到这个问题，很多人的第一直观想法是，分别给没类训练一个one-class classifier（比如one-class svm）不就好了。</p>
 <p>这确实是一个看起来很不错的想法。但是one-class classifer本质上是做异常检测的，如果某一类的样本空间分布很分散，并没有聚成团，此时可能正确的样本都会被判断成错误的类别。实际中遇到各种乱七八糟的数据，我对one-class classifier的性能是打问号的。当然如果能精心设计，以上当我扯淡。</p>
 <p>除了one-class classifer外，我粗略考虑到的两种稍微靠谱一点的做法，这里做一下记录。（貌似找到了这方面的paper，比如<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1801.05609">Unseen Class Discovery in Open-world Classification</a>，之后找时间再写一篇学习下这类做法）</p>
 <ol>
@@ -241,8 +240,7 @@
 </ol>
 <p>第二个做法中第一个分类器的设计，见仁见智。可以设计成one-class分类器，也可以计算与已知样本/类别的距离等这样简单的做法。</p>
 <p>目前实践了第一种做法，做一下记录</p>
-<h2 id="multi-label">multi-label</h2>
-<p>Multi-label指的是，一个样本可能有多个标签，不再是单一标签。比如一副海滩的图片，我们对其进行分类，其可能同时具备标签，白云、大海、沙滩、山、树。将其只分给其中一个比如大海，是不合适的。</p>
+<h2 id="multi-label"><a href="#multi-label" class="headerlink" title="multi-label"></a>multi-label</h2><p>Multi-label指的是，一个样本可能有多个标签，不再是单一标签。比如一副海滩的图片，我们对其进行分类，其可能同时具备标签，白云、大海、沙滩、山、树。将其只分给其中一个比如大海，是不合适的。</p>
 <blockquote>
 <p>扯个题外话，分类问题我觉得可以分为四类</p>
 <ol>
@@ -299,7 +297,7 @@
         preds.append(
             self.model.estimators_[i].predict_proba(vectors)[:, <span class="hljs-number">1</span>])
     <span class="hljs-keyword">return</span> np.column_stack(<span class="hljs-built_in">tuple</span>(preds))</code></pre>
-<p>这里需要注意的是，在预测过程中，如果采用OneVsRestClassifier默认的predict_proba，得到的没类的概率是归一化的。我想得到的就是具体属于每一类的概率，不要归一化。所以，这里采用了其属性<code>estimators_</code>来计算具体的概率。</p>
+<p>这里需要注意的是，在预测过程中，如果采用OneVsRestClassifier默认的predict<em>proba，得到的没类的概率是归一化的。我想得到的就是具体属于每一类的概率，不要归一化。所以，这里采用了其属性`estimators</em>`来计算具体的概率。</p>
 <p>实验发现，效果贼好。对于已知类别，对应类上的概率基本大于80%，而对于未见类别，最高也在57%左右。</p>
 <p>此时我们完全可以采用70%去截断，如果一个类别未达到，那就是未知类别了。</p>
 <p>当然，这种做法还有一些问题，接下来梳理下更好的做法。</p>

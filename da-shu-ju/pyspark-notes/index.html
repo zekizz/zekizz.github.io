@@ -231,8 +231,7 @@
             <div class="markdown-body" id="post-body">
               <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>记录spark使用过程中的一些常用点，不定期更新~</p>
 <span id="more"></span>
-<h2 id="pyspark环境打包">pyspark环境打包</h2>
-<p>先本地构建虚拟环境，打包后提交到集群，已conda为例</p>
+<h2 id="pyspark环境打包"><a href="#pyspark环境打包" class="headerlink" title="pyspark环境打包"></a>pyspark环境打包</h2><p>先本地构建虚拟环境，打包后提交到集群，已conda为例</p>
 <pre><code class="hljs shell">conda create -n py37 python=3.7 pip
 
 source activate py37
@@ -270,21 +269,16 @@ pip list</code></pre>
     main.py</code></pre>
 <p>参考</p>
 <ul>
-<li>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qi-yuan-008/p/12199152.html">spark-submit提交任务到集群，分发虚拟环境和第三方包</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qi-yuan-008/p/12199152.html">spark-submit提交任务到集群，分发虚拟环境和第三方包</a></p>
 </li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sgyuanshi/article/details/114648247">pyspark打包依赖包&amp;使用python虚拟环境</a></p>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sgyuanshi/article/details/114648247">pyspark打包依赖包&amp;使用python虚拟环境</a></p>
 </li>
 </ul>
-<h2 id="工程打包">工程打包</h2>
-<p>pyspark主程序依赖的文件比较少的时候，可以通过<code>--py-files</code>逐个添加，但当依赖的比较多，甚至是整个工程，有比较复杂的目录结构的时候，就需要打包了，打包成.zip,.egg等格式也可通过<code>--py-files</code>传入，这些文件会加入PYTHONPATH中。</p>
+<h2 id="工程打包"><a href="#工程打包" class="headerlink" title="工程打包"></a>工程打包</h2><p>pyspark主程序依赖的文件比较少的时候，可以通过<code>--py-files</code>逐个添加，但当依赖的比较多，甚至是整个工程，有比较复杂的目录结构的时候，就需要打包了，打包成.zip,.egg等格式也可通过<code>--py-files</code>传入，这些文件会加入PYTHONPATH中。</p>
 <p>这里需要注意的是，打成zip包的时候，必须是一级目录，这里给出一种正确的打包方式</p>
 <pre><code class="hljs shell">cd project_home
 zip -r ../project_home.zip .</code></pre>
-<h2 id="常用参数">常用参数</h2>
-<h3 id="Spark-Conf">Spark Conf</h3>
-<pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><h3 id="Spark-Conf"><a href="#Spark-Conf" class="headerlink" title="Spark Conf"></a>Spark Conf</h3><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;spark.dynamicAllocation.minExecutors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;200&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;spark.dynamicAllocation.initialExecutors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;200&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;spark.dynamicAllocation.maxExecutors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;500&quot;</span><span class="hljs-punctuation">,</span>
@@ -298,18 +292,16 @@ zip -r ../project_home.zip .</code></pre>
   <span class="hljs-attr">&quot;spark.sql.adaptive.multipleSkewedJoin.enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;true&quot;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
 <p>其中倒数三个参数是Spark AE SkewedJoin优化的一般参数，应对数据偏斜（处理偏斜优先分析key的取值是否均匀，比如空值等异常值需要被提前先移除掉）。</p>
-<h3 id="依赖资源">依赖资源</h3>
-<p>资源大多通过以下几种方式引入</p>
+<h3 id="依赖资源"><a href="#依赖资源" class="headerlink" title="依赖资源"></a>依赖资源</h3><p>资源大多通过以下几种方式引入</p>
 <ul>
 <li>files: 逗号分隔的文件，这些文件放在每个executor的工作目录下面</li>
-<li>py-files: 逗号分隔的&quot;.zip&quot;,&quot;.egg&quot;或者&quot;.py&quot;文件，这些文件放在python app的<code>PYTHONPATH</code>下面</li>
+<li>py-files: 逗号分隔的”.zip”,”.egg”或者”.py”文件，这些文件放在python app的<code>PYTHONPATH</code>下面</li>
 <li>jars: 逗号分隔的本地jar包，包含在driver和executor的classpath下</li>
 <li>archives: 指定压缩文件地址，压缩文件被分发到 executor 上，并且解压，解压路径可通过<code>#</code>指定</li>
 </ul>
 <p>对于以上几个的区别主要是是否会被加入<code>classpath</code>和<code>pythonpath</code>，一般来说数据文件通过<code>--files</code>和<code>--archives</code>来添加，代码文件通过<code>--py-files</code>来添加，后者能被直接import。</p>
-<p>详情参见<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38066318/whats-the-difference-between-archives-files-py-files-in-pyspark-job-argum">What’s the difference between --archives, --files, py-files in pyspark job arguments</a></p>
-<h2 id="跑模型">跑模型</h2>
-<p>通过spark跑深度学习模型时（当然是cpu啦），要想充分利用高并发并且减少模型加载时间的影响，可以使用<code>mapPartitions</code>。</p>
+<p>详情参见<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38066318/whats-the-difference-between-archives-files-py-files-in-pyspark-job-argum">What’s the difference between —archives, —files, py-files in pyspark job arguments</a></p>
+<h2 id="跑模型"><a href="#跑模型" class="headerlink" title="跑模型"></a>跑模型</h2><p>通过spark跑深度学习模型时（当然是cpu啦），要想充分利用高并发并且减少模型加载时间的影响，可以使用<code>mapPartitions</code>。</p>
 <p>先看官方给的例子</p>
 <pre><code class="hljs shell"><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; rdd = sc.parallelize([1, 2, 3, 4], 2)</span>
 <span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;&gt; def f(iterator): yield <span class="hljs-built_in">sum</span>(iterator)</span>
@@ -322,8 +314,7 @@ zip -r ../project_home.zip .</code></pre>
 <li>直接把一个partition全部转成list来处理，<strong>需要注意是否会爆内存</strong></li>
 </ul>
 <p>分别给出前两种写法的例子</p>
-<h3 id="方式一：攒数据">方式一：攒数据</h3>
-<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):
+<h3 id="方式一：攒数据"><a href="#方式一：攒数据" class="headerlink" title="方式一：攒数据"></a>方式一：攒数据</h3><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">infer_batch_by_partition</span>(<span class="hljs-params">partition</span>):
     batch_size = <span class="hljs-number">16</span>
     count = <span class="hljs-number">0</span>
     row = partition
@@ -352,8 +343,7 @@ zip -r ../project_home.zip .</code></pre>
                     <span class="hljs-keyword">yield</span> p
                     
 rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapPartitions(infer_batch_by_partition)</code></pre>
-<h3 id="方式二：IterableDataset">方式二：IterableDataset</h3>
-<p>Iterabledataset 的一个例子</p>
+<h3 id="方式二：IterableDataset"><a href="#方式二：IterableDataset" class="headerlink" title="方式二：IterableDataset"></a>方式二：IterableDataset</h3><p>Iterabledataset 的一个例子</p>
 <pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyIterableDataset</span>(torch.utils.data.IterableDataset):
 <span class="hljs-meta">... </span>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, your_args</span>):
 <span class="hljs-meta">... </span>        <span class="hljs-built_in">super</span>(MyIterableDataset).__init__()
@@ -471,8 +461,7 @@ rdd_pair_pred = rdd_pair.repartition(<span class="hljs-number">2000</span>).mapP
 <ul>
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1805305">Spark原理 | 关于 mapPartitions 的误区</a></li>
 </ul>
-<h2 id="基本操作">基本操作</h2>
-<p><strong>读取json</strong></p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p><strong>读取json</strong></p>
 <pre><code class="hljs python"><span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> SparkSession
 
 spark = SparkSession.builder.config(<span class="hljs-string">&quot;spark.sql.warehouse.dir&quot;</span>, <span class="hljs-string">&quot;file:///C:/temp&quot;</span>).appName(<span class="hljs-string">&quot;readJSON&quot;</span>).getOrCreate()
@@ -507,9 +496,7 @@ rdd_union = sc.union(rdd_list)</code></pre>
 
 udf_make_pair_key = F.udf(make_pair_key, StringType())
 df = df.withColumn(<span class="hljs-string">&#x27;key&#x27;</span>, udf_make_pair_key(df_hist.id1, df_hist.id2))</code></pre>
-<h2 id="骚操作">骚操作</h2>
-<h4 id="运行过程中安装依赖包">运行过程中安装依赖包</h4>
-<p>有一些包的安装比较麻烦，比如spacy的模型<code>zh_core_web_md</code>，正常的安装方式为</p>
+<h2 id="骚操作"><a href="#骚操作" class="headerlink" title="骚操作"></a>骚操作</h2><h4 id="运行过程中安装依赖包"><a href="#运行过程中安装依赖包" class="headerlink" title="运行过程中安装依赖包"></a>运行过程中安装依赖包</h4><p>有一些包的安装比较麻烦，比如spacy的模型<code>zh_core_web_md</code>，正常的安装方式为</p>
 <pre><code class="hljs shell">pip install -U pip setuptools wheel
 pip install -U spacy
 python -m spacy download zh_core_web_md</code></pre>
